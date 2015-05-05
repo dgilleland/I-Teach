@@ -39,6 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Course.cs" />
+    <Compile Include="Domain\CourseName.cs" />
+    <Compile Include="Domain\CourseNumber.cs" />
+    <Compile Include="Domain\CourseOffering.cs" />
+    <Compile Include="Domain\Exceptions\NullOrWhiteSpaceStringException.cs" />
+    <Compile Include="Domain\Month.cs" />
+    <Compile Include="Domain\Term.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
