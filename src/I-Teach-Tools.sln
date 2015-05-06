@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseManagement", "CourseM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Planning Docs", "Planning Docs", "{7F22205B-0C83-4414-9D4F-8EADB6AC67E5}"
 	ProjectSection(SolutionItems) = preProject
+		CourseMangement.md = CourseMangement.md
 		CoursePlanningCalendar.md = CoursePlanningCalendar.md
 	EndProjectSection
 EndProject
