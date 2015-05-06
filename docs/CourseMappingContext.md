@@ -6,7 +6,7 @@ In the domain model of the **Course Mapping** context, there are two aggregate r
 
 - **Course** Aggregate Root
   - **Propose New Course** - used to add a draft version of a potential course - such courses can be readily adjusted since they are in the planning stage
-  - **Add Current Course** - requires all the same information as when accepting a proposed course, but skips the proposal stage
+  - **Add Existing Course** - requires all the same information as when accepting a proposed course, but skips the proposal stage
   - **Assign Course Number** - can only be done for proposed courses
   - **Assign Course Name** - can only be done for proposed and revised courses
   - **Adjust Course** - can be adjusted for hours, credits, semester, course setting, commencement/final offering date, and whether or not it is to be a core course
