@@ -1,5 +1,7 @@
 # Course Mapping Context
 
+![Context Map](Context%20Map.png)
+
 In the domain model of the **Course Mapping** context, there are two aggregate roots: **Course** and **CareerPath**. When operating on the domain, the following commands can be issued:
 
 - **Course** Aggregate Root
@@ -22,3 +24,5 @@ In the domain model of the **Course Mapping** context, there are two aggregate r
   - **Add Course to Career Path**
   - **Remove Course from Career Path**
   - **Adjust Importance**
+
+![Course Mapping Domain Model](Course%20Mapping%20Domain%20Model.png)
