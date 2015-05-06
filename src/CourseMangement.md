@@ -18,6 +18,9 @@ The business rules here are in "idea" format and exploratory. Once they are clea
     *   Business rules are not shared among different stories; by virtue of being in a different story, it represents a different rule by definition, because the story is the context for each business rule.
     *   Stories represent definable sets of data (tables/objects)
         *   (? - uncertain) This data may participate in multiple stories in a read-only fashion and undergo [significant] editing in only one story (their primary story)
+
+----
+
 *   **Managing Course Grid** Story
     *   General
         *   The only acceptable course statuses are "Proposed", "Current", and "Revision". These statuses are intended to represent a maintenance workflow.(Archiving a course involves removing it from the set of courses, but retaining the information for historical purposes.)
@@ -31,6 +34,7 @@ The business rules here are in "idea" format and exploratory. Once they are clea
             *   <span class="auto-style1">Approval Date</span> - The date on which a course's status moved to "Current"
             *   <span class="auto-style1">Commencement Date</span> - The date on which a current course is slated to be available as a Course Offering
             *   <span class="auto-style1">Completion Date</span> - The date on which a current course is to be removed (archived)
+
     *   Proposed Courses
         *   You can add a course with minimal information (name, credits, class hours per week) provided it's status is "Proposed".
         *   The CourseNumber for a course can only be changed when the course is in a "Proposed" state; it cannot be changed when the course's state is Current or Revision
@@ -40,6 +44,7 @@ The business rules here are in "idea" format and exploratory. Once they are clea
         *   Course Dependencies can only be edited/changed/removed if at least one of the courses in the dependency is in the "Proposed" status
         *   Courses can only be mapped to Academic Paths if the Course Status is Proposed
         *   Proposed courses can be deleted, but they cannot be archived
+
     *   Current Courses
         *   The minimal information for a course to be "Current" is
             *   Course Name
@@ -53,12 +58,15 @@ The business rules here are in "idea" format and exploratory. Once they are clea
         *   When a course status is moved to "Current", it must also be given an Approval Date and a Commencement Date
         *   A course with its status set to "Current" cannot be changed in any way, except to have its Completion Date set or to be Archived
         *   Only "Current" courses can be archived, provided they have a Completion Date set and the Completion Date has passed
+
     *   Revision Courses
         *   Only "Current" courses can be slated for "Revision"; when slated for Revision, the Current course is copied (except for the Approval Date, Commencement Date, and Completion Date) and the copy is set as a "Revision"
         *   Revisions can be deleted, but they cannot be archived
+
     *   Archiving
         *   Courses that are slated for "sunsetting" (given a Completion Date) must be maintained in an archive storage for historical purposes.
-    *   Course Dependencies  
+
+    *   Course Dependencies
         A course dependency occurs where two or more courses are expected to be taken in "sequence" or in "parallel". The courses form a type of **Relationship** and **Connection** to each other. A dependency chain is the complete linkage between courses (A→B↔C→D→E).
         *   The two types of Relationships possible between courses are <span class="auto-style1">**Prerequisite**</span> and <span class="auto-style1">**Corequisite**</span>
             *   "Prerequisite" - (A → B) The courses are to be taken as a sequence, where one course must be completed **before** the other can be taken
@@ -73,7 +81,7 @@ The business rules here are in "idea" format and exploratory. Once they are clea
             *   A before B, B before C, C before A
         *   Corequisite courses can have a circular relationship. Eg: The following is allowed
             *   A at the same time as B, B at the same time as A
-        *   Indirect circular relationships are not allowed. An indirect circular relationship occurs when prerequisite and corequisite relationships combine in a particular way.  
+        *   Indirect circular relationships are not allowed. An indirect circular relationship occurs when prerequisite and corequisite relationships combine in a particular way.
             _(Note: Dependency chains may be complex; care must be taken to ensure that indirect circular relationships are not created between courses. The best way to resolve a dependency chain for a circular dependency is to "walk" the dependencies for each course, looking for a duplicate)_
             *   Eg: These are not allowed.
                 *   A before B, B at the same time as C, C before A
@@ -237,12 +245,21 @@ The business rules here are in "idea" format and exploratory. Once they are clea
 
                 </table>
 
-        *   The connection between courses can have two strengths: <span class="auto-style1">**Required**</span> (a "must be" connection) or <span class="auto-style1">**Suggested**</span> (a "may be" connection).
+        *   The connection between courses can have two strengths: **Required** (a "*must be*" connection) or **Suggested** (a "*may be*" connection).
             *   "Required" prerequisite: A **_must be_** before B
             *   "Required" corequisite: A **_must be_** at the same time as B
             *   "Suggested" prerequisite: A **_may be_** before B
             *   "Suggested" prerequisite: A **_may be_** at the same time as B
-*   **Managing Academic Paths** Story   
+
+----
+
+*   **Managing Academic Paths** Story
     (An Academic Path may be something like a set of courses that fit with a particular career goal or that lead to another level of academic studies such as post-secondary (for high-school courses) or a Masters (for university degrees))
+
+----
+
 *   **Managing Course Offerings** Story
+
+----
+
 *   **Managing Course Locations** (Rooms) Story
