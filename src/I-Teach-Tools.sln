@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Planning Docs", "Planning D
 		..\docs\CoursePlanningCalendar.md = ..\docs\CoursePlanningCalendar.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseManagement.Specs", "CourseManagement.Specs\CourseManagement.Specs.csproj", "{B8EBB641-6D16-4C6A-82A5-FD12F1B566E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseMapping.Specs", "CourseManagement.Specs\CourseMapping.Specs.csproj", "{B8EBB641-6D16-4C6A-82A5-FD12F1B566E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
