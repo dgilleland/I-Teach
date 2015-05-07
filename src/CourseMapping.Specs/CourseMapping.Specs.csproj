@@ -59,12 +59,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CourseManagement\CourseManagement.csproj">
-      <Project>{fb822251-5345-4e64-aea9-7bcfc29bad29}</Project>
-      <Name>CourseManagement</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

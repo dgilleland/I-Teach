@@ -1,7 +1,7 @@
 using System;
-using CourseManagement.Domain.Exceptions;
+using CourseMapping.Domain.Exceptions;
 
-namespace CourseManagement.Domain
+namespace CourseMapping.Domain
 {
     public class CourseName
     {

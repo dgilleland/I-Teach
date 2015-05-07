@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace CourseManagement.Domain.Exceptions
+namespace CourseMapping.Domain.Exceptions
 {
     /// <summary>
     /// 

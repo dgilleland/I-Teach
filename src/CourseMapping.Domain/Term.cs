@@ -1,6 +1,6 @@
 using System;
 
-namespace CourseManagement.Domain
+namespace CourseMapping.Domain
 {
     public class Term
     {

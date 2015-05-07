@@ -7,8 +7,8 @@
     <ProjectGuid>{FB822251-5345-4E64-AEA9-7BCFC29BAD29}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CourseManagement</RootNamespace>
-    <AssemblyName>CourseManagement</AssemblyName>
+    <RootNamespace>CourseMapping.Domain</RootNamespace>
+    <AssemblyName>CourseMapping.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,13 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Course.cs" />
-    <Compile Include="Domain\CourseName.cs" />
-    <Compile Include="Domain\CourseNumber.cs" />
-    <Compile Include="Domain\CourseOffering.cs" />
-    <Compile Include="Domain\Exceptions\NullOrWhiteSpaceStringException.cs" />
-    <Compile Include="Domain\Month.cs" />
-    <Compile Include="Domain\Term.cs" />
+    <Compile Include="Course.cs" />
+    <Compile Include="CourseName.cs" />
+    <Compile Include="CourseNumber.cs" />
+    <Compile Include="CourseOffering.cs" />
+    <Compile Include="Exceptions\NullOrWhiteSpaceStringException.cs" />
+    <Compile Include="Month.cs" />
+    <Compile Include="Term.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

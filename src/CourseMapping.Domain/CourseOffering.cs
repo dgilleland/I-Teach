@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CourseManagement.Domain
+namespace CourseMapping.Domain
 {
     public class CourseOffering
     {
