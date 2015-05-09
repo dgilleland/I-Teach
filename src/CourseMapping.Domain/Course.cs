@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CourseMapping.Domain
 {
-    public class Course
+    public class Course : SimpleCqrs.Domain.AggregateRoot
     {
         public CourseName Name { get; private set; }
         public CourseNumber Number { get; private set; }
