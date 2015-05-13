@@ -12,7 +12,9 @@ Existing courses can, however, come under revision. When a course is being revis
 
 Sometimes, the edits to a course under revision become significant, so much so that it merits a new course name and course number. In those cases, the revision is redesignated as a new course proposal, with the possibility of replacing some existing course(s) or simply becoming an addition to the course mapping. In those cases, the regular proposal process takes over.
 
-All new proposals and revisions go through similar steps in order to be approved or discarded. Changes are entered to the details of the course; the new course is examined in how it will affect the mapping of current courses; and the new course is either approved or discarded after being given due consideration. In this process, Instructors and APCs can offer their feedback and comments on the new course. Ultimatly, only APCs are allowed to approve or discard a course. Changes in pre- and co-requisites for proposed/revised courses can set up dependency conflicts that must be resolved before a course can be approved. When a course is approved, it's commencement date for the first offering is set. If the course is discarded, a comment is required to provide information on the reason for discarding the course.
+All new proposals and revisions go through similar steps in order to be approved or discarded. Changes are entered to the details of the course; the new course is examined in how it will affect the mapping of current courses; and the new course is either approved or discarded after being given due consideration. Certain business rules can dictate restrictions on aspects of the course design (such as the number of hours allowable for a particular course credit weight, or the number of outcomes to qualify for a particular course credit weight); violations of these rules would show up as warnings - issues that need to be resolved in the course design before the course can be approved. In this process, Instructors and APCs can offer their feedback and comments on the new course.
+
+Ultimatly, only APCs are allowed to approve or discard a course. Changes in pre- and co-requisites for proposed/revised courses can set up dependency conflicts that must be resolved before a course can be approved. When a course is approved, it's commencement date for the first offering is set. If the course is discarded, a comment is required to provide information on the reason for discarding the course.
 
 Existing courses can also be "sunsetted". A sunsetted course is simply removed from the course map, with its details being archived. A course can be flagged for being sunsetted by entering a date for its planned obsolecense.
 
@@ -24,13 +26,10 @@ Some programs of study offer a wide variety of courses with the objective of pro
 
 ## Analysis
 
-![Context Map](Context%20Map.png)
+Several contexts come into play in this system. There is the **Course Planning** context, in which a proposed or revised course can be edited and evaluated for inclusion in the course map. Then there is the **Course Mapping** context, in which active courses can be either sunsetted or flagged for revisions. There is also a **Career Path Mapping** context for designating planned/existing courses as relevant for a particular career path. A final context has to do with security and access control (**Access Control** context) - managing the Instructors and APCs who are allowed to make changes during the course planning or course mapping contexts.
 
-In the domain model of the **Course Mapping** context, there are two aggregate roots: **Course** and **CareerPath**. When operating on the domain, the following commands can be issued:
-
-- **Course** Aggregate Root
+- **Course Planning Context** - This can be done as two similar aggregate roots (*ProposedCourse* and *RevisedCourse*) that differ only in the ability to modify the course number/name, or it can be done as a single aggregate root (*Course*) that may or may not have a reference to an existing course (i.e. - the ID of the original course that is being revised).
   - **Propose New Course** - used to add a draft version of a potential course - such courses can be readily adjusted since they are in the planning stage
-  - **Add Existing Course** - requires all the same information as when accepting a proposed course, but skips the proposal stage
   - **Assign Course Number** - can only be done for proposed courses
   - **Assign Course Name** - can only be done for proposed and revised courses
   - **Adjust Course** - can be adjusted for hours, credits, semester, course setting, commencement/final offering date, and whether or not it is to be a core course
@@ -44,9 +43,30 @@ In the domain model of the **Course Mapping** context, there are two aggregate r
   - **Accept Course Revision** - Course information and pre/co-requisites must be complete and a commencement date must be set.
   - **Reject Course Revision** - scrap a revised course
   - **Retire Course** - Set a final offering date for a course that is slated to be archived
-- **Career Path** Aggregate Root
+
+
+- **Course Mapping Context** - This has a single aggregate root (*Program*) that consists of a list of courses.
+  - **Add Program** - create a new program
+  - **Add Course** - requires all the same information as when accepting a proposed course, but skips the proposal stage
+
+
+- **Career Path Mapping Context** - This has a single aggregate root (*CareerPath*) that consists of a list of courses for a given program (be they proposed/revised or current).
   - **Add Course to Career Path**
   - **Remove Course from Career Path**
   - **Adjust Importance**
+
+
+- **Access Control Context**
+
+
+
+----
+
+![Context Map](Context%20Map.png)
+
+In the domain model of the **Course Mapping** context, there are two aggregate roots: **Course** and **CareerPath**. When operating on the domain, the following commands can be issued:
+
+- **Course** Aggregate Root
+- **Career Path** Aggregate Root
 
 ![Course Mapping Domain Model](Course%20Mapping%20Domain%20Model.png)
