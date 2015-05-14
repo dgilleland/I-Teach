@@ -1,4 +1,4 @@
-# Course Mapping Context
+# Course Mapping Application
 
 ## High-Level Narrative
 
@@ -26,10 +26,10 @@ Some programs of study offer a wide variety of courses with the objective of pro
 
 ## Analysis
 
-Several contexts come into play in this system. There is the **Course Planning** context, in which a proposed or revised course can be edited and evaluated for inclusion in the course map. Then there is the **Course Mapping** context, in which active courses can be either sunsetted or flagged for revisions. There is also a **Career Path Mapping** context for designating planned/existing courses as relevant for a particular career path. A final context has to do with security and access control (**Access Control** context) - managing the Instructors and APCs who are allowed to make changes during the course planning or course mapping contexts.
+Several transactional contexts come into play in this system. There is the **Course Planning** context, in which a proposed or revised course can be edited and evaluated for inclusion in the course map. Then there is the **Course Mapping** context, in which active courses can be either sunsetted or flagged for revisions. There is also a **Career Path Mapping** context for designating planned/existing courses as relevant for a particular career path. A final context has to do with security and access control (**Access Control** context) - managing the Instructors and APCs who are allowed to make changes during the course planning or course mapping contexts.
 
 - **Course Planning Context** - This can be done as two similar aggregate roots (*ProposedCourse* and *RevisedCourse*) that differ only in the ability to modify the course number/name, or it can be done as a single aggregate root (*Course*) that may or may not have a reference to an existing course (i.e. - the ID of the original course that is being revised).
-  - **Propose New Course** - used to add a draft version of a potential course - such courses can be readily adjusted since they are in the planning stage
+  - ![](service-sm.png) **Propose New Course** - used to add a draft version of a potential course - such courses can be readily adjusted since they are in the planning stage
   - **Assign Course Number** - can only be done for proposed courses
   - **Assign Course Name** - can only be done for proposed and revised courses
   - **Adjust Course** - can be adjusted for hours, credits, semester, course setting, commencement/final offering date, and whether or not it is to be a core course
@@ -47,7 +47,7 @@ Several contexts come into play in this system. There is the **Course Planning**
 
 - **Course Mapping Context** - This has a single aggregate root (*Program*) that consists of a list of courses.
   - **Add Program** - create a new program
-  - **Add Course** - requires all the same information as when accepting a proposed course, but skips the proposal stage
+  - **Add Course** - requires all the same information as when accepting a proposed course, but skips the proposal/approval stages
 
 
 - **Career Path Mapping Context** - This has a single aggregate root (*CareerPath*) that consists of a list of courses for a given program (be they proposed/revised or current).
