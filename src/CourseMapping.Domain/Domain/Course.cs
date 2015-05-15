@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Edument.CQRS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace CourseMapping.Domain
 {
-    class Course : SimpleCqrs.Domain.AggregateRoot
+    class Course : Aggregate
     {
         public CourseName Name { get; private set; }
         public CourseNumber Number { get; private set; }

@@ -1,5 +1,4 @@
-﻿using SimpleCqrs.Commanding;
-using SimpleCqrs.Domain;
+﻿using CourseMapping.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CourseMapping.Commands.Handlers
 {
-    class ProposeCourseHandler : CommandHandler<ProposeCourse>
+    class ProposeCourseHandler : Edument.CQRS.IHandleCommand<ProposeCourse>
     {
         private readonly IDomainRepository repository;
         /// <summary>
@@ -19,7 +18,8 @@ namespace CourseMapping.Commands.Handlers
         {
             this.repository = repository;
         }
-        public override void Handle(ProposeCourse command)
+
+        System.Collections.IEnumerable Edument.CQRS.IHandleCommand<ProposeCourse>.Handle(ProposeCourse c)
         {
             throw new NotImplementedException();
         }
