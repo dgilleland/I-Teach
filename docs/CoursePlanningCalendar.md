@@ -13,7 +13,7 @@ Things to test:
   - Enter/edit topics/evaluation components for each week
   - Reorder topics/evaluations
   - Bulk-save the changes to the planning calendar
-- Domain – 
+- Domain –
   - A course will have at most one current planning calendar and zero or more previous calendars. A planning calendar lists a week-by-week or class-by-class plan of topics along with any evaluation components (labs, exams, etc.) that will occur over the term. It is not unusual for topics to span more than one class or week; that is, a topic can have an estimated duration (in terms of days or class periods), though it is not required for placing the topic on the calendar.
   - An active planning calendar is one that is being used for one or more sections of a specific course offering by an instructor. Instructors are allowed to make modifications to the planning calendars for their sections, but should do so in consultation with other instructors, particularly in regard to changing the dates of any evaluation components.
   - Events

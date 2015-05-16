@@ -7,8 +7,8 @@
     <ProjectGuid>{FB822251-5345-4E64-AEA9-7BCFC29BAD29}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CourseManagement</RootNamespace>
-    <AssemblyName>CourseManagement</AssemblyName>
+    <RootNamespace>CourseMapping</RootNamespace>
+    <AssemblyName>CourseMapping</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Edument.CQRS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoodSoil.CQRS.0.1.0\lib\Edument.CQRS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,8 +43,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application.cs" />
+    <Compile Include="Commands\CommandWithAggregateRootId.cs" />
+    <Compile Include="Commands\Handlers\ProposeCourseHandler.cs" />
+    <Compile Include="Commands\ProposeCourse.cs" />
+    <Compile Include="Domain\Course.cs" />
+    <Compile Include="Domain\CourseName.cs" />
+    <Compile Include="Domain\CourseNumber.cs" />
+    <Compile Include="Domain\CourseOffering.cs" />
+    <Compile Include="Domain\Exceptions\NullOrWhiteSpaceStringException.cs" />
+    <Compile Include="Domain\Month.cs" />
+    <Compile Include="Domain\Term.cs" />
+    <Compile Include="Events\CourseProposed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IDomainRepository.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
