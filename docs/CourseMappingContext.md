@@ -29,20 +29,41 @@ Some programs of study offer a wide variety of courses with the objective of pro
 Several transactional contexts come into play in this system. There is the **Course Planning** context, in which a proposed or revised course can be edited and evaluated for inclusion in the course map. Then there is the **Course Mapping** context, in which active courses can be either sunsetted or flagged for revisions. There is also a **Career Path Mapping** context for designating planned/existing courses as relevant for a particular career path. A final context has to do with security and access control (**Access Control** context) - managing the Instructors and APCs who are allowed to make changes during the course planning or course mapping contexts.
 
 - **Course Planning Context** - This can be done as two similar aggregate roots (*ProposedCourse* and *RevisedCourse*) that differ only in the ability to modify the course number/name, or it can be done as a single aggregate root (*Course*) that may or may not have a reference to an existing course (i.e. - the ID of the original course that is being revised).
-  - ![](service-sm.png) **Propose New Course** - used to add a draft version of a potential course - such courses can be readily adjusted since they are in the planning stage
-  - **Assign Course Number** - can only be done for proposed courses
-  - **Assign Course Name** - can only be done for proposed and revised courses
-  - **Adjust Course** - can be adjusted for hours, credits, semester, course setting, commencement/final offering date, and whether or not it is to be a core course
-  - **Add Course Dependency** - either a Prerequisite or a Corequisite
-  - **Adjust Dependency Importance** - change the level of importance for a prerequisite or a corequisite
-  - **Remove Course Dependency** - either a Prerequisite or a Corequisite
-  - **Accept Proposed Course** - Course information and pre/co-requisites must be complete and a commencement date must be set.
-  - **Reject Proposed Course** - scrap a proposed course
-  - **Revise Course** - **???** makes a copy of the existing course
+  - ![](command-sm.png) **Propose New Course** - used to add a draft version of a potential course - such courses can be readily adjusted since they are in the planning stage
+    - ![](event-sm.png) **Course Proposed**
+  - ![](command-sm.png) **Assign Course Number** - can only be done for proposed courses
+    - ![](event-sm.png) **Course Number Assigned**
+  - ![](command-sm.png) **Assign Course Name** - can only be done for proposed and revised courses
+    - ![](event-sm.png) **Course Name Assigned**
+  - ![](command-sm.png) **Adjust Course** - can be adjusted for hours, credits, semester, course setting, commencement/final offering date, and whether or not it is to be a core course
+    - ![](event-sm.png) **Hours Set**
+    - ![](event-sm.png) **Credits Set**
+    - ![](event-sm.png) **Semester Set**
+    - ![](event-sm.png) **Delivery Setting Set**
+    - ![](event-sm.png) **Commencement Term Set**
+    - ![](event-sm.png) **Final Offering Term Set**
+    - ![](event-sm.png) **Designated As Core**
+  - ![](command-sm.png) **Add Course Dependency** - either a Prerequisite or a Corequisite
+    - ![](event-sm.png) **Prerequisite Added**
+    - ![](event-sm.png) **Corequisite Added**
+  - ![](command-sm.png) **Adjust Dependency Importance** - change the level of importance for a prerequisite or a corequisite
+    - ![](event-sm.png) **Dependency Importance Set**
+  - ![](command-sm.png) **Remove Course Dependency** - either a Prerequisite or a Corequisite
+    - ![](event-sm.png) **Prerequisite Removed**
+    - ![](event-sm.png) **Corequisite Removed**
+  - ![](command-sm.png) **Accept Proposed Course** - Course information and pre/co-requisites must be complete and a commencement date must be set.
+    - ![](event-sm.png) **Proposed Course Accepted**
+  - ![](command-sm.png) **Reject Proposed Course** - scrap a proposed course
+    - ![](event-sm.png) **Proposed Course Rejected**
+  - ![](command-sm.png) **Revise Course** - **???** makes a copy of the existing course
+    - ![](event-sm.png) **Course Revision Started**
     - Some questions on the domain model - how to distinguish a course that is in revision from one that is current, if they are both uniquely identified by the course number? One option is to add a state (proposed, current, revised, archived), and another is to simple add a version number to the course and start it out with a "null" commencement date.
-  - **Accept Course Revision** - Course information and pre/co-requisites must be complete and a commencement date must be set.
-  - **Reject Course Revision** - scrap a revised course
-  - **Retire Course** - Set a final offering date for a course that is slated to be archived
+  - ![](command-sm.png) **Accept Course Revision** - Course information and pre/co-requisites must be complete and a commencement date must be set.
+    - ![](event-sm.png) **Course Revision Accepted**
+  - ![](command-sm.png) **Reject Course Revision** - scrap a revised course
+    - ![](event-sm.png) **Course Revision Rejected**
+  - ![](command-sm.png) **Retire Course** - Set a final offering date for a course that is slated to be archived
+    - ![](event-sm.png) **Course Retirement Scheduled**
 
 
 - **Course Mapping Context** - This has a single aggregate root (*Program*) that consists of a list of courses.
