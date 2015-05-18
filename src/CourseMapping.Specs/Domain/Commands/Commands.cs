@@ -24,12 +24,16 @@ namespace CourseMapping.Specs.Domain.Commands
          *
          *  When Proposing A New Course
          *  Then The Course Proposed Event Is Raised
-         *
-         *  When Proposing A New Course
-         *  Then The Proposed Course Is Listed By Name Under The Program Of Study
-         *
-         *  When Proposing A New Course With A New Program Of Study
-         *  Then The New Program Of Study Is Listed In The Schools Programs
+* --- PLACE UNDER SEPARATE USE CASE for Read Models
+*
+*  Given A New Course Has Been Proposed
+*  When Viewing The List of Proposed Courses
+*  Then The Proposed Course Is Listed By Name Under The Program Of Study
+
+* --- USE CASE??
+*
+*  When Proposing A New Course With A New Program Of Study
+*  Then The New Program Of Study Is Listed In The Schools Programs
          *
          *  When Proposing A Course With No Name
          *  Then The Course Proposal Is Rejected
