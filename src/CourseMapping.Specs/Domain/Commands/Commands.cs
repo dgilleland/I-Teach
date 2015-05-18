@@ -7,30 +7,102 @@ using Xunit;
 
 namespace CourseMapping.Specs.Domain.Commands
 {
-    [Story(IWant="I want to propose new courses",
-           SoThat="So that new courses can be planned for future release")]
+    [Story(IWant = "I want to propose new courses",
+           SoThat = "So that new courses can be planned for future release")]
     public class Proposing_New_Courses
     {
+        /*
+         *  When Proposing A New Course
+         *  Then I Can Uniquely Identify The Course For Editing
+         *  Then The Default Delivery Setting is Lab
+         *  Then The Course Is Not Designated As A Core Course
+         *  Then No Credits Are Assigned
+         *  Then No Hours Are Assigned
+         *  Then No Semester Is Assigned
+         *  Then No Commencement Term Is Assigned
+         *  Then No Final Offering Term Is Assigned
+         *
+         *  When Proposing A New Course
+         *  Then The Course Proposed Event Is Raised
+         *
+         *  When Proposing A New Course
+         *  Then The Proposed Course Is Listed By Name Under The Program Of Study
+         *
+         *  When Proposing A New Course With A New Program Of Study
+         *  Then The New Program Of Study Is Listed In The Schools Programs
+         *
+         *  When Proposing A Course With No Name
+         *  Then The Course Proposal Is Rejected
+         *
+         *  When Proposing A Course With No Program of Study
+         *  Then The Course Proposal Is Rejected
+         *      // UI Note: When the # of programs of study is just 1, then use it as the default, otherwise have the user select it from a list/dropdown.
+         *
+         */
+
+        private CommandWithAggregateRootId Command;
+        private Application.UsageContext UsageContext;
+        public Proposing_New_Courses()
+        {
+            UsageContext = new Application.UsageContext("Anna List", "Software Development");
+            UsageContext.SetToStringImplementation(() => {
+                return string.Format("(for the {0} diploma by the user {1}", UsageContext.ProgramName, UsageContext.UserName);
+            });
+        }
+
         [Fact]
         public void Scenario_Name()
         {
-            ProposeCourse command = null;
-            this.When(_ => WhenIProposeANewCourse("Domain Driven Design", "Program of Study", out command))
-                .Then(_ => ThenICanUniquelyIdentifyTheCourse(command))
+            this.When(_ => WhenIProposeANewCourse("Domain Driven Design"))
+                .Then(_ => ThenICanUniquelyIdentifyTheCourse())
+                .And(_ => ThenTheCourseIsNotDesignatedAsACoreCourse())
+                .And(_ => ThenNoCreditsAreAssigned())
+                .And(_ => ThenNoHoursAreAssigned())
+                .And(_ => ThenNoSemesterIsAssigned())
+                .And(_ => ThenNoCommencementTermIsAssigned())
+                .And(_ => ThenNoFinalOfferingTermIsAssigned())
                 //.And(_ => ThenTheCourseIsProposed
+                /*
+                 */
                 .BDDfy();
         }
-        private void WhenIProposeANewCourse(string courseName, string programOfStudy, out ProposeCourse command)
+
+        private void ThenNoFinalOfferingTermIsAssigned()
         {
-            command = new ProposeCourse(courseName, programOfStudy);
+            throw new NotImplementedException();
         }
-        private void ThenICanUniquelyIdentifyTheCourse(ProposeCourse command)
+
+        private void ThenNoCommencementTermIsAssigned()
         {
-            Assert.NotEqual(Guid.Empty, command.AggregateRootId);
+            throw new NotImplementedException();
         }
-        public void TBA()
+
+        private void ThenNoSemesterIsAssigned()
         {
-            { throw new NotImplementedException(); }
+            throw new NotImplementedException();
+        }
+
+        private void ThenNoHoursAreAssigned()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ThenNoCreditsAreAssigned()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ThenTheCourseIsNotDesignatedAsACoreCourse()
+        {
+            throw new NotImplementedException();
+        }
+        private void WhenIProposeANewCourse(string courseName)
+        {
+            Command = new ProposeCourse(courseName, UsageContext.ProgramName);
+        }
+        private void ThenICanUniquelyIdentifyTheCourse()
+        {
+            Assert.NotEqual(Guid.Empty, Command.AggregateRootId);
         }
     }
 
@@ -38,6 +110,8 @@ namespace CourseMapping.Specs.Domain.Commands
            SoThat = "So that courses currently available are included in the course mapping")]
     public class Adding_Existing_Courses
     {
+        /*
+         */
         [Fact]
         public void Scenario_Name()
         {
