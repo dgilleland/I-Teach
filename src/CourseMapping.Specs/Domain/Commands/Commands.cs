@@ -1,4 +1,7 @@
 ﻿using CourseMapping.Commands;
+using CourseMapping.ReadModel.Denormalizer;
+using Edument.CQRS;
+using FakeItEasy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,37 +10,122 @@ using Xunit;
 
 namespace CourseMapping.Specs.Domain.Commands
 {
-    [Story(IWant="I want to propose new courses",
-           SoThat="So that new courses can be planned for future release")]
+    [Story(IWant = "I want to propose new courses",
+           SoThat = "So that new courses can be planned for future release")]
     public class Proposing_New_Courses
     {
+        /*
+         *  When Proposing A New Course
+         *  Then I Can Uniquely Identify The Course For Editing
+         *  Then The Default Delivery Setting is Lab
+         *  Then The Course Is Not Designated As A Core Course
+         *  Then No Credits Are Assigned
+         *  Then No Hours Are Assigned
+         *  Then No Semester Is Assigned
+         *  Then No Commencement Term Is Assigned
+         *  Then No Final Offering Term Is Assigned
+         *
+         *  When Proposing A New Course
+         *  Then The Course Proposed Event Is Raised
+* --- PLACE UNDER SEPARATE USE CASE for Read Models
+*
+*  Given A New Course Has Been Proposed
+*  When Viewing The List of Proposed Courses
+*  Then The Proposed Course Is Listed By Name Under The Program Of Study
+
+* --- USE CASE??
+*
+*  When Proposing A New Course With A New Program Of Study
+*  Then The New Program Of Study Is Listed In The Schools Programs
+         *
+         *  When Proposing A Course With No Name
+         *  Then The Course Proposal Is Rejected
+         *
+         *  When Proposing A Course With No Program of Study
+         *  Then The Course Proposal Is Rejected
+         *      // UI Note: When the # of programs of study is just 1, then use it as the default, otherwise have the user select it from a list/dropdown.
+         *
+         */
+
+        private CommandWithAggregateRootId Command;
+        private Application.UsageContext UsageContext;
+        private Application SUT;
+        private IReadModelContext ReadModelContext_Mock;
+        private IEventStore EventStore_Mock;
+        public Proposing_New_Courses()
+        {
+            UsageContext = new Application.UsageContext("Anna List", "Software Development");
+            UsageContext.SetToStringImplementation(() => {
+                return string.Format("(for the {0} diploma by the user {1}", UsageContext.ProgramName, UsageContext.UserName);
+            });
+            ReadModelContext_Mock = A.Fake<IReadModelContext>();
+            EventStore_Mock = new InMemoryEventStore();
+            SUT = Application.Instance(EventStore_Mock, ReadModelContext_Mock);
+        }
+
         [Fact]
         public void Scenario_Name()
         {
-            ProposeCourse command = null;
-            this.When(_ => WhenIProposeANewCourse("Domain Driven Design", "Program of Study", out command))
-                .Then(_ => ThenICanUniquelyIdentifyTheCourse(command))
+            this.When(_ => WhenIProposeANewCourse("Domain Driven Design"))
+                .Then(_ => ThenICanUniquelyIdentifyTheCourse())
+                .And(_ => ThenTheCourseIsNotDesignatedAsACoreCourse())
+                .And(_ => ThenNoCreditsAreAssigned())
+                .And(_ => ThenNoHoursAreAssigned())
+                .And(_ => ThenNoSemesterIsAssigned())
+                .And(_ => ThenNoCommencementTermIsAssigned())
+                .And(_ => ThenNoFinalOfferingTermIsAssigned())
                 //.And(_ => ThenTheCourseIsProposed
+                /*
+                 */
                 .BDDfy();
         }
-        private void WhenIProposeANewCourse(string courseName, string programOfStudy, out ProposeCourse command)
+        private void WhenIProposeANewCourse(string courseName)
         {
-            command = new ProposeCourse(courseName, programOfStudy);
+            Command = new ProposeCourse(courseName, UsageContext.ProgramName);
+            SUT.Process(Command, UsageContext);
         }
-        private void ThenICanUniquelyIdentifyTheCourse(ProposeCourse command)
+        private void ThenICanUniquelyIdentifyTheCourse()
         {
-            Assert.NotEqual(Guid.Empty, command.AggregateRootId);
+            Assert.NotEqual(Guid.Empty, Command.AggregateRootId);
         }
-        public void TBA()
+ 
+        private void ThenTheCourseIsNotDesignatedAsACoreCourse()
         {
-            { throw new NotImplementedException(); }
+            throw new NotImplementedException();
         }
-    }
+
+        private void ThenNoCreditsAreAssigned()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ThenNoHoursAreAssigned()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ThenNoSemesterIsAssigned()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ThenNoCommencementTermIsAssigned()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ThenNoFinalOfferingTermIsAssigned()
+        {
+            throw new NotImplementedException();
+        }
+   }
 
     [Story(IWant = "I want to add an existing course",
            SoThat = "So that courses currently available are included in the course mapping")]
     public class Adding_Existing_Courses
     {
+        /*
+         */
         [Fact]
         public void Scenario_Name()
         {
