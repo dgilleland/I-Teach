@@ -1,6 +1,7 @@
 ﻿using System;
 using CourseMapping.Commands;
 using Edument.CQRS;
+using CourseMapping.ReadModel;
 
 
 namespace CourseMapping
@@ -8,11 +9,22 @@ namespace CourseMapping
     public class Application
     {
         ApplicationRunTime runtime { get; set; }
+        ICoursePlanning CoursePlanning { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Application"/> class.
+        /// </summary>
+        private Application()
+        {
+            CoursePlanning = new CoursePlanning();
+        }
         private Application(string connectionString)
+            : this()
         {
             runtime = new ApplicationRunTime(connectionString);
         }
         private Application(IEventStore eventStore)
+            : this()
         {
             runtime = new ApplicationRunTime(eventStore);
         }
