@@ -8,7 +8,12 @@ using System.Threading.Tasks;
 
 namespace CourseMapping.ReadModel.Denormalizer
 {
-    public class ReadModelContext :DbContext
+    public interface IReadModelContext : IDisposable
+    {
+        DbSet<ProposedCourse> ProposedCourses { get; set; }
+        int SaveChanges();
+    }
+    public class ReadModelContext : DbContext, IReadModelContext
     {
         public DbSet<ProposedCourse> ProposedCourses { get; set; }
     }

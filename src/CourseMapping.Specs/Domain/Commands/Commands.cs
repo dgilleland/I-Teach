@@ -1,4 +1,7 @@
 ﻿using CourseMapping.Commands;
+using CourseMapping.ReadModel.Denormalizer;
+using Edument.CQRS;
+using FakeItEasy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,12 +49,18 @@ namespace CourseMapping.Specs.Domain.Commands
 
         private CommandWithAggregateRootId Command;
         private Application.UsageContext UsageContext;
+        private Application SUT;
+        private IReadModelContext ReadModelContext_Mock;
+        private IEventStore EventStore_Mock;
         public Proposing_New_Courses()
         {
             UsageContext = new Application.UsageContext("Anna List", "Software Development");
             UsageContext.SetToStringImplementation(() => {
                 return string.Format("(for the {0} diploma by the user {1}", UsageContext.ProgramName, UsageContext.UserName);
             });
+            ReadModelContext_Mock = A.Fake<IReadModelContext>();
+            EventStore_Mock = new InMemoryEventStore();
+            SUT = Application.Instance(EventStore_Mock, ReadModelContext_Mock);
         }
 
         [Fact]
@@ -73,6 +82,7 @@ namespace CourseMapping.Specs.Domain.Commands
         private void WhenIProposeANewCourse(string courseName)
         {
             Command = new ProposeCourse(courseName, UsageContext.ProgramName);
+            SUT.Process(Command, UsageContext);
         }
         private void ThenICanUniquelyIdentifyTheCourse()
         {

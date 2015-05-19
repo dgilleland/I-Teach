@@ -2,6 +2,7 @@
 using CourseMapping.Commands;
 using Edument.CQRS;
 using CourseMapping.ReadModel;
+using CourseMapping.ReadModel.Denormalizer;
 
 
 namespace CourseMapping
@@ -14,23 +15,23 @@ namespace CourseMapping
         /// <summary>
         /// Initializes a new instance of the <see cref="Application"/> class.
         /// </summary>
-        private Application()
+        private Application(IReadModelContext readStore)
         {
-            CoursePlanning = new CoursePlanning();
+            CoursePlanning = new CoursePlanning(readStore);
         }
-        private Application(string connectionString)
-            : this()
+        private Application(string connectionString, IReadModelContext readStore)
+            : this(readStore)
         {
             runtime = new ApplicationRunTime(connectionString);
         }
-        private Application(IEventStore eventStore)
-            : this()
+        private Application(IEventStore eventStore, IReadModelContext readStore)
+            : this(readStore)
         {
             runtime = new ApplicationRunTime(eventStore);
         }
 
-        public static Application Instance() { return new Application("DefaultConnection"); }
-        public static Application Instance(IEventStore eventStore) { return new Application(eventStore); }
+        public static Application Instance() { return new Application("DefaultConnection", new ReadModelContext()); }
+        public static Application Instance(IEventStore eventStore, IReadModelContext readStore) { return new Application(eventStore, readStore); }
 
         public void Process(object command, UsageContext context)
         {

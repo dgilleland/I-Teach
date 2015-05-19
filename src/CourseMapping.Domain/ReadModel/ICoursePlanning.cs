@@ -17,8 +17,23 @@ namespace CourseMapping.ReadModel
     }
 
     class CoursePlanning : ICoursePlanning,
+                           IDisposable,
                            ISubscribeTo<CourseProposed>
     {
+        private IReadModelContext Context { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CoursePlanning"/> class.
+        /// </summary>
+        /// <param name="readModelContext"></param>
+        public CoursePlanning(IReadModelContext readModelContext)
+        {
+            Context = readModelContext;
+        }
+
+        public void Dispose()
+        {
+            Context.Dispose();
+        }
 
         #region ICoursePlanning Implementation
         public List<CourseId> ProposedCourses(string programOfStudy)
@@ -28,23 +43,17 @@ namespace CourseMapping.ReadModel
 
         public ProposedCourse CourseDetails(Guid id)
         {
-            using (var context = new ReadModelContext())
-            {
-                var course = context.ProposedCourses.Find(id);
+                var course = Context.ProposedCourses.Find(id);
                 return course;
-            }
         }
         #endregion
 
         #region Event Handler Implementations
         public void Handle(CourseProposed e)
         {
-            using (var context = new ReadModelContext())
-            {
                 var course = new ProposedCourse { Id = e.Id, CourseName = e.CourseName, CourseNumber = e.CourseNumber, Status = Status.Proposal };
-                context.ProposedCourses.Add(course);
-                context.SaveChanges();
-            }
+                Context.ProposedCourses.Add(course);
+                Context.SaveChanges();
         }
         #endregion
     }
