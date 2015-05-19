@@ -70,23 +70,16 @@ namespace CourseMapping.Specs.Domain.Commands
                  */
                 .BDDfy();
         }
-
-        private void ThenNoFinalOfferingTermIsAssigned()
+        private void WhenIProposeANewCourse(string courseName)
         {
-            throw new NotImplementedException();
+            Command = new ProposeCourse(courseName, UsageContext.ProgramName);
         }
-
-        private void ThenNoCommencementTermIsAssigned()
+        private void ThenICanUniquelyIdentifyTheCourse()
         {
-            throw new NotImplementedException();
+            Assert.NotEqual(Guid.Empty, Command.AggregateRootId);
         }
-
-        private void ThenNoSemesterIsAssigned()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ThenNoHoursAreAssigned()
+ 
+        private void ThenTheCourseIsNotDesignatedAsACoreCourse()
         {
             throw new NotImplementedException();
         }
@@ -96,19 +89,26 @@ namespace CourseMapping.Specs.Domain.Commands
             throw new NotImplementedException();
         }
 
-        private void ThenTheCourseIsNotDesignatedAsACoreCourse()
+        private void ThenNoHoursAreAssigned()
         {
             throw new NotImplementedException();
         }
-        private void WhenIProposeANewCourse(string courseName)
+
+        private void ThenNoSemesterIsAssigned()
         {
-            Command = new ProposeCourse(courseName, UsageContext.ProgramName);
+            throw new NotImplementedException();
         }
-        private void ThenICanUniquelyIdentifyTheCourse()
+
+        private void ThenNoCommencementTermIsAssigned()
         {
-            Assert.NotEqual(Guid.Empty, Command.AggregateRootId);
+            throw new NotImplementedException();
         }
-    }
+
+        private void ThenNoFinalOfferingTermIsAssigned()
+        {
+            throw new NotImplementedException();
+        }
+   }
 
     [Story(IWant = "I want to add an existing course",
            SoThat = "So that courses currently available are included in the course mapping")]
