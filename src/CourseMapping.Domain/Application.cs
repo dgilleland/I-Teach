@@ -3,6 +3,7 @@ using CourseMapping.Commands;
 using Edument.CQRS;
 using CourseMapping.ReadModel;
 using CourseMapping.ReadModel.Denormalizer;
+using CourseMapping.Domain;
 
 
 namespace CourseMapping
@@ -18,6 +19,7 @@ namespace CourseMapping
         private Application(IReadModelContext readStore)
         {
             CoursePlanning = new CoursePlanning(readStore);
+            ConfigureHandlers();
         }
         private Application(string connectionString, IReadModelContext readStore)
             : this(readStore)
@@ -28,6 +30,11 @@ namespace CourseMapping
             : this(readStore)
         {
             runtime = new ApplicationRunTime(eventStore);
+        }
+
+        private void ConfigureHandlers()
+        {
+            runtime.Dispatcher.ScanInstance(new Course());
         }
 
         public static Application Instance() { return new Application("DefaultConnection", new ReadModelContext()); }
