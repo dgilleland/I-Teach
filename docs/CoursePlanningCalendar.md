@@ -28,48 +28,62 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
 
 ## User Stories
 
-- **Adding Draft Calendar**
+### Draft Planning Calendars
+
+- **Create Draft Calendar**
   - *In order to* **have a working copy of a planning calendar for editing**
   - *As a(n)* **Course Coordinator**
   - *I want to* **create a draft planning calendar for a course**
     - **Create a blank draft**
     - **Create a draft from an existing calendar**
 
-- **Title**
-  - *In order to* **BENEFIT**
+- **Edit Topics**
+  - *In order to* **plan the topics to cover in class**
+  - *As a(n)* **Course Coordinator**
+  - *I want to* **edit the list of topics**
+    - **Add a topic**
+    - **Change a topic**
+    - **Remove a topic**
+    - **Reorder topics**
+
+- **Edit Evaluations**
+  - *In order to* **prepare students for evaluations**
   - *As a(n)* **ROLE**
-  - *I want to* **COMMAND**
+  - *I want to* **assign dates to evaluation components**
+    - **Add an evaluation component**
+    - **Change an evaluation component**
+    - **Remove an evaluation component**
+
+- **Accept Draft Calendar**
+  - *In order to* **give instructors a planning calendar to use in their classes**
+  - *As a(n)* **ROLE**
+  - *I want to* **release the draft course planning calendar for a specific term to the instructors**
+    - **Accept Draft Calendar for Release**
+
+### Section Specific Planning Calendars
 
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
   - *I want to* **COMMAND**
+    - **SCENARIO**
+    - **SCENARIO**
+    - **SCENARIO**
 
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
   - *I want to* **COMMAND**
+    - **SCENARIO**
+    - **SCENARIO**
 
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
   - *I want to* **COMMAND**
-
-- **Title**
-  - *In order to* **BENEFIT**
-  - *As a(n)* **ROLE**
-  - *I want to* **COMMAND**
-
-- **Title**
-  - *In order to* **BENEFIT**
-  - *As a(n)* **ROLE**
-  - *I want to* **COMMAND**
-
-- **Title**
-  - *In order to* **BENEFIT**
-  - *As a(n)* **ROLE**
-  - *I want to* **COMMAND**
-
+    - **SCENARIO**
+    - **SCENARIO**
+    - **SCENARIO**
 
 
 ----
@@ -103,3 +117,6 @@ Things to test:
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
   - *I want to* **COMMAND**
+    - **SCENARIO**
+    - **SCENARIO**
+    - **SCENARIO**
