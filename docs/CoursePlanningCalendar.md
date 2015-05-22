@@ -86,8 +86,7 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
   - *In order to* **share the calendar with students**
   - *As a(n)* **Instructor**
   - *I want to* **publish my course planning calendar**
-    - **SCENARIO**
-    - **SCENARIO**
+    - **Publish Calendar**
 
 - **Adjust Topics**
   - *In order to* **adjust the course delivery for my section**
@@ -102,26 +101,22 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
   - *In order to* **provide proper preparation for evaluations in response to changes in the order of topics for the course**
   - *As a(n)* **Instructor**
   - *I want to* **adjust due dates for an evaluation item**
-    - **SCENARIO**
-    - **SCENARIO**
-    - **SCENARIO**
+    - **Reschedule Evaluation Date**
 
 - **Remove Topic**
   - *In order to* **compensate for insufficient time to cover topics in the course**
   - *As a(n)* **ROLE**
   - *I want to* **flag topics as "not covered"**
-    - **SCENARIO**
-    - **SCENARIO**
-    - **SCENARIO**
+    - **Flag Topic As Not Covered**
+      - *should include a comment as to why*
 
 - **Remove Evaluation Component**
   - *In order to* **compensate for insufficient time to cover topics in the course**
   - *As a(n)* **ROLE**
   - *I want to* **flag evaluation components as "removed"**
       - ***must** include a note about how marks will be **redistributed***
-    - **SCENARIO**
-    - **SCENARIO**
-    - **SCENARIO**
+    - **Flag Evaluation Component As Redistributed**
+      - *should include a comment as to why*
 
 
 ----
