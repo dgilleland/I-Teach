@@ -10,8 +10,7 @@ Each course is 15 weeks long. Planning calendars can be copied/applied to variou
 
 Topics on the Planning Calendar are short descriptions of what is being covered at a particular point in the course. Students only need to see those short topic names, but as Instructors we would benefit from including additional details on the topics. Those details might consist of things such as a list of key points or objectives, comments about the topic, notes about the in-class examples to be used or the scenarios to be used for testing (labs/exams), etc. This extra information can be helpful in planning the sequence of the topics and also help the instructor in remembering important aspects of the topic when it comes time to teach it in class.
 
-
-## Courses and Course Offerings
+### Courses and Course Offerings
 
 **Courses** and **Course Offerings** form the central backdrop to developing a Planning Calendar. Key information about courses and course offerings include the following:
 
@@ -24,6 +23,51 @@ Topics on the Planning Calendar are short descriptions of what is being covered 
   - The *Term* and *Year* in which the course is offered (such as "Jan 2016" or "Sep 2017")
 
 Ultimately, a Course Offering will be made available as one or more *Sections* that students can enroll in. An *Instructor* will be assigned to each *Section*, and as the course progresses, the Instructor(s) may need to make adjustments to their planning calendars to accommodate changing events or the needs of their particular section. By the time the instructors are needing the Course Calendars for their sections, the specific *Starting Date* of the course offering should be known along with the specific days of the week that classes will occur (classes are typically done in one and two hour blocks for Classroom and Lab Component courses).
+
+----
+
+## User Stories
+
+- **Title**
+  - *In order to* **BENEFIT**
+  - *As a(n)* **ROLE**
+  - *I want* **COMMAND**
+
+- **Title**
+  - *In order to* **BENEFIT**
+  - *As a(n)* **ROLE**
+  - *I want* **COMMAND**
+
+- **Title**
+  - *In order to* **BENEFIT**
+  - *As a(n)* **ROLE**
+  - *I want* **COMMAND**
+
+- **Title**
+  - *In order to* **BENEFIT**
+  - *As a(n)* **ROLE**
+  - *I want* **COMMAND**
+
+- **Title**
+  - *In order to* **BENEFIT**
+  - *As a(n)* **ROLE**
+  - *I want* **COMMAND**
+
+- **Title**
+  - *In order to* **BENEFIT**
+  - *As a(n)* **ROLE**
+  - *I want* **COMMAND**
+
+- **Title**
+  - *In order to* **BENEFIT**
+  - *As a(n)* **ROLE**
+  - *I want* **COMMAND**
+
+- **Title**
+  - *In order to* **BENEFIT**
+  - *As a(n)* **ROLE**
+  - *I want* **COMMAND**
+
 
 
 ----
@@ -49,3 +93,11 @@ Things to test:
     - Assign Dates to Evaluation Components
     - Modify Active Planning Calendar
     - Link Topic to Resources (notes, readings, etc.)
+----
+
+## User Stories
+
+- **Title**
+  - *In order to* **BENEFIT**
+  - *As a(n)* **ROLE**
+  - *I want* **COMMAND**
