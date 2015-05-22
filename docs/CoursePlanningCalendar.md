@@ -37,6 +37,13 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
     - **Create a blank draft**
     - **Create a draft from an existing calendar**
 
+- **Record Non-School Days**
+  - *In order to* **ensure there is enough time for all the items on the planning calendar**
+  - *As a(n)* **Course Coordinator**
+  - *I want to* **edit the dates in the upcoming term that will be missed due to holidays or skipped due to reading breaks**
+    - **Edit Holiday Dates**
+    - **Add Reading Week**
+
 - **Edit Topics**
   - *In order to* **plan the topics to cover in class**
   - *As a(n)* **Course Coordinator**
@@ -45,6 +52,13 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
     - **Change a topic**
     - **Remove a topic**
     - **Reorder topics**
+
+- **Include Work Periods**
+  - *In order to* **allow time for in-class work**
+  - *As a(n)* **Course Coordinator**
+  - *I want to* **add or remove work periods between topics**
+    - **Add Work Period**
+    - **Remove Work Period**
 
 - **Edit Evaluations**
   - *In order to* **prepare students for evaluations**
@@ -66,9 +80,7 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
   - *In order to* **make planning calendars specific to each section**
   - *As a(n)* **Instructor**
   - *I want to* **enter the days of the week that my section has classes**
-    - **SCENARIO**
-    - **SCENARIO**
-    - **SCENARIO**
+    - **Enter Class Days For Section**
 
 - **Publish Course Calendar**
   - *In order to* **share the calendar with students**
@@ -81,9 +93,10 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
   - *In order to* **adjust the course delivery for my section**
   - *As a(n)* **Instructor**
   - *I want to* **adjust the order and/or duration of topics on the calendar**
-    - **SCENARIO**
-    - **SCENARIO**
-    - **SCENARIO**
+    - **Reorder Topics**
+    - **Change Topic Duration**
+    - **Add Work Period**
+    - **Remove Work Period**
 
 - **Reschedule Evaluation Dates**
   - *In order to* **provide proper preparation for evaluations in response to changes in the order of topics for the course**
