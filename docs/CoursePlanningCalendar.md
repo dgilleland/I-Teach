@@ -105,14 +105,14 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
 
 - **Remove Topic**
   - *In order to* **compensate for insufficient time to cover topics in the course**
-  - *As a(n)* **ROLE**
+  - *As a(n)* **Instructor**
   - *I want to* **flag topics as "not covered"**
     - **Flag Topic As Not Covered**
       - *should include a comment as to why*
 
 - **Remove Evaluation Component**
   - *In order to* **compensate for insufficient time to cover topics in the course**
-  - *As a(n)* **ROLE**
+  - *As a(n)* **Instructor**
   - *I want to* **flag evaluation components as "removed"**
       - ***must** include a note about how marks will be **redistributed***
     - **Flag Evaluation Component As Redistributed**
