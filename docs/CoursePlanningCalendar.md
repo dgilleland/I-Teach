@@ -48,7 +48,7 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
 
 - **Edit Evaluations**
   - *In order to* **prepare students for evaluations**
-  - *As a(n)* **ROLE**
+  - *As a(n)* **Course Coordinator**
   - *I want to* **assign dates to evaluation components**
     - **Add an evaluation component**
     - **Change an evaluation component**
@@ -56,31 +56,56 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
 
 - **Accept Draft Calendar**
   - *In order to* **give instructors a planning calendar to use in their classes**
-  - *As a(n)* **ROLE**
+  - *As a(n)* **Course Coordinator**
   - *I want to* **release the draft course planning calendar for a specific term to the instructors**
     - **Accept Draft Calendar for Release**
 
 ### Section Specific Planning Calendars
 
-- **Title**
-  - *In order to* **BENEFIT**
-  - *As a(n)* **ROLE**
-  - *I want to* **COMMAND**
+- **Customize Class Days For Sections**
+  - *In order to* **make planning calendars specific to each section**
+  - *As a(n)* **Instructor**
+  - *I want to* **enter the days of the week that my section has classes**
     - **SCENARIO**
     - **SCENARIO**
     - **SCENARIO**
 
-- **Title**
-  - *In order to* **BENEFIT**
-  - *As a(n)* **ROLE**
-  - *I want to* **COMMAND**
+- **Publish Course Calendar**
+  - *In order to* **share the calendar with students**
+  - *As a(n)* **Instructor**
+  - *I want to* **publish my course planning calendar**
     - **SCENARIO**
     - **SCENARIO**
 
-- **Title**
-  - *In order to* **BENEFIT**
+- **Adjust Topics**
+  - *In order to* **adjust the course delivery for my section**
+  - *As a(n)* **Instructor**
+  - *I want to* **adjust the order and/or duration of topics on the calendar**
+    - **SCENARIO**
+    - **SCENARIO**
+    - **SCENARIO**
+
+- **Reschedule Evaluation Dates**
+  - *In order to* **provide proper preparation for evaluations in response to changes in the order of topics for the course**
+  - *As a(n)* **Instructor**
+  - *I want to* **adjust due dates for an evaluation item**
+    - **SCENARIO**
+    - **SCENARIO**
+    - **SCENARIO**
+
+- **Remove Topic**
+  - *In order to* **compensate for insufficient time to cover topics in the course**
   - *As a(n)* **ROLE**
-  - *I want to* **COMMAND**
+  - *I want to* **flag topics as "not covered"**
+    - **SCENARIO**
+    - **SCENARIO**
+    - **SCENARIO**
+
+- **Remove Evaluation Component**
+  - *In order to* **compensate for insufficient time to cover topics in the course**
+  - *As a(n)* **ROLE**
+  - *I want to* **flag evaluation components as "removed"**
+      - ***must** include a note about how marks will be **redistributed***
     - **SCENARIO**
     - **SCENARIO**
     - **SCENARIO**
@@ -91,6 +116,7 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
 # Sandbox Notes
 
 Things to test:
+
 - UI – manual testing (ignore automated testing for now)
   - Enter/edit topics/evaluation components for each week
   - Reorder topics/evaluations
@@ -109,6 +135,7 @@ Things to test:
     - Assign Dates to Evaluation Components
     - Modify Active Planning Calendar
     - Link Topic to Resources (notes, readings, etc.)
+
 ----
 
 ## User Stories
