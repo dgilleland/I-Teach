@@ -28,45 +28,47 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
 
 ## User Stories
 
-- **Title**
-  - *In order to* **BENEFIT**
-  - *As a(n)* **ROLE**
-  - *I want* **COMMAND**
+- **Adding Draft Calendar**
+  - *In order to* **have a working copy of a planning calendar for editing**
+  - *As a(n)* **Course Coordinator**
+  - *I want to* **create a draft planning calendar for a course**
+    - **Create a blank draft**
+    - **Create a draft from an existing calendar**
 
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
-  - *I want* **COMMAND**
+  - *I want to* **COMMAND**
 
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
-  - *I want* **COMMAND**
+  - *I want to* **COMMAND**
 
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
-  - *I want* **COMMAND**
+  - *I want to* **COMMAND**
 
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
-  - *I want* **COMMAND**
+  - *I want to* **COMMAND**
 
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
-  - *I want* **COMMAND**
+  - *I want to* **COMMAND**
 
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
-  - *I want* **COMMAND**
+  - *I want to* **COMMAND**
 
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
-  - *I want* **COMMAND**
+  - *I want to* **COMMAND**
 
 
 
@@ -100,4 +102,4 @@ Things to test:
 - **Title**
   - *In order to* **BENEFIT**
   - *As a(n)* **ROLE**
-  - *I want* **COMMAND**
+  - *I want to* **COMMAND**
