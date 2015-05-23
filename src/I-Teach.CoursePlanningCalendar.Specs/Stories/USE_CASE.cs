@@ -15,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories
     //    private I_Teach.Class1 sut;
     //    public USE_CASE()
     //    {
-    //        // initialize sut
+    //        sut = SchoolApplication.Instance();
     //    }
 
     //    [Fact, AutoRollback]

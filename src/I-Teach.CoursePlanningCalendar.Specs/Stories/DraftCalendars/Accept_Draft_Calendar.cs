@@ -17,7 +17,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         private I_Teach.SchoolApplication sut;
         public Accept_Draft_Calendar()
         {
-            // initialize sut
+            sut = SchoolApplication.Instance();
         }
 
     //Accept Draft Calendar for Release

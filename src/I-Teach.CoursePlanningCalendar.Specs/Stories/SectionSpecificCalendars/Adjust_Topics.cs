@@ -15,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
         private I_Teach.SchoolApplication sut;
         public Adjust_Topics()
         {
-            // initialize sut
+            sut = SchoolApplication.Instance();
         }
 
         //Reorder Topics

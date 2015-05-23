@@ -15,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         private I_Teach.SchoolApplication sut;
         public Edit_Topics()
         {
-            // initialize sut
+            sut = SchoolApplication.Instance();
         }
 
         //Add a topic

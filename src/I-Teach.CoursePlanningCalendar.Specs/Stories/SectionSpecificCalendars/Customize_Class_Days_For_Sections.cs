@@ -15,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
         private I_Teach.SchoolApplication sut;
         public Customize_Class_Days_For_Sections()
         {
-            // initialize sut
+            sut = SchoolApplication.Instance();
         }
 
         //Enter Class Days For Section

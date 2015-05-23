@@ -15,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
         private I_Teach.SchoolApplication sut;
         public Publish_Course_Calendar()
         {
-            // initialize sut
+            sut = SchoolApplication.Instance();
         }
 
         //Publish Calendar

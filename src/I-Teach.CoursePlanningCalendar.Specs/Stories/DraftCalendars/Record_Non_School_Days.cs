@@ -15,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         private I_Teach.SchoolApplication sut;
         public Record_Non_School_Days()
         {
-            // initialize sut
+            sut = SchoolApplication.Instance();
         }
 
         //Edit Holiday Dates

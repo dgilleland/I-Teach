@@ -15,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         private I_Teach.SchoolApplication sut;
         public Edit_Evaluations()
         {
-            // initialize sut
+            sut = SchoolApplication.Instance();
         }
 
         //Add an evaluation component

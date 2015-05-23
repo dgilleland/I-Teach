@@ -15,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
         private I_Teach.SchoolApplication sut;
         public Remove_Topic()
         {
-            // initialize sut
+            sut = SchoolApplication.Instance();
         }
 
         //Flag Topic As Not Covered

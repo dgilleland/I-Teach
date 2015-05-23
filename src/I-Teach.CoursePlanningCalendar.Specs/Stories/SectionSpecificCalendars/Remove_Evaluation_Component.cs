@@ -18,7 +18,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
         private I_Teach.SchoolApplication sut;
         public Remove_Evaluation_Component()
         {
-            // initialize sut
+            sut = SchoolApplication.Instance();
         }
 
         //**must* include a note about how marks will be redistributed*

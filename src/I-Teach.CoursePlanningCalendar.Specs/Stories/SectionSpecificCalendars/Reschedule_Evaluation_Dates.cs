@@ -15,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
         private I_Teach.SchoolApplication sut;
         public Reschedule_Evaluation_Dates()
         {
-            // initialize sut
+            sut = SchoolApplication.Instance();
         }
 
         //Reschedule Evaluation Date
