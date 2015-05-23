@@ -1,6 +1,7 @@
 ﻿using CommonUtilities.Domain.Commands;
 using Edument.CQRS;
 using I_Teach.CoursePlanningCalendar;
+using I_Teach.CoursePlanningCalendar.Fetch;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,23 +13,20 @@ namespace I_Teach
 {
     public class SchoolApplication
     {
-        private string ConnectionStringName;
-        private MessageDispatcher Bus;
+        //private readonly string ConnectionStringName;
+        private readonly MessageDispatcher Dispatcher;
+        public IPlanningCalendarRepository PlanningCalendarRepository { get; private set; }
 
         private SchoolApplication(string connectionStringName, params object[] subscribers)
         {
             // TODO: Complete member initialization
-            this.ConnectionStringName = connectionStringName;
-            Bus = new MessageDispatcher(new SqlEventStore(ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString));
+            //this.ConnectionStringName = connectionStringName;
+            string connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
+            Dispatcher = new MessageDispatcher(new SqlEventStore(connectionString));
+            PlanningCalendarRepository = About.GetPlanningCalendarRepository(connectionStringName);
 
             // Register handlers/subscribers for the Course Planning Calendar system
-            Bus.ScanAssembly(About.CoursePlanningCalendar);
-
-            // Add any additional subscribers
-            foreach (object item in subscribers)
-            {
-                Bus.ScanInstance(item);
-            }
+            About.GetCommandEventBus(Dispatcher).RegisterWithDispatcher(subscribers);
         }
 
         #region Factory Methods
@@ -39,7 +37,7 @@ namespace I_Teach
         #endregion
         public void Process<TCommand>(TCommand command)
         {
-            Bus.SendCommand(command);
+            Dispatcher.SendCommand(command);
         }
     }
 }

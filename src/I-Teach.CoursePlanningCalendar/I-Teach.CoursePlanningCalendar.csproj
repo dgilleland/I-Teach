@@ -45,8 +45,12 @@
   <ItemGroup>
     <Compile Include="About.cs" />
     <Compile Include="Aggregates\PlanningCalendar.cs" />
+    <Compile Include="Bus\CommandEventBus.cs" />
     <Compile Include="Commands\CreatePlanningCalendar.cs" />
     <Compile Include="Events\CalendarCreated.cs" />
+    <Compile Include="Fetch\DraftPlanningCalendar.cs" />
+    <Compile Include="Fetch\IPlanningCalendarRepository.cs" />
+    <Compile Include="Fetch\PlanningCalendarRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CommonUtilities.Domain.Bus;
+using Edument.CQRS;
+using I_Teach.CoursePlanningCalendar.Bus;
+using I_Teach.CoursePlanningCalendar.Fetch;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,13 +13,16 @@ namespace I_Teach.CoursePlanningCalendar
 {
     public sealed class About
     {
-        public static Assembly CoursePlanningCalendar
+        private static IBus CommandEventBus = null;
+        public static IBus GetCommandEventBus(MessageDispatcher dispatcher)
         {
-            get
-            {
-                About me = new About();
-                return me.GetType().Assembly;
-            }
+            if(CommandEventBus == null)
+                CommandEventBus = new CommandEventBus(dispatcher);
+            return CommandEventBus;
+        }
+        public static IPlanningCalendarRepository GetPlanningCalendarRepository(string connectionStringName)
+        {
+            return new PlanningCalendarRepository(connectionStringName);
         }
     }
 }

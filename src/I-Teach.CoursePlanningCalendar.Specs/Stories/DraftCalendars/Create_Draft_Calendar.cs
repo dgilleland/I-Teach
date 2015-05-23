@@ -2,6 +2,7 @@ using CommonUtilities.Domain.Commands;
 using Edument.CQRS;
 using I_Teach.CoursePlanningCalendar.Commands;
 using I_Teach.CoursePlanningCalendar.Events;
+using I_Teach.CoursePlanningCalendar.Fetch;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .When(_ => WhenICreateANewDraftCalendar())
                 .Then(_ => ThenADraftCalendarCreatedEventOccurs())
                 .And(_ => ThenIHaveAReferenceToTheDraftCalendar())
+                .And(_ =>ThenICanRetrieveTheDraftCalendar())
                 .And(_=>ThenTheCalendarHasTheNameAndNumber(courseName, courseNumber))
                 .BDDfy();
         }
@@ -83,9 +85,21 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         {
             Assert.NotEqual(Guid.Empty, Command.Id);
         }
+        private void ThenICanRetrieveTheDraftCalendar()
+        {
+            DraftPlanningCalendar actualCalendar = GetActualCalendar();
+            Assert.NotNull(actualCalendar);
+        }
+        private DraftPlanningCalendar GetActualCalendar()
+        {
+            DraftPlanningCalendar actualCalendar = sut.PlanningCalendarRepository.FindDraftPlanningCalendar(Command.Id);
+            return actualCalendar;
+        }
         private void ThenTheCalendarHasTheNameAndNumber(string courseName, string courseNumber)
         {
-            throw new NotSupportedException();
+            var calendar = GetActualCalendar();
+            Assert.Equal(courseName, calendar.CourseName);
+            Assert.Equal(courseNumber, calendar.CourseNumber);
         }
         #endregion
     }
