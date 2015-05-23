@@ -19,6 +19,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories
     //    }
 
     //    [Fact, AutoRollback]
+    //    [Trait("Context", "Acceptance Test")]
     //    public void SCENARIO()
     //    {
     //        this.Given(_ => TBA())

@@ -91,7 +91,7 @@ Ultimately, a Course Offering will be made available as one or more *Sections* t
 - **Adjust Topics**
   - *In order to* **adjust the course delivery for my section**
   - *As a(n)* **Instructor**
-  - *I want to* **adjust the order and/or duration of topics on the calendar**
+  - *I want to* **change the order and/or duration of topics on the calendar**
     - **Reorder Topics**
     - **Change Topic Duration**
     - **Add Work Period**

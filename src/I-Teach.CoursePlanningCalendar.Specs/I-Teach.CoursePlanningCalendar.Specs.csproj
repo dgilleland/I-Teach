@@ -72,7 +72,12 @@
     <Compile Include="Stories\DraftCalendars\Edit_Topics.cs" />
     <Compile Include="Stories\DraftCalendars\Include_Work_Periods.cs" />
     <Compile Include="Stories\DraftCalendars\Record_Non_School_Days.cs" />
-    <Compile Include="Stories\SectionSpecificCalendars\Class1.cs" />
+    <Compile Include="Stories\SectionSpecificCalendars\Adjust_Topics.cs" />
+    <Compile Include="Stories\SectionSpecificCalendars\Remove_Evaluation_Component.cs" />
+    <Compile Include="Stories\SectionSpecificCalendars\Customize_Class_Days_For_Sections.cs" />
+    <Compile Include="Stories\SectionSpecificCalendars\Publish_Course_Calendar.cs" />
+    <Compile Include="Stories\SectionSpecificCalendars\Remove_Topic.cs" />
+    <Compile Include="Stories\SectionSpecificCalendars\Reschedule_Evaluation_Dates.cs" />
     <Compile Include="Stories\USE_CASE.cs" />
     <Compile Include="Stories\DraftCalendars\Accept_Draft_Calendar.cs" />
     <Compile Include="UnitTests\Commands\AddTopic_Command.cs" />
