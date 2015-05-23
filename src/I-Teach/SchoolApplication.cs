@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace I_Teach
 {
-    public class Class1
+    public class SchoolApplication
     {
     }
 }

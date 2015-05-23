@@ -14,7 +14,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         SoThat = "So as to give instructors a planning calendar to use in their classes")]
     public class Accept_Draft_Calendar
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Accept_Draft_Calendar()
         {
             // initialize sut

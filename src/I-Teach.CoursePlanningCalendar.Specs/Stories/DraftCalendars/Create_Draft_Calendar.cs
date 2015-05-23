@@ -12,7 +12,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             SoThat = "So as to have a working copy of a planning calendar for editing")]
     public class Create_Draft_Calendar
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Create_Draft_Calendar()
         {
             // initialize sut

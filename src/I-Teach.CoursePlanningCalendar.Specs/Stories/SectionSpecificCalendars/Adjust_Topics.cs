@@ -12,7 +12,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
             SoThat = "So as to adjust the course delivery for my section")]
     public class Adjust_Topics
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Adjust_Topics()
         {
             // initialize sut

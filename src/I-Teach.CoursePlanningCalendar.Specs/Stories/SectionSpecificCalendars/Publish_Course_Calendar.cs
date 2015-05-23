@@ -12,7 +12,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
             SoThat = "So as to share the calendar with students")]
     public class Publish_Course_Calendar
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Publish_Course_Calendar()
         {
             // initialize sut

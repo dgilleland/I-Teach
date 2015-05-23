@@ -12,7 +12,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             SoThat = "So as to prepare students for evaluations")]
     public class Edit_Evaluations
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Edit_Evaluations()
         {
             // initialize sut

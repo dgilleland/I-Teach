@@ -12,7 +12,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             SoThat = "So as to ensure there is enough time for all the items on the planning calendar")]
     public class Record_Non_School_Days
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Record_Non_School_Days()
         {
             // initialize sut

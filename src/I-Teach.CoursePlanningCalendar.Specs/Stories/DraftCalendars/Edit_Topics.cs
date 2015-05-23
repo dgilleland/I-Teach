@@ -12,7 +12,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             SoThat = "So as to plan the topics to cover in class")]
     public class Edit_Topics
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Edit_Topics()
         {
             // initialize sut

@@ -12,7 +12,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             SoThat = "So as to allow time for in-class work")]
     public class Include_Work_Periods
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Include_Work_Periods()
         {
             // initialize sut

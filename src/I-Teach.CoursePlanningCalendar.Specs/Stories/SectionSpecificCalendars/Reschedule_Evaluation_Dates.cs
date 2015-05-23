@@ -12,7 +12,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
             SoThat = "So as to provide proper preparation for evaluations in response to changes in the order of topics for the course")]
     public class Reschedule_Evaluation_Dates
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Reschedule_Evaluation_Dates()
         {
             // initialize sut

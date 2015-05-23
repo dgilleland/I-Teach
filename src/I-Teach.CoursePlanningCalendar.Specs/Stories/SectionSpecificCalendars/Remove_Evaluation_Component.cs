@@ -15,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
         SoThat = "So as to compensate for insufficient time to cover topics in the course")]
     public class Remove_Evaluation_Component
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Remove_Evaluation_Component()
         {
             // initialize sut

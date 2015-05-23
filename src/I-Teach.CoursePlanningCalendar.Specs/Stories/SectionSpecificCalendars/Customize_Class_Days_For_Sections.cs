@@ -12,7 +12,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.SectionSpecificCalendars
             SoThat = "So as to make planning calendars specific to each section")]
     public class Customize_Class_Days_For_Sections
     {
-        private I_Teach.Class1 sut;
+        private I_Teach.SchoolApplication sut;
         public Customize_Class_Days_For_Sections()
         {
             // initialize sut
