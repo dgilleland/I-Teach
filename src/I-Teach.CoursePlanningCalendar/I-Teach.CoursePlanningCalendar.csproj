@@ -34,7 +34,16 @@
       <HintPath>..\packages\GoodSoil.CQRS.0.1.0\lib\Edument.CQRS.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,12 +57,14 @@
     <Compile Include="Bus\CommandEventBus.cs" />
     <Compile Include="Commands\CreatePlanningCalendar.cs" />
     <Compile Include="Events\CalendarCreated.cs" />
-    <Compile Include="Fetch\DraftPlanningCalendar.cs" />
-    <Compile Include="Fetch\IPlanningCalendarRepository.cs" />
-    <Compile Include="Fetch\PlanningCalendarRepository.cs" />
+    <Compile Include="Fetch\Model\DraftPlanningCalendar.cs" />
+    <Compile Include="Fetch\Repository\IPlanningCalendarRepository.cs" />
+    <Compile Include="Fetch\Repository\PlanningCalendarRepository.cs" />
+    <Compile Include="Fetch\Repository\ReadModelDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
