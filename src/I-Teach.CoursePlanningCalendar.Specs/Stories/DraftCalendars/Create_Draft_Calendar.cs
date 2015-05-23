@@ -1,4 +1,5 @@
 using CommonUtilities.Domain.Commands;
+using Edument.CQRS;
 using I_Teach.CoursePlanningCalendar.Commands;
 using I_Teach.CoursePlanningCalendar.Events;
 using System;
@@ -13,15 +14,16 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
     [Story(AsA = Actor.CourseCoordinator,
             IWant = "I Want to create a draft planning calendar for a course",
             SoThat = "So as to have a working copy of a planning calendar for editing")]
-    public class Create_Draft_Calendar
+    public class Create_Draft_Calendar : ISubscribeTo<CalendarCreated>
     {
         private I_Teach.SchoolApplication sut;
         private CommandWithAggregateRootId Command;
         private CalendarCreated ExpectedCalendarCreatedEvent;
+        private CalendarCreated ActualCalendarCreatedEvent;
 
         public Create_Draft_Calendar()
         {
-            sut = SchoolApplication.Instance();
+            sut = SchoolApplication.Instance(this);
         }
 
         #region Scenarios
@@ -29,10 +31,13 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         [Trait("Context", "Acceptance Test")]
         public void Create_a_blank_draft_calendar()
         {
-            this.Given(_ => GivenACreatePlanningCalendarCommand())
+            string courseName = "Enterprise Application Programming",
+                   courseNumber = "EAP 205";
+            this.Given(_ => GivenACreatePlanningCalendarCommand(courseName, courseNumber))
                 .When(_ => WhenICreateANewDraftCalendar())
                 .Then(_ => ThenADraftCalendarCreatedEventOccurs())
                 .And(_ => ThenIHaveAReferenceToTheDraftCalendar())
+                .And(_=>ThenTheCalendarHasTheNameAndNumber(courseName, courseNumber))
                 .BDDfy();
         }
 
@@ -43,14 +48,21 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             this.Given(_ => TBA())
                 .BDDfy();
         }
-        #endregion
 
         public void TBA() { throw new NotImplementedException(); }
+        #endregion
+
+        #region Event Subscribers
+        public void Handle(CalendarCreated e)
+        {
+            ActualCalendarCreatedEvent = e;
+        }
+        #endregion
 
         #region Givens
-        private void GivenACreatePlanningCalendarCommand()
+        private void GivenACreatePlanningCalendarCommand(string courseName, string courseNumber)
         {
-            Command = new CreatePlanningCalendar("Enterprise Application Programming", "EAP 205");
+            Command = new CreatePlanningCalendar(courseName, courseNumber);
         }
         #endregion
 
@@ -64,12 +76,16 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         #region Thens
         private void ThenADraftCalendarCreatedEventOccurs()
         {
-            Assert.NotNull(ExpectedCalendarCreatedEvent);
+            Assert.NotNull(ActualCalendarCreatedEvent);
         }
 
         private void ThenIHaveAReferenceToTheDraftCalendar()
         {
             Assert.NotEqual(Guid.Empty, Command.Id);
+        }
+        private void ThenTheCalendarHasTheNameAndNumber(string courseName, string courseNumber)
+        {
+            throw new NotSupportedException();
         }
         #endregion
     }

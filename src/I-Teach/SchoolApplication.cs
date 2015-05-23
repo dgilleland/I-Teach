@@ -15,7 +15,7 @@ namespace I_Teach
         private string ConnectionStringName;
         private MessageDispatcher Bus;
 
-        private SchoolApplication(string connectionStringName)
+        private SchoolApplication(string connectionStringName, params object[] subscribers)
         {
             // TODO: Complete member initialization
             this.ConnectionStringName = connectionStringName;
@@ -23,12 +23,18 @@ namespace I_Teach
 
             // Register handlers/subscribers for the Course Planning Calendar system
             Bus.ScanAssembly(About.CoursePlanningCalendar);
+
+            // Add any additional subscribers
+            foreach (object item in subscribers)
+            {
+                Bus.ScanInstance(item);
+            }
         }
 
         #region Factory Methods
-        public static I_Teach.SchoolApplication Instance()
+        public static I_Teach.SchoolApplication Instance(params object[] subscribers)
         {
-            return new SchoolApplication("DefaultConnection");
+            return new SchoolApplication("DefaultConnection", subscribers);
         }
         #endregion
         public void Process<TCommand>(TCommand command)

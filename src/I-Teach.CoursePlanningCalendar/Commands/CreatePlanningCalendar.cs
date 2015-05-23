@@ -24,6 +24,7 @@ namespace I_Teach.CoursePlanningCalendar.Commands
                 throw new ArgumentException("courseNumber is null or empty.", "courseNumber");
             CourseName = courseName;
             CourseNumber = courseNumber;
+            Id = Guid.NewGuid();
         }
     }
     public class AddTopic
