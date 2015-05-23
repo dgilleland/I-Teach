@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Planning Docs", "Planning D
 		..\docs\CourseMangement.md = ..\docs\CourseMangement.md
 		..\docs\CourseMappingContext.md = ..\docs\CourseMappingContext.md
 		..\docs\CoursePlanningCalendar.md = ..\docs\CoursePlanningCalendar.md
+		I-Teach\ReadMe.md = I-Teach\ReadMe.md
 	EndProjectSection
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Mockups", "http://localhost:57638", "{AC60A9AC-6A3B-4F9E-9E43-F4F72290D7BF}"

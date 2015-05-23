@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.cs" />
+    <Compile Include="Aggregates\PlanningCalendar.cs" />
     <Compile Include="Commands\CreatePlanningCalendar.cs" />
     <Compile Include="Events\CalendarCreated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

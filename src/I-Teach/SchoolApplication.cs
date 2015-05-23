@@ -1,7 +1,9 @@
 ﻿using CommonUtilities.Domain.Commands;
 using Edument.CQRS;
+using I_Teach.CoursePlanningCalendar;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,14 +12,17 @@ namespace I_Teach
 {
     public class SchoolApplication
     {
-        private string ConnectionString;
+        private string ConnectionStringName;
         private MessageDispatcher Bus;
 
-        private SchoolApplication(string connectionString)
+        private SchoolApplication(string connectionStringName)
         {
             // TODO: Complete member initialization
-            this.ConnectionString = connectionString;
-            Bus = new MessageDispatcher(new SqlEventStore(connectionString));
+            this.ConnectionStringName = connectionStringName;
+            Bus = new MessageDispatcher(new SqlEventStore(ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString));
+
+            // Register handlers/subscribers for the Course Planning Calendar system
+            Bus.ScanAssembly(About.CoursePlanningCalendar);
         }
 
         #region Factory Methods

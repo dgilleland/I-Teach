@@ -69,7 +69,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
 
         private void ThenIHaveAReferenceToTheDraftCalendar()
         {
-            Assert.NotEqual(Guid.Empty, Command.AggregateRootId);
+            Assert.NotEqual(Guid.Empty, Command.Id);
         }
         #endregion
     }

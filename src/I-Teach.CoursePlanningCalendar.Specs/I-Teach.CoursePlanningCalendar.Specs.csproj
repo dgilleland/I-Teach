@@ -85,6 +85,7 @@
     <Compile Include="UnitTests\Events\Class1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

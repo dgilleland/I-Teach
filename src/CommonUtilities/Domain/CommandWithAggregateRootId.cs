@@ -8,6 +8,6 @@ namespace CommonUtilities.Domain.Commands
 {
     public abstract class CommandWithAggregateRootId
     {
-        public Guid AggregateRootId { get; protected set; }
+        public Guid Id { get; protected set; }
     }
 }
