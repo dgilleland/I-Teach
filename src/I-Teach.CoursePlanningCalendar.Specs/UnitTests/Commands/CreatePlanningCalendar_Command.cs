@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Extensions;
 
 namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Commands
 {
