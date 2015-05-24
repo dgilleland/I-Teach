@@ -24,15 +24,19 @@ namespace I_Teach
             string connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
             Dispatcher = new MessageDispatcher(new SqlEventStore(connectionString));
             PlanningCalendarRepository = About.GetPlanningCalendarRepository(connectionStringName);
-
-            // Register handlers/subscribers for the Course Planning Calendar system
-            About.GetCommandEventBus(Dispatcher).RegisterWithDispatcher(subscribers);
         }
 
         #region Factory Methods
-        public static I_Teach.SchoolApplication Instance(params object[] subscribers)
+        private static SchoolApplication _Instance = null;
+        public static SchoolApplication Instance(params object[] subscribers)
         {
-            return new SchoolApplication("DefaultConnection", subscribers);
+            if (_Instance == null)
+                _Instance = new SchoolApplication("DefaultConnection", subscribers);
+
+            // Register handlers/subscribers for the Course Planning Calendar system
+            About.GetCommandEventBus(_Instance.Dispatcher).RegisterWithDispatcher(subscribers);
+
+            return _Instance;
         }
         #endregion
         public void Process<TCommand>(TCommand command)
