@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Stories\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stories\DraftCalendars\Abstract_Story.cs" />
     <Compile Include="Stories\DraftCalendars\Create_Draft_Calendar.cs" />
     <Compile Include="Stories\DraftCalendars\Edit_Evaluations.cs" />
     <Compile Include="Stories\DraftCalendars\Edit_Topics.cs" />

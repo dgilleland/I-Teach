@@ -15,16 +15,13 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
     [Story(AsA = Actor.CourseCoordinator,
             IWant = "I Want to create a draft planning calendar for a course",
             SoThat = "So as to have a working copy of a planning calendar for editing")]
-    public class Create_Draft_Calendar : ISubscribeTo<CalendarCreated>
+    public class Create_Draft_Calendar : Abstract_Story, ISubscribeTo<CalendarCreated>
     {
-        private I_Teach.SchoolApplication sut;
-        private CommandWithAggregateRootId Command;
         private CalendarCreated ExpectedCalendarCreatedEvent;
         private CalendarCreated ActualCalendarCreatedEvent;
 
         public Create_Draft_Calendar()
         {
-            sut = SchoolApplication.Instance(this);
         }
 
         #region Scenarios
