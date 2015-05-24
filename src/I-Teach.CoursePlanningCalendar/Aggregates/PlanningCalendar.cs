@@ -16,7 +16,12 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
     {
         public System.Collections.IEnumerable Handle(CreatePlanningCalendar c)
         {
-            yield return new CalendarCreated();
+            yield return new CalendarCreated()
+                {
+                    Id = c.Id,
+                    CourseName = c.CourseName,
+                    CourseNumber = c.CourseNumber
+                };
         }
     }
 }

@@ -16,7 +16,8 @@ namespace I_Teach.CoursePlanningCalendar.Bus
         public CommandEventBus(MessageDispatcher dispatcher)
         {
             Dispatcher = dispatcher;
-            dispatcher.ScanInstance(new PlanningCalendar());
+            //dispatcher.ScanInstance(new PlanningCalendar());
+            dispatcher.ScanAssembly(this.GetType().Assembly);
         }
 
         public void RegisterWithDispatcher(params object[] subscribers)

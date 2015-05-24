@@ -20,9 +20,13 @@ namespace I_Teach.CoursePlanningCalendar
                 CommandEventBus = new CommandEventBus(dispatcher);
             return CommandEventBus;
         }
+
+        // TODO: Fix this, as it's likely a "weak link" configuration that depends on SchoolApplication calling this method.
+        internal static string ConnectionStringName { get; private set; }
         public static IPlanningCalendarRepository GetPlanningCalendarRepository(string connectionStringName)
         {
-            return new PlanningCalendarRepository(connectionStringName);
+            ConnectionStringName = connectionStringName;
+            return new PlanningCalendarRepository();
         }
     }
 }

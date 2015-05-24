@@ -8,5 +8,8 @@ namespace I_Teach.CoursePlanningCalendar.Events
 {
     public class CalendarCreated
     {
+        public Guid Id { get; set; }
+        public string CourseName { get; set; }
+        public string CourseNumber { get; set; }
     }
 }
