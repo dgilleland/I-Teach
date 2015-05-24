@@ -57,6 +57,7 @@
     <Compile Include="Bus\CommandEventBus.cs" />
     <Compile Include="Commands\CreatePlanningCalendar.cs" />
     <Compile Include="Events\CalendarCreated.cs" />
+    <Compile Include="Events\Model\Aggregates.cs" />
     <Compile Include="Fetch\Model\DraftPlanningCalendar.cs" />
     <Compile Include="Fetch\Repository\IPlanningCalendarRepository.cs" />
     <Compile Include="Fetch\Repository\PlanningCalendarRepository.cs" />

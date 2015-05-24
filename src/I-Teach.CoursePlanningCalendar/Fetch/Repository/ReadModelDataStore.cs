@@ -1,3 +1,4 @@
+using I_Teach.CoursePlanningCalendar.Events.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,6 +10,13 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
     {
         public ReadModelDataStore(string connectionStringName) : base(connectionStringName) { }
 
+        #region For the Event Store
+        public DbSet<Aggregate> Aggregates { get; set; }
+        public DbSet<Event> Events { get; set; }
+        #endregion
+
+        #region Read Model
         public DbSet<DraftPlanningCalendar> DraftPlanningCalendars { get; set; }
+        #endregion
     }
 }
