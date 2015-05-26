@@ -175,6 +175,10 @@ UpgradeLog*.htm
 *.mdf
 *.ldf
 
+# Database Project Files
+src\Index.dat
+src\Storage.dat
+
 # Business Intelligence projects
 *.rdl.data
 *.bim.layout
