@@ -44,9 +44,17 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         [Trait("Context", "Acceptance Test")]
         public void Create_a_draft_from_an_existing_calendar()
         {
+            // TODO: [Theory]
+            //          From an approved Master calendar of a previous term
+            //          From an instructor's adjusted calendar of a previous term
             this.Given(_ => TBA())
                 .BDDfy();
         }
+
+        #region Alternate Scenarios
+        // TODO: Reject_Creating_Draft_Calendar_With_Duplicate_Name
+        // TODO: Reject_Creating_Draft_Calendar_With_Duplicate_Number
+        #endregion
 
         public void TBA() { throw new NotImplementedException(); }
         #endregion
