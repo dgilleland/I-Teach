@@ -63,6 +63,7 @@
   <ItemGroup>
     <Build Include="dbo\Tables\Aggregates.sql" />
     <Build Include="dbo\Tables\Events.sql" />
+    <Build Include="dbo\Tables\DraftPlanningCalendars.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="I-Teach-Db.publish.xml" />
