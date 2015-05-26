@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using Xunit.Extensions;
 
 namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Commands
 {
@@ -66,6 +67,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Commands
         }
 
         [Fact]
+        [Trait("Context", "Planning Calendar Commands")]
         public void Should_Use_One_Class_As_A_Default_Duration()
         {
             var sut = new AddTopic("A topic");

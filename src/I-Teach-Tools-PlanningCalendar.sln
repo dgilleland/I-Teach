@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Planning Docs", "Planning Docs", "{7F22205B-0C83-4414-9D4F-8EADB6AC67E5}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\CourseMangement.md = ..\docs\CourseMangement.md
+		..\docs\CourseMappingContext.md = ..\docs\CourseMappingContext.md
+		..\docs\CoursePlanningCalendar.md = ..\docs\CoursePlanningCalendar.md
+		I-Teach\ReadMe.md = I-Teach\ReadMe.md
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Mockups", "http://localhost:57638", "{AC60A9AC-6A3B-4F9E-9E43-F4F72290D7BF}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_57638"
+		Debug.AspNetCompiler.PhysicalPath = "..\docs\Mockups\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_57638\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_57638"
+		Release.AspNetCompiler.PhysicalPath = "..\docs\Mockups\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_57638\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\docs\Mockups\"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Course Planning Calendar Context", "Course Planning Calendar Context", "{450610DC-CD9D-4EB3-9C01-0565B1EBA88D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I-Teach.CoursePlanningCalendar", "I-Teach.CoursePlanningCalendar\I-Teach.CoursePlanningCalendar.csproj", "{A3F60323-8DC9-4A53-975A-7B7F3A5F46E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I-Teach.CoursePlanningCalendar.Specs", "I-Teach.CoursePlanningCalendar.Specs\I-Teach.CoursePlanningCalendar.Specs.csproj", "{554B8D6E-4104-4E50-939A-8E9648BCBA56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I-Teach", "I-Teach\I-Teach.csproj", "{C0216C29-422C-4096-B9D1-5022FB778844}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "(Common)", "(Common)", "{E32C7EAE-839B-439B-AB67-249203AEC86C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonUtilities", "CommonUtilities\CommonUtilities.csproj", "{5776AB50-7E95-45B3-A7B8-6AD23ECD0E5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC60A9AC-6A3B-4F9E-9E43-F4F72290D7BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC60A9AC-6A3B-4F9E-9E43-F4F72290D7BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC60A9AC-6A3B-4F9E-9E43-F4F72290D7BF}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC60A9AC-6A3B-4F9E-9E43-F4F72290D7BF}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{A3F60323-8DC9-4A53-975A-7B7F3A5F46E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3F60323-8DC9-4A53-975A-7B7F3A5F46E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3F60323-8DC9-4A53-975A-7B7F3A5F46E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3F60323-8DC9-4A53-975A-7B7F3A5F46E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{554B8D6E-4104-4E50-939A-8E9648BCBA56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{554B8D6E-4104-4E50-939A-8E9648BCBA56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{554B8D6E-4104-4E50-939A-8E9648BCBA56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{554B8D6E-4104-4E50-939A-8E9648BCBA56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0216C29-422C-4096-B9D1-5022FB778844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0216C29-422C-4096-B9D1-5022FB778844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0216C29-422C-4096-B9D1-5022FB778844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0216C29-422C-4096-B9D1-5022FB778844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5776AB50-7E95-45B3-A7B8-6AD23ECD0E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5776AB50-7E95-45B3-A7B8-6AD23ECD0E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5776AB50-7E95-45B3-A7B8-6AD23ECD0E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5776AB50-7E95-45B3-A7B8-6AD23ECD0E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AC60A9AC-6A3B-4F9E-9E43-F4F72290D7BF} = {7F22205B-0C83-4414-9D4F-8EADB6AC67E5}
+		{A3F60323-8DC9-4A53-975A-7B7F3A5F46E0} = {450610DC-CD9D-4EB3-9C01-0565B1EBA88D}
+		{554B8D6E-4104-4E50-939A-8E9648BCBA56} = {450610DC-CD9D-4EB3-9C01-0565B1EBA88D}
+		{5776AB50-7E95-45B3-A7B8-6AD23ECD0E5D} = {E32C7EAE-839B-439B-AB67-249203AEC86C}
+	EndGlobalSection
+EndGlobal
