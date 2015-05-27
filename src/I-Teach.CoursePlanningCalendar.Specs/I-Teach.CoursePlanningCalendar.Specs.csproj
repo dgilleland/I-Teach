@@ -74,6 +74,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ObjectMother.cs" />
+    <Compile Include="Helpers\SchoolApplicationExtensions.cs" />
+    <Compile Include="Helpers\TestHelpers.cs" />
     <Compile Include="Stories\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stories\DraftCalendars\Abstract_Story.cs" />
@@ -115,9 +118,7 @@
       <Name>I-Teach</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

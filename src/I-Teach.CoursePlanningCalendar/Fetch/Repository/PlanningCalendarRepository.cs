@@ -25,6 +25,14 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
                 return context.DraftPlanningCalendars.Find(id);
             }
         }
+
+        public IEnumerable<DraftPlanningCalendar> ListDraftPlanningCalendars()
+        {
+            using (var context = new ReadModelDataStore(About.ConnectionStringName))
+            {
+                return context.DraftPlanningCalendars.ToList();
+            }
+        }
         #endregion
 
         #region DbSet<s>
@@ -44,5 +52,6 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
                 context.SaveChanges();
             }
         }
+
     }
 }

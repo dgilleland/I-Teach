@@ -7,34 +7,56 @@ using Xunit.Extensions;
 
 namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Commands
 {
-    public class AddTopic_Command
+    public class AppendTopic_Command
     {
         [Fact]
         [Trait("Context", "Planning Calendar Commands")]
-        public void Should_Instantiate_AddTopic_Command()
+        public void Should_Instantiate_AppendTopic_Command()
         {
             // Arrange
-            AddTopic sut;
+            AppendTopic sut;
+            Guid id = Guid.NewGuid();
             string title = "A title";
             string description = "A description";
             int duration = 3;
 
             // Act/Assert
-            sut = new AddTopic(title, description, duration);
+            sut = new AppendTopic(id, title, description, duration);
             Assert.Equal(title, sut.Title);
             Assert.Equal(description, sut.Description);
             Assert.Equal(duration, sut.Duration);
 
-            sut = new AddTopic(title, description);
+            sut = new AppendTopic(id, title, description);
             Assert.Equal(title, sut.Title);
             Assert.Equal(description, sut.Description);
 
-            sut = new AddTopic(title, duration);
+            sut = new AppendTopic(id, title, duration);
             Assert.Equal(title, sut.Title);
             Assert.Equal(duration, sut.Duration);
 
-            sut = new AddTopic(title);
+            sut = new AppendTopic(id, title);
             Assert.Equal(title, sut.Title);
+        }
+
+        [Fact]
+        [Trait("Context", "Planning Calendar Commands")]
+        public void Should_Reject_Empty_Guid()
+        {
+            // Arrange
+            AppendTopic sut;
+            Guid id = Guid.Empty;
+            string title = "A title";
+            string description = "A description";
+            int duration = 3;
+
+            // Act/Assert
+            Assert.Throws<ArgumentException>(() => sut = new AppendTopic(id, title, description, duration));
+
+            Assert.Throws<ArgumentException>(() => sut = new AppendTopic(id, title, description));
+
+            Assert.Throws<ArgumentException>(() => sut = new AppendTopic(id, title, duration));
+
+            Assert.Throws<ArgumentException>(() => sut = new AppendTopic(id, title));
         }
 
         #region Theory test
@@ -48,7 +70,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Commands
         #endregion
         public void Should_Reject_An_Empty_Topic_Title(string title)
         {
-            Assert.Throws<ArgumentException>(() => { new AddTopic(title); });
+            Assert.Throws<ArgumentException>(() => { new AppendTopic(Guid.NewGuid(), title); });
         }
 
         #region Theory test
@@ -62,7 +84,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Commands
         #endregion
         public void Should_Accept_An_Empty_Topic_Description(string description)
         {
-            var sut = new AddTopic("A topic", description);
+            var sut = new AppendTopic(Guid.NewGuid(), "A topic", description);
             Assert.Equal(null, sut.Description);
         }
 
@@ -70,10 +92,10 @@ namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Commands
         [Trait("Context", "Planning Calendar Commands")]
         public void Should_Use_One_Class_As_A_Default_Duration()
         {
-            var sut = new AddTopic("A topic");
+            var sut = new AppendTopic(Guid.NewGuid(), "A topic");
             Assert.Equal(1, sut.Duration);
 
-            sut = new AddTopic("A topic", "A description");
+            sut = new AppendTopic(Guid.NewGuid(), "A topic", "A description");
             Assert.Equal(1, sut.Duration);
         }
 
@@ -89,7 +111,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Commands
         #endregion
         public void Should_Accept_A_Duration_Greater_Than_Or_Equal_To_One_Class(int duration)
         {
-            var sut = new AddTopic("A topic", duration);
+            var sut = new AppendTopic(Guid.NewGuid(), "A topic", duration);
             Assert.Equal(duration, sut.Duration);
         }
 
@@ -101,7 +123,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Commands
         #endregion
         public void Should_Reject_A_Duration_Greater_Than_Six_Classes(int duration)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => { new AddTopic("A topic", duration); });
+            Assert.Throws<ArgumentOutOfRangeException>(() => { new AppendTopic(Guid.NewGuid(), "A topic", duration); });
         }
 
         #region Theory test
@@ -112,7 +134,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Commands
         #endregion
         public void Should_Reject_A_Duration_Less_Than_One_Class(int duration)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => { new AddTopic("A topic", duration); });
+            Assert.Throws<ArgumentOutOfRangeException>(() => { new AppendTopic(Guid.NewGuid(), "A topic", duration); });
         }
     }
 }
