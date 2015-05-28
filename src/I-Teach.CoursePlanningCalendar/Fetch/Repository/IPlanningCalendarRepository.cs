@@ -9,5 +9,6 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
     public interface IPlanningCalendarRepository
     {
         DraftPlanningCalendar FindDraftPlanningCalendar(Guid id);
+        IEnumerable<DraftPlanningCalendar> ListDraftPlanningCalendars();
     }
 }

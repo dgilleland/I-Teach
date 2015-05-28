@@ -3,12 +3,14 @@ using Edument.CQRS;
 using I_Teach.CoursePlanningCalendar.Commands;
 using I_Teach.CoursePlanningCalendar.Events;
 using I_Teach.CoursePlanningCalendar.Fetch;
+using I_Teach.CoursePlanningCalendar.Specs.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TestStack.BDDfy;
 using Xunit;
 using Xunit.Extensions;
+using OM = I_Teach.CoursePlanningCalendar.Specs.Helpers.ObjectMother;
 
 namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
 {
@@ -17,6 +19,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             SoThat = "So as to have a working copy of a planning calendar for editing")]
     public class Create_Draft_Calendar : Abstract_Story, ISubscribeTo<CalendarCreated>
     {
+        private Exception _result;
         private CalendarCreated ExpectedCalendarCreatedEvent;
         private CalendarCreated ActualCalendarCreatedEvent;
 
@@ -29,14 +32,12 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         [Trait("Context", "Acceptance Test")]
         public void Create_a_blank_draft_calendar()
         {
-            string courseName = "Enterprise Application Programming",
-                   courseNumber = "EAP 205";
-            this.Given(_ => GivenACreatePlanningCalendarCommand(courseName, courseNumber))
+            this.Given(_ => GivenACreatePlanningCalendarCommand())
                 .When(_ => WhenICreateANewDraftCalendar())
                 .Then(_ => ThenADraftCalendarCreatedEventOccurs())
                 .And(_ => ThenIHaveAReferenceToTheDraftCalendar())
                 .And(_ =>ThenICanRetrieveTheDraftCalendar())
-                .And(_=>ThenTheCalendarHasTheNameAndNumber(courseName, courseNumber))
+                .And(_=>ThenTheCalendarHasTheNameAndNumber())
                 .BDDfy();
         }
 
@@ -44,9 +45,27 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         [Trait("Context", "Acceptance Test")]
         public void Create_a_draft_from_an_existing_calendar()
         {
+            // TODO: [Theory]
+            //          From an approved Master calendar of a previous term
+            //          From an instructor's adjusted calendar of a previous term
             this.Given(_ => TBA())
                 .BDDfy();
         }
+
+        #region Alternate Scenarios
+        // TODO: Reject_Creating_Draft_Calendar_With_Duplicate_Name
+        [Fact, AutoRollback]
+        [Trait("Context", "Acceptance Test")]
+        public void Reject_Creating_Draft_Calendar_With_Duplicate_Name()
+        {
+            this.Given(_ => GivenADraftPlanningCalendarWithTheSameCourseNameAlreadyExists())
+                .And(_ => GivenACreatePlanningCalendarCommand())
+                .When(_=>WhenICreateANewDraftCalendarWithExpectedException())
+                .Then(_=>ThenTheExpectedExceptionIsGenerated())
+                .BDDfy();
+        }
+        // TODO: Reject_Creating_Draft_Calendar_With_Duplicate_Number
+        #endregion
 
         public void TBA() { throw new NotImplementedException(); }
         #endregion
@@ -59,16 +78,26 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         #endregion
 
         #region Givens
-        private void GivenACreatePlanningCalendarCommand(string courseName, string courseNumber)
+        private void GivenACreatePlanningCalendarCommand()
         {
-            Command = new CreatePlanningCalendar(courseName, courseNumber);
+            Command = OM.Commands.CreatePlanningCalendar();
+        }
+        private void GivenADraftPlanningCalendarWithTheSameCourseNameAlreadyExists()
+        {
+            sut.ProcessInTurn(OM.Commands.CreatePlanningCalendar());
         }
         #endregion
 
         #region Whens
-        private void WhenICreateANewDraftCalendar()
+        public void WhenICreateANewDraftCalendar()
         {
             sut.Process(Command as CreatePlanningCalendar);
+        }
+        private void WhenICreateANewDraftCalendarWithExpectedException()
+        {
+
+            Action action = () => WhenICreateANewDraftCalendar();
+            _result = TestHelpers.ExecuteActionThatThrows(action);
         }
         #endregion
 
@@ -92,11 +121,16 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             DraftPlanningCalendar actualCalendar = sut.PlanningCalendarRepository.FindDraftPlanningCalendar(Command.Id);
             return actualCalendar;
         }
-        private void ThenTheCalendarHasTheNameAndNumber(string courseName, string courseNumber)
+        private void ThenTheCalendarHasTheNameAndNumber()
         {
             var calendar = GetActualCalendar();
-            Assert.Equal(courseName, calendar.CourseName);
-            Assert.Equal(courseNumber, calendar.CourseNumber);
+            var expected = Command as CreatePlanningCalendar;
+            Assert.Equal(expected.CourseName, calendar.CourseName);
+            Assert.Equal(expected.CourseNumber, calendar.CourseNumber);
+        }
+        private void ThenTheExpectedExceptionIsGenerated()
+        {
+            Assert.IsType<InvalidOperationException>(_result);
         }
         #endregion
     }

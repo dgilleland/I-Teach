@@ -6,6 +6,7 @@ using System.Linq;
 using TestStack.BDDfy;
 using Xunit;
 using Xunit.Extensions;
+using OM = I_Teach.CoursePlanningCalendar.Specs.Helpers.ObjectMother;
 
 namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
 {
@@ -91,11 +92,11 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         #region Givens
         private void GivenADraftCalendar()
         {
-            throw new NotImplementedException();
+            
         }
         private void GivenAnAddTopicCommand(string title, string description, int duration)
         {
-            throw new NotImplementedException();
+            Command = OM.Commands.CreateTopicCommand(AggregateRootId, title, description, duration);
         }
         #endregion
 

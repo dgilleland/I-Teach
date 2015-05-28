@@ -1,6 +1,7 @@
 ﻿using Edument.CQRS;
 using I_Teach.CoursePlanningCalendar.Commands;
 using I_Teach.CoursePlanningCalendar.Events;
+using I_Teach.CoursePlanningCalendar.Fetch;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,26 @@ using System.Threading.Tasks;
 
 namespace I_Teach.CoursePlanningCalendar.Aggregates
 {
-    class PlanningCalendar 
+    class PlanningCalendar
         : Aggregate
         , IHandleCommand<CreatePlanningCalendar>
+        , IApplyEvent<CalendarCreated>
 
     {
+        IPlanningCalendarRepository ReadModel = new PlanningCalendarRepository();
+
         public System.Collections.IEnumerable Handle(CreatePlanningCalendar c)
         {
+            if (c.Id == Guid.Empty)
+                throw new InvalidOperationException("Draft Planning Calendar already exists");
+            var existing = ReadModel.ListDraftPlanningCalendars();
+            foreach (var item in existing)
+            {
+                if (c.CourseName == item.CourseName)
+                    throw new InvalidOperationException("Draft Planning Calendar with the same course name already exists");
+                if (c.CourseNumber == item.CourseNumber)
+                    throw new InvalidOperationException("Draft Planning Calendar with the same course number already exists");
+            }
             yield return new CalendarCreated()
                 {
                     Id = c.Id,
@@ -23,5 +37,12 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                     CourseNumber = c.CourseNumber
                 };
         }
+
+        #region Apply Events
+        public void Apply(CalendarCreated e)
+        {
+
+        }
+        #endregion
     }
 }
