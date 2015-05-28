@@ -13,8 +13,9 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
     class PlanningCalendar
         : Aggregate
         , IHandleCommand<CreatePlanningCalendar>
+            , IApplyEvent<CalendarCreated>
         , IHandleCommand<AppendTopic>
-        , IApplyEvent<CalendarCreated>
+            , IApplyEvent<TopicAdded>
 
     {
         IPlanningCalendarRepository ReadModel = new PlanningCalendarRepository();
@@ -62,6 +63,10 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
         public void Apply(CalendarCreated e)
         {
 
+        }
+
+        public void Apply(TopicAdded e)
+        {
         }
         #endregion
     }

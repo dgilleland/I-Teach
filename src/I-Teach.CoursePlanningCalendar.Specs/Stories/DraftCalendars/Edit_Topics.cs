@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TestStack.BDDfy;
+using Ploeh.AutoFixture; // needed for the AutoFixture extension method .Create()
 using Xunit;
 using Xunit.Extensions;
 using OM = I_Teach.CoursePlanningCalendar.Specs.Helpers.ObjectMother;
@@ -14,7 +15,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
     [Story(AsA = Actor.CourseCoordinator,
             IWant = "I Want to edit the list of topics",
             SoThat = "So as to plan the topics to cover in class")]
-    public class Edit_Topics 
+    public class Edit_Topics
         : Abstract_Story
         , ISubscribeTo<TopicAdded>
         , ISubscribeTo<TopicChanged>
@@ -27,14 +28,17 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
 
         #region Scenarios
         private TopicAdded Actual_TopicAdded_Event;
-        [Fact, AutoRollback]
+        [Theory, AutoRollback]
+        [InlineData(0)]
+        [InlineData(4)]
         [Trait("Context", "Acceptance Test")]
-        public void Add_a_topic()
+        public void Add_a_topic(int existingTopicCount)
         {
             string title = "Lorem Ipsum";
             string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique.";
             int duration = 2;
-            this.Given(_ => GivenADraftCalendar())
+            this.Given(_=> GivenADraftCalendarHasBeenCreated())
+                .And(_=>GivenPreviousTopicsWereAppended(existingTopicCount))
                 .And(_=>GivenAnAddTopicCommand(title, description, duration))
                 .When(_=>WhenIAddTheTopic())
                 .Then(_=>ThenATopicAddedEventOccurs())
@@ -95,11 +99,16 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         #endregion
 
         #region Givens
-        private void GivenADraftCalendar()
+        private void GivenPreviousTopicsWereAppended(int existingTopicCount)
         {
-            var createCommand = OM.Commands.CreatePlanningCalendar();
-            AggregateRootId = createCommand.Id;
+            while (existingTopicCount > 0)
+            {
+                var aCommand = OM.Commands.AppendTopicCommand(AggregateRootId, OM.Generator.Create("Title "), OM.Generator.Create("Description "));
+                sut.Process(aCommand);
+                existingTopicCount--;
+            }
         }
+
         private void GivenAnAddTopicCommand(string title, string description, int duration)
         {
             Command = OM.Commands.AppendTopicCommand(AggregateRootId, title, description, duration);
