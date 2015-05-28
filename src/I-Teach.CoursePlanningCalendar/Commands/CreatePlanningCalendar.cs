@@ -16,7 +16,9 @@ namespace I_Teach.CoursePlanningCalendar.Commands
         /// </summary>
         /// <param name="courseName"></param>
         /// <param name="courseNumber"></param>
-        public CreatePlanningCalendar(string courseName, string courseNumber)
+        /// <param name="totalHours"></param>
+        /// <param name="classesPerWeek"></param>
+        public CreatePlanningCalendar(string courseName, string courseNumber, int totalHours, int classesPerWeek)
         {
             if (string.IsNullOrWhiteSpace(courseName))
                 throw new ArgumentException("courseName is null or empty.", "courseName");

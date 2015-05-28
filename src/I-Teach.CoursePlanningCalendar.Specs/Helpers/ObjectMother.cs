@@ -16,7 +16,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Helpers
             public static CreatePlanningCalendar CreatePlanningCalendar(string courseName = "Enterprise Application Programming",
                        string courseNumber = "EAP 205")
             {
-                return new CreatePlanningCalendar(courseName, courseNumber);
+                return new CreatePlanningCalendar(courseName, courseNumber, 90, 3);
             }
             public static CommandWithAggregateRootId CreateTopicCommand(Guid aggregateRootId, string title = null, string description = null, int duration = 0)
             {
