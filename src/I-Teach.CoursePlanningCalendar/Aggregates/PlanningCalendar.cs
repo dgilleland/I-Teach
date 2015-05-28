@@ -13,6 +13,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
     class PlanningCalendar
         : Aggregate
         , IHandleCommand<CreatePlanningCalendar>
+        , IHandleCommand<AppendTopic>
         , IApplyEvent<CalendarCreated>
 
     {
@@ -30,12 +31,31 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                 if (c.CourseNumber == item.CourseNumber)
                     throw new InvalidOperationException("Draft Planning Calendar with the same course number already exists");
             }
+
+            // Generate event
             yield return new CalendarCreated()
                 {
                     Id = c.Id,
                     CourseName = c.CourseName,
                     CourseNumber = c.CourseNumber
                 };
+        }
+
+        public System.Collections.IEnumerable Handle(AppendTopic c)
+        {
+            if (c.Id == Guid.Empty)
+                throw new InvalidOperationException("Draft Planning Calendar has not been loaded");
+            if (c.Id != Id)
+                throw new InvalidOperationException("Cannot Append Topic - Wrong planning calendar");
+
+            // Generate event
+            yield return new TopicAdded()
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Description = c.Description,
+                Duration = c.Duration
+            };
         }
 
         #region Apply Events

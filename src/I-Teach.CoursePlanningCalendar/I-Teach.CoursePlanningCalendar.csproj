@@ -58,14 +58,17 @@
     <Compile Include="Commands\AddTopic.cs" />
     <Compile Include="Commands\CreatePlanningCalendar.cs" />
     <Compile Include="Events\AbstractEventWithId.cs" />
-    <Compile Include="Events\AddTopic.cs" />
+    <Compile Include="Events\TopicAdded.cs" />
     <Compile Include="Events\CalendarCreated.cs" />
     <Compile Include="Events\Model\Aggregates.cs" />
     <Compile Include="Events\SetCalendarHolidays.cs" />
+    <Compile Include="Events\TopicChanged.cs" />
+    <Compile Include="Events\TopicRemoved.cs" />
+    <Compile Include="Events\TopicsReordered.cs" />
     <Compile Include="Fetch\Model\DraftPlanningCalendar.cs" />
     <Compile Include="Fetch\Repository\IPlanningCalendarRepository.cs" />
     <Compile Include="Fetch\Repository\PlanningCalendarRepository.cs" />
-    <Compile Include="Fetch\Repository\ReadModelDataStore.cs" />
+    <Compile Include="Fetch\ReadModelDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

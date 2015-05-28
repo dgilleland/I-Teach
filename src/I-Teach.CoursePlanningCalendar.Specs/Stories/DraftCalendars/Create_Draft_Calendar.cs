@@ -3,6 +3,7 @@ using Edument.CQRS;
 using I_Teach.CoursePlanningCalendar.Commands;
 using I_Teach.CoursePlanningCalendar.Events;
 using I_Teach.CoursePlanningCalendar.Fetch;
+using I_Teach.CoursePlanningCalendar.Fetch.Model;
 using I_Teach.CoursePlanningCalendar.Specs.Helpers;
 using System;
 using System.Collections.Generic;

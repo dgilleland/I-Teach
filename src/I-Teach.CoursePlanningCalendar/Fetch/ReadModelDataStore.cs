@@ -1,4 +1,5 @@
 using I_Teach.CoursePlanningCalendar.Events.Model;
+using I_Teach.CoursePlanningCalendar.Fetch.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,6 +18,7 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
 
         #region Read Model
         public DbSet<DraftPlanningCalendar> DraftPlanningCalendars { get; set; }
+        public DbSet<Topic> Topics { get; set; }
         #endregion
     }
 }

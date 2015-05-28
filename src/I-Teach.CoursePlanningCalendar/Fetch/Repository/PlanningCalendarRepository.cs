@@ -1,5 +1,6 @@
 using Edument.CQRS;
 using I_Teach.CoursePlanningCalendar.Events;
+using I_Teach.CoursePlanningCalendar.Fetch.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,6 +11,7 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
     internal class PlanningCalendarRepository
         : IPlanningCalendarRepository
         , ISubscribeTo<CalendarCreated>
+        , ISubscribeTo<TopicAdded>
     {
         #region Constructor
         public PlanningCalendarRepository()
@@ -33,11 +35,18 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
                 return context.DraftPlanningCalendars.ToList();
             }
         }
+
+        public IEnumerable<Topic> ListTopics(Guid draftPlanningCalendarId)
+        {
+            using (var context = new ReadModelDataStore(About.ConnectionStringName))
+            {
+                var topics = context.Topics.Where(x => x.PlanningCalendarId == draftPlanningCalendarId);
+                return topics.ToList();
+            }
+        }
         #endregion
 
-        #region DbSet<s>
-        #endregion
-
+        #region Event Subscribers - persisting to the Read database
         public void Handle(CalendarCreated e)
         {
             using (var context = new ReadModelDataStore(About.ConnectionStringName))
@@ -53,5 +62,21 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
             }
         }
 
+        public void Handle(TopicAdded e)
+        {
+            using (var context = new ReadModelDataStore(About.ConnectionStringName))
+            {
+                Topic topic = new Topic()
+                {
+                    PlanningCalendarId = e.Id,
+                    Title = e.Title,
+                    Description = e.Description,
+                    Duration = e.Duration
+                };
+                context.Topics.Add(topic);
+                context.SaveChanges();
+            }
+        }
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 using Edument.CQRS;
+using I_Teach.CoursePlanningCalendar.Commands;
 using I_Teach.CoursePlanningCalendar.Events;
 using System;
 using System.Collections.Generic;
@@ -25,12 +26,13 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         }
 
         #region Scenarios
+        private TopicAdded Actual_TopicAdded_Event;
         [Fact, AutoRollback]
         [Trait("Context", "Acceptance Test")]
         public void Add_a_topic()
         {
-            string title = "";
-            string description = "";
+            string title = "Lorem Ipsum";
+            string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique.";
             int duration = 2;
             this.Given(_ => GivenADraftCalendar())
                 .And(_=>GivenAnAddTopicCommand(title, description, duration))
@@ -40,6 +42,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .BDDfy();
         }
 
+        private TopicChanged Actual_TopicChanged_Event;
         [Fact, AutoRollback]
         [Trait("Context", "Acceptance Test")]
         public void Change_a_topic()
@@ -48,6 +51,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .BDDfy();
         }
 
+        private TopicRemoved Actual_TopicRemoved_Event;
         [Fact, AutoRollback]
         [Trait("Context", "Acceptance Test")]
         public void Remove_a_topic()
@@ -56,6 +60,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .BDDfy();
         }
 
+        private TopicsReordered Actual_TopicsReordered_Event;
         [Fact, AutoRollback]
         [Trait("Context", "Acceptance Test")]
         public void Reorder_topics()
@@ -70,51 +75,60 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         #region Event Subscribers
         public void Handle(TopicAdded e)
         {
-            throw new NotImplementedException();
+            Actual_TopicAdded_Event = e;
         }
 
         public void Handle(TopicChanged e)
         {
-            throw new NotImplementedException();
+            Actual_TopicChanged_Event = e;
         }
 
         public void Handle(TopicRemoved e)
         {
-            throw new NotImplementedException();
+            Actual_TopicRemoved_Event = e;
         }
 
         public void Handle(TopicsReordered e)
         {
-            throw new NotImplementedException();
+            Actual_TopicsReordered_Event = e;
         }
         #endregion
 
         #region Givens
         private void GivenADraftCalendar()
         {
-            
+            var createCommand = OM.Commands.CreatePlanningCalendar();
+            AggregateRootId = createCommand.Id;
         }
         private void GivenAnAddTopicCommand(string title, string description, int duration)
         {
-            Command = OM.Commands.CreateTopicCommand(AggregateRootId, title, description, duration);
+            Command = OM.Commands.AppendTopicCommand(AggregateRootId, title, description, duration);
         }
         #endregion
 
         #region Whens
         private void WhenIAddTheTopic()
         {
-            throw new NotImplementedException();
+            sut.Process(Command as AppendTopic);
         }
         #endregion
 
         #region Thens
         private void ThenATopicAddedEventOccurs()
         {
-            throw new NotImplementedException();
+            Assert.NotNull(Actual_TopicAdded_Event);
         }
+
         private void ThenTheTopicAppearsAsTheLastTopicOnTheCalendar(string title, string description, int duration)
         {
-            throw new NotImplementedException();
+            var topics = sut.PlanningCalendarRepository.ListTopics(AggregateRootId);
+            var actual = topics.LastOrDefault();
+
+            Assert.NotNull(actual);
+            Assert.Equal(AggregateRootId, actual.PlanningCalendarId);
+            Assert.Equal(title, actual.Title);
+            Assert.Equal(description, actual.Description);
+            Assert.Equal(duration, actual.Duration);
         }
         #endregion
     }

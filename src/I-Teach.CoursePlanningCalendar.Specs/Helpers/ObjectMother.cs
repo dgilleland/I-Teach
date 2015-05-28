@@ -18,7 +18,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Helpers
             {
                 return new CreatePlanningCalendar(courseName, courseNumber, 90, 3);
             }
-            public static CommandWithAggregateRootId CreateTopicCommand(Guid aggregateRootId, string title = null, string description = null, int duration = 0)
+            public static CommandWithAggregateRootId AppendTopicCommand(Guid aggregateRootId, string title = null, string description = null, int duration = 0)
             {
                 return new AppendTopic(aggregateRootId, title, description, duration);
             }
