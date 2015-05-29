@@ -137,33 +137,6 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         #endregion
         #endregion
 
-        #region Event Subscribers
-        public void Handle(TopicAdded e)
-        {
-            Actual_TopicAdded_Event = e;
-        }
-
-        public void Handle(TopicChanged e)
-        {
-            Actual_TopicChanged_Event = e;
-        }
-
-        public void Handle(TopicRemoved e)
-        {
-            Actual_TopicRemoved_Event = e;
-        }
-
-        public void Handle(TopicMoved e)
-        {
-            Actual_TopicMoved_Event = e;
-        }
-
-        public void Handle(TopicRenamed e)
-        {
-            Actual_TopicRenamed_Event = e;
-        }
-        #endregion
-
         #region Givens
         private void PreviousTopicsWereAppended(int existingTopicCount)
         {
@@ -213,29 +186,6 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         #endregion
 
         #region Thens
-        #region Event Checks
-        private void ThenATopicAddedEventOccurs()
-        {
-            Assert.NotNull(Actual_TopicAdded_Event);
-        }
-        private void ThenATopicChangedEventOccurs()
-        {
-            Assert.NotNull(Actual_TopicChanged_Event);
-        }
-        private void ThenATopicRenamedEventOccurs()
-        {
-            Assert.NotNull(Actual_TopicRenamed_Event);
-        }
-        private void ThenARemoveTopicEventOccurs()
-        {
-            Assert.NotNull(Actual_TopicRemoved_Event);
-        }
-        private void ThenATopicMovedEventOccurs()
-        {
-            Assert.NotNull(Actual_TopicMoved_Event);
-        }
-        #endregion
-
         private void TheTopicExistsInTheCalendar(string title, string description, int duration)
         {
             var topics = sut.PlanningCalendarRepository.ListTopics(AggregateRootId);
@@ -273,6 +223,57 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             {
                 Assert.NotEqual(title, item.Title);
             }
+        }
+
+        #region Event Checks
+        private void ThenATopicAddedEventOccurs()
+        {
+            Assert.NotNull(Actual_TopicAdded_Event);
+        }
+        private void ThenATopicChangedEventOccurs()
+        {
+            Assert.NotNull(Actual_TopicChanged_Event);
+        }
+        private void ThenATopicRenamedEventOccurs()
+        {
+            Assert.NotNull(Actual_TopicRenamed_Event);
+        }
+        private void ThenARemoveTopicEventOccurs()
+        {
+            Assert.NotNull(Actual_TopicRemoved_Event);
+        }
+        private void ThenATopicMovedEventOccurs()
+        {
+            Assert.NotNull(Actual_TopicMoved_Event);
+        }
+        #endregion
+        #endregion
+
+
+        #region Event Subscribers
+        public void Handle(TopicAdded e)
+        {
+            Actual_TopicAdded_Event = e;
+        }
+
+        public void Handle(TopicChanged e)
+        {
+            Actual_TopicChanged_Event = e;
+        }
+
+        public void Handle(TopicRemoved e)
+        {
+            Actual_TopicRemoved_Event = e;
+        }
+
+        public void Handle(TopicMoved e)
+        {
+            Actual_TopicMoved_Event = e;
+        }
+
+        public void Handle(TopicRenamed e)
+        {
+            Actual_TopicRenamed_Event = e;
         }
         #endregion
     }
