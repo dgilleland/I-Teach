@@ -13,6 +13,7 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
         , ISubscribeTo<CalendarCreated>
         , ISubscribeTo<TopicAdded>
         , ISubscribeTo<TopicRemoved>
+        , ISubscribeTo<TopicRenamed>
     {
         #region Constructor
         public PlanningCalendarRepository()
@@ -85,6 +86,17 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
             {
                 var existing = context.Topics.Single(x => x.Title == e.Title && x.PlanningCalendarId == e.Id);
                 context.Topics.Remove(existing);
+                context.SaveChanges();
+            }
+        }
+
+        public void Handle(TopicRenamed e)
+        {
+            using (var context = new ReadModelDataStore(About.ConnectionStringName))
+            {
+                var topicToRename = context.Topics.Single(x => x.Title == e.Title && x.PlanningCalendarId == e.Id);
+                topicToRename.Title = e.NewTitle;
+                context.Entry(topicToRename).Property(x => x.Title).IsModified = true;
                 context.SaveChanges();
             }
         }

@@ -1,5 +1,6 @@
 ﻿using Edument.CQRS;
 using I_Teach.CoursePlanningCalendar.Commands;
+using I_Teach.CoursePlanningCalendar.Domain;
 using I_Teach.CoursePlanningCalendar.Events;
 using I_Teach.CoursePlanningCalendar.Fetch;
 using System;
@@ -20,9 +21,19 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             , IApplyEvent<TopicRemoved>
         , IHandleCommand<ChangeTopic>
             , IApplyEvent<TopicChanged>
+        , IHandleCommand<RenameTopic>
+            , IApplyEvent<TopicRenamed>
 
     {
         IPlanningCalendarRepository ReadModel = new PlanningCalendarRepository();
+
+        #region Domain Behaviour
+        private Dictionary<TopicName, Topic> TopicList = new Dictionary<TopicName, Topic>();
+        private bool TopicExists(TopicName title)
+        {
+            return TopicList.ContainsKey(title);
+        }
+        #endregion
 
         #region Command Handlers
         public System.Collections.IEnumerable Handle(CreatePlanningCalendar c)
@@ -54,6 +65,9 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             if (c.Id != Id)
                 throw new InvalidOperationException("Cannot Append Topic - Wrong planning calendar");
 
+            if (TopicExists((TopicName)c.Title))
+                throw new InvalidOperationException("A topic by that name already exists on the calendar");
+
             // Generate event
             yield return new TopicAdded()
             {
@@ -83,6 +97,16 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                 NewDuration = c.NewDuration
             };
         }
+
+        public System.Collections.IEnumerable Handle(RenameTopic c)
+        {
+            yield return new TopicRenamed()
+            {
+                Id = c.Id,
+                Title = c.Title,
+                NewTitle = c.NewTitle
+            };
+        }
         #endregion
 
         #region Apply Events
@@ -102,6 +126,10 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
         public void Apply(TopicChanged e)
         {
             
+        }
+
+        public void Apply(TopicRenamed e)
+        {
         }
         #endregion
     }

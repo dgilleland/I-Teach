@@ -10,4 +10,9 @@ namespace I_Teach.CoursePlanningCalendar.Events
         public string NewDescription { get; set; }
         public int NewDuration { get; set; }
     }
+    public class TopicRenamed : AbstractEventWithId
+    {
+        public string Title { get; set; }
+        public string NewTitle { get; set; }
+    }
 }

@@ -20,6 +20,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         : Abstract_Story
         , ISubscribeTo<TopicAdded>
         , ISubscribeTo<TopicChanged>
+        , ISubscribeTo<TopicRenamed>
         , ISubscribeTo<TopicRemoved>
         , ISubscribeTo<TopicsReordered>
     {
@@ -61,6 +62,26 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .When(_ => ChangingTheTopic(title, description, duration))
                 .And(_=> ThenATopicChangedEventOccurs())
                 .And(_ => TheTopicExistsInTheCalendar(title, description, duration))
+                .BDDfy();
+        }
+
+        private TopicRenamed Actual_TopicRenamed_Event;
+        [Fact, AutoRollback]
+        [Trait("Context", "Acceptance Test")]
+        public void Rename_a_topic()
+        {
+            string title = "Lorem Ipsum";
+            string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique.";
+            int duration = 2;
+            this.Given(_ => GivenADraftCalendarHasBeenCreated())
+                .And(_ => AnAddTopicCommand(title, description, duration))
+                .And(_ => AddingTheTopic())
+                .When(_ => RenamingTheTopic(title, "New " + title))
+                .And(_ => ThenATopicRenamedEventOccurs())
+                .And(_ => TheTopicExistsInTheCalendar("New " + title, description, duration))
+                // TODO: The following is more descriptive & granular
+                //.And(_=>TheTopicDescriptionIs(description))
+                //.And(_=>TheTopicDurationIs(duration))
                 .BDDfy();
         }
 
@@ -131,6 +152,11 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         {
             Actual_TopicsReordered_Event = e;
         }
+
+        public void Handle(TopicRenamed e)
+        {
+            Actual_TopicRenamed_Event = e;
+        }
         #endregion
 
         #region Givens
@@ -160,6 +186,11 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             Command = OM.Commands.ChangeTopicCommand(AggregateRootId, title, description, duration);
             sut.Process(Command as ChangeTopic);
         }
+        private void RenamingTheTopic(string title, string newTitle)
+        {
+            Command = OM.Commands.RenameTopicCommand(AggregateRootId, title, newTitle);
+            sut.Process(Command as RenameTopic);
+        }
         private void RemovingTheTopic()
         {
             var appendCommand = Command as AppendTopic;
@@ -181,6 +212,10 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         private void ThenATopicChangedEventOccurs()
         {
             Assert.NotNull(Actual_TopicChanged_Event);
+        }
+        private void ThenATopicRenamedEventOccurs()
+        {
+            Assert.NotNull(Actual_TopicRenamed_Event);
         }
         private void ThenARemoveTopicEventOccurs()
         {

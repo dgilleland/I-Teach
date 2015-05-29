@@ -58,6 +58,8 @@
     <Compile Include="Commands\AddTopic.cs" />
     <Compile Include="Commands\CreatePlanningCalendar.cs" />
     <Compile Include="Commands\RemoveTopic.cs" />
+    <Compile Include="Domain\Topic.cs" />
+    <Compile Include="Domain\TopicName.cs" />
     <Compile Include="Events\AbstractEventWithId.cs" />
     <Compile Include="Events\TopicAdded.cs" />
     <Compile Include="Events\CalendarCreated.cs" />
@@ -82,9 +84,7 @@
       <Name>CommonUtilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

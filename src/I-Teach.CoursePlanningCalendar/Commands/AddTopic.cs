@@ -5,6 +5,18 @@ using System.Linq;
 
 namespace I_Teach.CoursePlanningCalendar.Commands
 {
+    public class RenameTopic : CommandWithAggregateRootId
+    {
+        public string Title { get; private set; }
+        public string NewTitle { get; private set; }
+
+        public RenameTopic(Guid aggregateRootId, string title, string newTitle)
+        {
+            Id = aggregateRootId;
+            Title = title;
+            NewTitle = newTitle;
+        }
+    }
     public class ChangeTopic : CommandWithAggregateRootId
     {
         public string Title { get; private set; }
