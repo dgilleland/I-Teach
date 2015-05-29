@@ -6,11 +6,13 @@ using CommonUtilities.Domain.Commands;
 using I_Teach.CoursePlanningCalendar.Specs.Helpers;
 using OM = I_Teach.CoursePlanningCalendar.Specs.Helpers.ObjectMother;
 using System.Collections;
+using Xunit;
 
 namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
 {
     public class Abstract_Story
     {
+        protected Exception ActualExeption;
         protected I_Teach.SchoolApplication sut;
         protected CommandWithAggregateRootId Command;
         protected Guid AggregateRootId;
@@ -25,6 +27,14 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             var createCommand = OM.Commands.CreatePlanningCalendar();
             AggregateRootId = createCommand.Id;
             sut.Process(createCommand);
+        }
+        protected void ThenTheExpectedExceptionIsGenerated()
+        {
+            Assert.IsType<InvalidOperationException>(ActualExeption);
+        }
+        protected void ExecuteActionThatThrows(Action action)
+        {
+            ActualExeption = TestHelpers.ExecuteActionThatThrows(action);
         }
     }
 }

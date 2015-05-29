@@ -9,6 +9,7 @@ using Ploeh.AutoFixture; // needed for the AutoFixture extension method .Create(
 using Xunit;
 using Xunit.Extensions;
 using OM = I_Teach.CoursePlanningCalendar.Specs.Helpers.ObjectMother;
+using I_Teach.CoursePlanningCalendar.Fetch.Model;
 
 namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
 {
@@ -38,11 +39,11 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique.";
             int duration = 2;
             this.Given(_=> GivenADraftCalendarHasBeenCreated())
-                .And(_=>GivenPreviousTopicsWereAppended(existingTopicCount))
-                .And(_=>GivenAnAddTopicCommand(title, description, duration))
-                .When(_=>WhenIAddTheTopic())
+                .And(_=>PreviousTopicsWereAppended(existingTopicCount))
+                .And(_=>AnAddTopicCommand(title, description, duration))
+                .When(_=>AddingTheTopic())
                 .Then(_=>ThenATopicAddedEventOccurs())
-                .And(_=>ThenTheTopicAppearsAsTheLastTopicOnTheCalendar(title, description, duration))
+                .And(_=>TheTopicAppearsAsTheLastTopicOnTheCalendar(title, description, duration))
                 .BDDfy();
         }
 
@@ -60,7 +61,15 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         [Trait("Context", "Acceptance Test")]
         public void Remove_a_topic()
         {
-            this.Given(_ => TBA())
+            string title = "Lorem Ipsum";
+            string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique.";
+            int duration = 2;
+            this.Given(_ => GivenADraftCalendarHasBeenCreated())
+                .And(_ => AnAddTopicCommand(title, description, duration))
+                .And(_ => AddingTheTopic())
+                .When(_ => RemovingTheTopic())
+                .Then(_=>ThenARemoveTopicEventOccurs())
+                .And(_=>TheTopicDoesNotAppearOnTheCalendar(title))
                 .BDDfy();
         }
 
@@ -74,6 +83,24 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         }
 
         public void TBA() { throw new NotImplementedException(); }
+
+        #region Alternate Scenarios
+        [Fact, AutoRollback]
+        [Trait("Context", "Acceptance Test")]
+        public void Duplicate_Topics()
+        {
+            string title = "Lorem Ipsum";
+            string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique.";
+            int duration = 2;
+            this.Given(_ => GivenADraftCalendarHasBeenCreated())
+                .And(_ => AnAddTopicCommand(title, description, duration))
+                .And(_ => AddingTheTopic())
+                .When(_=>AddingTheTopicWithExpectedException())
+                .Then(_=>ThenTheExpectedExceptionOccurs())
+                .BDDfy();
+        }
+
+        #endregion
         #endregion
 
         #region Event Subscribers
@@ -99,7 +126,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         #endregion
 
         #region Givens
-        private void GivenPreviousTopicsWereAppended(int existingTopicCount)
+        private void PreviousTopicsWereAppended(int existingTopicCount)
         {
             while (existingTopicCount > 0)
             {
@@ -109,26 +136,50 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             }
         }
 
-        private void GivenAnAddTopicCommand(string title, string description, int duration)
+        private void AnAddTopicCommand(string title, string description, int duration)
         {
             Command = OM.Commands.AppendTopicCommand(AggregateRootId, title, description, duration);
         }
         #endregion
 
         #region Whens
-        private void WhenIAddTheTopic()
+        private void AddingTheTopic()
         {
             sut.Process(Command as AppendTopic);
+        }
+        private void RemovingTheTopic()
+        {
+            var appendCommand = Command as AppendTopic;
+            Command = OM.Commands.RemoveTopicCommand(AggregateRootId, appendCommand.Title, appendCommand.Description, appendCommand.Duration);
+            sut.Process(Command as RemoveTopic);
+        }
+        private void AddingTheTopicWithExpectedException()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
         #region Thens
+        #region Event Checks
         private void ThenATopicAddedEventOccurs()
         {
             Assert.NotNull(Actual_TopicAdded_Event);
         }
+        private void ThenATopicChangedEventOccurs()
+        {
+            Assert.NotNull(Actual_TopicChanged_Event);
+        }
+        private void ThenARemoveTopicEventOccurs()
+        {
+            Assert.NotNull(Actual_TopicRemoved_Event);
+        }
+        private void ThenATopicsReorderedEventOccurs()
+        {
+            Assert.NotNull(Actual_TopicsReordered_Event);
+        }
+        #endregion
 
-        private void ThenTheTopicAppearsAsTheLastTopicOnTheCalendar(string title, string description, int duration)
+        private void TheTopicAppearsAsTheLastTopicOnTheCalendar(string title, string description, int duration)
         {
             var topics = sut.PlanningCalendarRepository.ListTopics(AggregateRootId);
             var actual = topics.LastOrDefault();
@@ -138,6 +189,21 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             Assert.Equal(title, actual.Title);
             Assert.Equal(description, actual.Description);
             Assert.Equal(duration, actual.Duration);
+        }
+
+        private void TheTopicDoesNotAppearOnTheCalendar(string title)
+        {
+            var topics = sut.PlanningCalendarRepository.ListTopics(AggregateRootId);
+
+            foreach (var item in topics)
+            {
+                Assert.NotEqual(title, item.Title);
+            }
+        }
+
+        private void ThenTheExpectedExceptionOccurs()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

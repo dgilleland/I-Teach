@@ -20,7 +20,6 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             SoThat = "So as to have a working copy of a planning calendar for editing")]
     public class Create_Draft_Calendar : Abstract_Story, ISubscribeTo<CalendarCreated>
     {
-        private Exception _result;
         private CalendarCreated ExpectedCalendarCreatedEvent;
         private CalendarCreated ActualCalendarCreatedEvent;
 
@@ -96,9 +95,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         }
         private void WhenICreateANewDraftCalendarWithExpectedException()
         {
-
-            Action action = () => WhenICreateANewDraftCalendar();
-            _result = TestHelpers.ExecuteActionThatThrows(action);
+            ExecuteActionThatThrows(() => WhenICreateANewDraftCalendar());
         }
         #endregion
 
@@ -128,10 +125,6 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             var expected = Command as CreatePlanningCalendar;
             Assert.Equal(expected.CourseName, calendar.CourseName);
             Assert.Equal(expected.CourseNumber, calendar.CourseNumber);
-        }
-        private void ThenTheExpectedExceptionIsGenerated()
-        {
-            Assert.IsType<InvalidOperationException>(_result);
         }
         #endregion
     }

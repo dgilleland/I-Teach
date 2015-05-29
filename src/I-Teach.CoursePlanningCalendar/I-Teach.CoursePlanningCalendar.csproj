@@ -57,6 +57,7 @@
     <Compile Include="Bus\CommandEventBus.cs" />
     <Compile Include="Commands\AddTopic.cs" />
     <Compile Include="Commands\CreatePlanningCalendar.cs" />
+    <Compile Include="Commands\RemoveTopic.cs" />
     <Compile Include="Events\AbstractEventWithId.cs" />
     <Compile Include="Events\TopicAdded.cs" />
     <Compile Include="Events\CalendarCreated.cs" />

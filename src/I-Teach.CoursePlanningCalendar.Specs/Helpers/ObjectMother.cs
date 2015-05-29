@@ -25,6 +25,10 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Helpers
             {
                 return new AppendTopic(aggregateRootId, title, description, duration);
             }
+            public static RemoveTopic RemoveTopicCommand(Guid aggregateRootId, string title, string description, int duration)
+            {
+                return new RemoveTopic(aggregateRootId, title, description, duration);
+            }
         }
 
         public static class Events

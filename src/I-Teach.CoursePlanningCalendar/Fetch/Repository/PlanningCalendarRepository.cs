@@ -12,6 +12,7 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
         : IPlanningCalendarRepository
         , ISubscribeTo<CalendarCreated>
         , ISubscribeTo<TopicAdded>
+        , ISubscribeTo<TopicRemoved>
     {
         #region Constructor
         public PlanningCalendarRepository()
@@ -74,6 +75,16 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
                     Duration = e.Duration
                 };
                 context.Topics.Add(topic);
+                context.SaveChanges();
+            }
+        }
+
+        public void Handle(TopicRemoved e)
+        {
+            using (var context = new ReadModelDataStore(About.ConnectionStringName))
+            {
+                var existing = context.Topics.Single(x => x.Title == e.Title && x.PlanningCalendarId == e.Id);
+                context.Topics.Remove(existing);
                 context.SaveChanges();
             }
         }
