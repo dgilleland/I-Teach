@@ -37,6 +37,10 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Helpers
             {
                 return new ChangeTopic(aggregateRootId, title, description, duration);
             }
+            public static MoveTopic MoveTopicCommand(Guid aggregateRootId, string title, int position)
+            {
+                return new MoveTopic(aggregateRootId, title, position);
+            }
         }
 
         public static class Events
