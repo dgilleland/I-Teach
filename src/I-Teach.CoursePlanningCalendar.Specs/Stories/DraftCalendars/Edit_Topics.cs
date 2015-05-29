@@ -104,7 +104,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .And(_ => AnAddTopicCommand(title, description, duration))
                 .And(_ => AddingTheTopic())
                 .When(_=>AddingTheTopicWithExpectedException())
-                .Then(_=>ThenTheExpectedExceptionOccurs())
+                .Then(_ => ThenTheExpectedExceptionIsGenerated<Exception>())
                 .BDDfy();
         }
 
@@ -168,7 +168,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         }
         private void AddingTheTopicWithExpectedException()
         {
-            throw new NotImplementedException();
+            ExecuteActionThatThrows(() => AddingTheTopic());
         }
         #endregion
 
@@ -224,11 +224,6 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             {
                 Assert.NotEqual(title, item.Title);
             }
-        }
-
-        private void ThenTheExpectedExceptionOccurs()
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

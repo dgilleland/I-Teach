@@ -61,7 +61,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             this.Given(_ => GivenADraftPlanningCalendarWithTheSameCourseNameAlreadyExists())
                 .And(_ => GivenACreatePlanningCalendarCommand())
                 .When(_=>WhenICreateANewDraftCalendarWithExpectedException())
-                .Then(_=>ThenTheExpectedExceptionIsGenerated())
+                .Then(_ => ThenTheExpectedExceptionIsGenerated<InvalidOperationException>())
                 .BDDfy();
         }
         // TODO: Reject_Creating_Draft_Calendar_With_Duplicate_Number

@@ -28,9 +28,9 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             AggregateRootId = createCommand.Id;
             sut.Process(createCommand);
         }
-        protected void ThenTheExpectedExceptionIsGenerated()
+        protected void ThenTheExpectedExceptionIsGenerated<T>() where T: Exception
         {
-            Assert.IsType<InvalidOperationException>(ActualExeption);
+            Assert.IsType<T>(ActualExeption);
         }
         protected void ExecuteActionThatThrows(Action action)
         {
