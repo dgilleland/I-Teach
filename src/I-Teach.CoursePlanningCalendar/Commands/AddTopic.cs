@@ -5,6 +5,21 @@ using System.Linq;
 
 namespace I_Teach.CoursePlanningCalendar.Commands
 {
+    public class ChangeTopic : CommandWithAggregateRootId
+    {
+        public string Title { get; private set; }
+        public string NewDescription { get; private set; }
+        public int NewDuration { get; private set; }
+
+        public ChangeTopic(Guid aggregateRootId, string title, string description, int duration)
+        {
+            // TODO: Complete member initialization
+            Id = aggregateRootId;
+            Title = title;
+            NewDescription = description;
+            NewDuration = duration;
+        }
+    }
     public class AppendTopic : CommandWithAggregateRootId
     {
         public string Title { get; private set; }

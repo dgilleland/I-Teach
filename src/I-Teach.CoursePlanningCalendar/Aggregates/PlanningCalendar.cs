@@ -18,6 +18,8 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             , IApplyEvent<TopicAdded>
         , IHandleCommand<RemoveTopic>
             , IApplyEvent<TopicRemoved>
+        , IHandleCommand<ChangeTopic>
+            , IApplyEvent<TopicChanged>
 
     {
         IPlanningCalendarRepository ReadModel = new PlanningCalendarRepository();
@@ -70,6 +72,17 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                 Title = c.Title
             };
         }
+
+        public System.Collections.IEnumerable Handle(ChangeTopic c)
+        {
+            yield return new TopicChanged()
+            {
+                Id = c.Id,
+                Title = c.Title,
+                NewDescription = c.NewDescription,
+                NewDuration = c.NewDuration
+            };
+        }
         #endregion
 
         #region Apply Events
@@ -84,6 +97,11 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
 
         public void Apply(TopicRemoved e)
         {
+        }
+
+        public void Apply(TopicChanged e)
+        {
+            
         }
         #endregion
     }

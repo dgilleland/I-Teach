@@ -52,7 +52,15 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         [Trait("Context", "Acceptance Test")]
         public void Change_a_topic()
         {
-            this.Given(_ => TBA())
+            string title = "Lorem Ipsum";
+            string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique.";
+            int duration = 2;
+            this.Given(_ => GivenADraftCalendarHasBeenCreated())
+                .And(_ => AnAddTopicCommand(title, description, duration))
+                .And(_ => AddingTheTopic())
+                .When(_ => ChangingTheTopic(title, description, duration))
+                .And(_=> ThenATopicChangedEventOccurs())
+                .And(_ => TheTopicExistsInTheCalendar(title, description, duration))
                 .BDDfy();
         }
 
@@ -87,7 +95,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         #region Alternate Scenarios
         [Fact, AutoRollback]
         [Trait("Context", "Acceptance Test")]
-        public void Duplicate_Topics()
+        public void Reject_Duplicate_Topics()
         {
             string title = "Lorem Ipsum";
             string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique.";
@@ -147,6 +155,11 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         {
             sut.Process(Command as AppendTopic);
         }
+        private void ChangingTheTopic(string title, string description, int duration)
+        {
+            Command = OM.Commands.ChangeTopicCommand(AggregateRootId, title, description, duration);
+            sut.Process(Command as ChangeTopic);
+        }
         private void RemovingTheTopic()
         {
             var appendCommand = Command as AppendTopic;
@@ -178,6 +191,18 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             Assert.NotNull(Actual_TopicsReordered_Event);
         }
         #endregion
+
+        private void TheTopicExistsInTheCalendar(string title, string description, int duration)
+        {
+            var topics = sut.PlanningCalendarRepository.ListTopics(AggregateRootId);
+
+            foreach (var item in topics)
+            {
+                Assert.Equal(title, item.Title);
+                Assert.Equal(description, item.Description);
+                Assert.Equal(duration, item.Duration);
+            }
+        }
 
         private void TheTopicAppearsAsTheLastTopicOnTheCalendar(string title, string description, int duration)
         {
