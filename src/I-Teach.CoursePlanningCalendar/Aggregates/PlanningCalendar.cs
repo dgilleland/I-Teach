@@ -28,6 +28,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
         IPlanningCalendarRepository ReadModel = new PlanningCalendarRepository();
 
         #region Domain Behaviour
+        private List<object> Sequence = new List<object>();
         private Dictionary<TopicName, Topic> TopicList = new Dictionary<TopicName, Topic>();
         private bool TopicExists(TopicName title)
         {
@@ -117,6 +118,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
 
         public void Apply(TopicAdded e)
         {
+
             TopicList.Add((TopicName)e.Title, new Topic());
         }
 

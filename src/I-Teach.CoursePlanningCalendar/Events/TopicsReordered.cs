@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace I_Teach.CoursePlanningCalendar.Events
 {
-    public class TopicsReordered : AbstractEventWithId
+    public class TopicMoved : AbstractEventWithId
     {
     }
 }

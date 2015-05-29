@@ -22,7 +22,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         , ISubscribeTo<TopicChanged>
         , ISubscribeTo<TopicRenamed>
         , ISubscribeTo<TopicRemoved>
-        , ISubscribeTo<TopicsReordered>
+        , ISubscribeTo<TopicMoved>
     {
         public Edit_Topics()
         {
@@ -102,12 +102,17 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .BDDfy();
         }
 
-        private TopicsReordered Actual_TopicsReordered_Event;
+        private TopicMoved Actual_TopicMoved_Event;
         [Fact, AutoRollback]
         [Trait("Context", "Acceptance Test")]
         public void Reorder_topics()
         {
-            this.Given(_ => TBA())
+            this.Given(_ => GivenADraftCalendarHasBeenCreated())
+                .And(_=>PreviousTopicsWereAppended(5))
+                .And(_=>AddingTheTopic())
+                .When(_=>MovingTheTopicToPosition(3))
+                .Then(_=>ThenATopicMovedEventOccurs())
+                .And(_=>TheTopicAppearsInPosition(3))
                 .BDDfy();
         }
 
@@ -148,9 +153,9 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             Actual_TopicRemoved_Event = e;
         }
 
-        public void Handle(TopicsReordered e)
+        public void Handle(TopicMoved e)
         {
-            Actual_TopicsReordered_Event = e;
+            Actual_TopicMoved_Event = e;
         }
 
         public void Handle(TopicRenamed e)
@@ -197,6 +202,10 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             Command = OM.Commands.RemoveTopicCommand(AggregateRootId, appendCommand.Title, appendCommand.Description, appendCommand.Duration);
             sut.Process(Command as RemoveTopic);
         }
+        private void MovingTheTopicToPosition(int position)
+        {
+            throw new NotImplementedException();
+        }
         private void AddingTheTopicWithExpectedException()
         {
             ExecuteActionThatThrows(() => AddingTheTopic());
@@ -221,9 +230,9 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         {
             Assert.NotNull(Actual_TopicRemoved_Event);
         }
-        private void ThenATopicsReorderedEventOccurs()
+        private void ThenATopicMovedEventOccurs()
         {
-            Assert.NotNull(Actual_TopicsReordered_Event);
+            Assert.NotNull(Actual_TopicMoved_Event);
         }
         #endregion
 
@@ -237,6 +246,11 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 Assert.Equal(description, item.Description);
                 Assert.Equal(duration, item.Duration);
             }
+        }
+
+        private void TheTopicAppearsInPosition(int position)
+        {
+            throw new NotImplementedException();
         }
 
         private void TheTopicAppearsAsTheLastTopicOnTheCalendar(string title, string description, int duration)
