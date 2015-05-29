@@ -125,7 +125,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .And(_ => AnAddTopicCommand(title, description, duration))
                 .And(_ => AddingTheTopic())
                 .When(_=>AddingTheTopicWithExpectedException())
-                .Then(_ => ThenTheExpectedExceptionIsGenerated<Exception>())
+                .Then(_ => ThenTheExpectedExceptionIsGenerated<InvalidOperationException>())
                 .BDDfy();
         }
 

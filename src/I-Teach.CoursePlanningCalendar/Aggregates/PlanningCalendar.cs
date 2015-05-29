@@ -117,6 +117,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
 
         public void Apply(TopicAdded e)
         {
+            TopicList.Add((TopicName)e.Title, new Topic());
         }
 
         public void Apply(TopicRemoved e)
