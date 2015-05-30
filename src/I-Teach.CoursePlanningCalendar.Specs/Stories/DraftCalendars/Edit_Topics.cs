@@ -121,6 +121,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .When(_ => MovingTheTopicToPosition(title, 3))
                 .Then(_=>ThenATopicMovedEventOccurs())
                 .And(_ => ThenASequenceChangedEventOccurs())
+                .And(_ => TheSequenceChangedEventShowsTheTopicInTheRightPosition(title, 3))
                 .And(_ => TheTopicAppearsInPosition(title, 3))
                 .BDDfy();
         }
@@ -258,6 +259,10 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         private void TheSequenceOfTopicsIsCorrect(string[] sequence)
         {
             Assert.Equal(sequence, Actual_SequenceChanged_Event.Sequence);
+        }
+        private void TheSequenceChangedEventShowsTheTopicInTheRightPosition(string title, int position)
+        {
+            Assert.Equal(title, Actual_SequenceChanged_Event.Sequence[position]);
         }
         #endregion
 

@@ -51,7 +51,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
         private int GetIndexByName(string name)
         {
             int index = 0;
-            while (((CalendarItem)CalendarItems[index]).Name == name)
+            while (((CalendarItem)CalendarItems[index]).Name != name)
                 index++;
             return index;
         }
@@ -194,12 +194,21 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
 
         public IEnumerable Handle(MoveTopic c)
         {
-            yield return new TopicMoved()
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Position = c.NewPosition
-            };
+            // 0) Validate that the command can be processed
+
+            // 1) Create the event object
+            TopicMoved newTopicMoved = new TopicMoved()
+                        {
+                            Id = c.Id,
+                            Title = c.Title,
+                            Position = c.NewPosition
+                        };
+
+            // 2) Process the command by trying to do the event
+            TryToDo<TopicMoved>(Apply, newTopicMoved);
+
+            // 3) Return the event (and any ancillary events)
+            yield return newTopicMoved;
             yield return new SequenceChanged()
             {
                 Id = c.Id,
