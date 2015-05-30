@@ -9,4 +9,8 @@ namespace I_Teach.CoursePlanningCalendar.Events
         public string Title { get; set; }
         public int Position { get; set; }
     }
+    public class SequenceChanged : AbstractEventWithId
+    {
+        public string[] Sequence { get; set; }
+    }
 }

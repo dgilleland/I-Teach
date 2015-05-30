@@ -5,10 +5,11 @@ using I_Teach.CoursePlanningCalendar.Events;
 using I_Teach.CoursePlanningCalendar.Fetch;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Collections;
 namespace I_Teach.CoursePlanningCalendar.Aggregates
 {
     class PlanningCalendar
@@ -17,6 +18,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             , IApplyEvent<CalendarCreated>
         , IHandleCommand<AppendTopic>
             , IApplyEvent<TopicAdded>
+            , IApplyEvent<SequenceChanged>
         , IHandleCommand<RemoveTopic>
             , IApplyEvent<TopicRemoved>
         , IHandleCommand<ChangeTopic>
@@ -30,16 +32,70 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
         IPlanningCalendarRepository ReadModel = new PlanningCalendarRepository();
 
         #region Domain Behaviour
-        private List<object> Sequence = new List<object>();
-        private Dictionary<TopicName, Topic> TopicList = new Dictionary<TopicName, Topic>();
-        private bool TopicExists(TopicName title)
+        private OrderedDictionary CalendarItems; // TODO: Probably can find/make a better option than an ordered dictionary. Ideally, I would like an OrderedDictionary<T>...
+
+        private string[] GetCalendarItemsSequence()
         {
-            return TopicList.ContainsKey(title);
+            return CalendarItems.Keys.Cast<string>().ToArray();
+        }
+        private bool TopicExists(string name)
+        {
+            return CalendarItems[name] != null;
+        }
+
+        private void AppendCalendarItem(Topic item)
+        {
+            CalendarItems.Add(item.Name, item);
+        }
+
+        private int GetIndexByName(string name)
+        {
+            int index = 0;
+            while (((CalendarItem)CalendarItems[index]).Name == name)
+                index++;
+            return index;
+        }
+
+        private void ChangeCalendarItem(string keyName, string newDescription, int newDuration)
+        {
+            int index = GetIndexByName(keyName);
+            RemoveCalendarItem(keyName);
+            CalendarItems.Insert(index, keyName, new Topic((TopicName)keyName, newDescription, newDuration));
+        }
+        private void RemoveCalendarItem(string title)
+        {
+            CalendarItems.Remove(title);
+        }
+        private void RenameCalendarItem(string title, string newTitle)
+        {
+            var index = GetIndexByName(title);
+            var item = CalendarItems[title] as Topic;
+            CalendarItems.Insert(index, newTitle, new Topic((TopicName)newTitle, item.Description, item.Duration));
+        }
+        private void RePositionTopic(string title, int position)
+        {
+            // TODO: I know the logic here is a bit flakey, but I'll address it when I run into problems.....
+            var item = CalendarItems[title] as Topic;
+            CalendarItems.RemoveAt(GetIndexByName(title));
+            CalendarItems.Insert(position, title, item); 
         }
         #endregion
 
+        // TODO: Consider moving this into the base class.....
+        private void TryToDo<T>(Action<T> eventProcessor, T eventObj)
+        {
+            try 
+	        {
+                eventProcessor(eventObj);
+	        }
+	        catch (Exception e)
+	        {
+                throw new InvalidOperationException("Unable to process the command - rhe resulting event cannot be applied: " + e.Message, e);
+	        }
+        }
+
         #region Command Handlers
-        public System.Collections.IEnumerable Handle(CreatePlanningCalendar c)
+        public IEnumerable Handle(CreatePlanningCalendar c)
         {
             if (c.Id == Guid.Empty)
                 throw new InvalidOperationException("Draft Planning Calendar already exists");
@@ -53,44 +109,64 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             }
 
             // Generate event
-            yield return new CalendarCreated()
-                {
-                    Id = c.Id,
-                    CourseName = c.CourseName,
-                    CourseNumber = c.CourseNumber
-                };
+            CalendarCreated newCalendarCreated = new CalendarCreated()
+                            {
+                                Id = c.Id,
+                                CourseName = c.CourseName,
+                                CourseNumber = c.CourseNumber
+                            };
+            // Process the event
+            TryToDo<CalendarCreated>(Apply, newCalendarCreated);
+
+            // Return applied event for other subscribers
+            yield return newCalendarCreated;
         }
 
-        public System.Collections.IEnumerable Handle(AppendTopic c)
+        public IEnumerable Handle(AppendTopic c)
         {
             if (c.Id == Guid.Empty)
                 throw new InvalidOperationException("Draft Planning Calendar has not been loaded");
             if (c.Id != Id)
                 throw new InvalidOperationException("Cannot Append Topic - Wrong planning calendar");
 
-            if (TopicExists((TopicName)c.Title))
-                throw new InvalidOperationException("A topic by that name already exists on the calendar");
+            if (TopicExists(c.Title))
+                throw new InvalidOperationException("Cannot Append Topic - An item by that name already exists on the calendar");
 
             // Generate event
-            yield return new TopicAdded()
+            TopicAdded newTopicAdded = new TopicAdded()
+                        {
+                            Id = c.Id,
+                            Title = c.Title,
+                            Description = c.Description,
+                            Duration = c.Duration
+                        };
+            // Process the event
+            TryToDo<TopicAdded>(Apply, newTopicAdded);
+
+            // Return applied event for other subscribers
+            yield return newTopicAdded;
+            yield return new SequenceChanged()
             {
                 Id = c.Id,
-                Title = c.Title,
-                Description = c.Description,
-                Duration = c.Duration
+                Sequence = GetCalendarItemsSequence()
             };
         }
 
-        public System.Collections.IEnumerable Handle(RemoveTopic c)
+        public IEnumerable Handle(RemoveTopic c)
         {
             yield return new TopicRemoved()
             {
                 Id = c.Id,
                 Title = c.Title
             };
+            yield return new SequenceChanged()
+            {
+                Id = c.Id,
+                Sequence = GetCalendarItemsSequence()
+            };
         }
 
-        public System.Collections.IEnumerable Handle(ChangeTopic c)
+        public IEnumerable Handle(ChangeTopic c)
         {
             yield return new TopicChanged()
             {
@@ -101,7 +177,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             };
         }
 
-        public System.Collections.IEnumerable Handle(RenameTopic c)
+        public IEnumerable Handle(RenameTopic c)
         {
             yield return new TopicRenamed()
             {
@@ -109,9 +185,14 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                 Title = c.Title,
                 NewTitle = c.NewTitle
             };
+            yield return new SequenceChanged()
+            {
+                Id = c.Id,
+                Sequence = GetCalendarItemsSequence()
+            };
         }
 
-        public System.Collections.IEnumerable Handle(MoveTopic c)
+        public IEnumerable Handle(MoveTopic c)
         {
             yield return new TopicMoved()
             {
@@ -119,36 +200,48 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                 Title = c.Title,
                 Position = c.NewPosition
             };
+            yield return new SequenceChanged()
+            {
+                Id = c.Id,
+                Sequence = GetCalendarItemsSequence()
+            };
         }
         #endregion
 
         #region Apply Events
         public void Apply(CalendarCreated e)
         {
-
+            CalendarItems = new OrderedDictionary();
         }
 
         public void Apply(TopicAdded e)
         {
-
-            TopicList.Add((TopicName)e.Title, new Topic());
+            AppendCalendarItem(new Topic((TopicName) e.Title, e.Description, e.Duration));
         }
 
         public void Apply(TopicRemoved e)
         {
+            RemoveCalendarItem(e.Title);
         }
 
         public void Apply(TopicChanged e)
         {
-            
+            ChangeCalendarItem(e.Title, e.NewDescription, e.NewDuration);
         }
 
         public void Apply(TopicRenamed e)
         {
+            RenameCalendarItem(e.Title, e.NewTitle);
         }
 
         public void Apply(TopicMoved e)
         {
+            RePositionTopic(e.Title, e.Position);
+        }
+
+        public void Apply(SequenceChanged e)
+        {
+            // no-op...
         }
         #endregion
     }

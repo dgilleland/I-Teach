@@ -23,6 +23,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         , ISubscribeTo<TopicRenamed>
         , ISubscribeTo<TopicRemoved>
         , ISubscribeTo<TopicMoved>
+        , ISubscribeTo<SequenceChanged>
     {
         public Edit_Topics()
         {
@@ -44,7 +45,8 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .And(_=>AnAddTopicCommand(title, description, duration))
                 .When(_=>AddingTheTopic())
                 .Then(_=>ThenATopicAddedEventOccurs())
-                .And(_=>TheTopicAppearsAsTheLastTopicOnTheCalendar(title, description, duration))
+                .And(_ => ThenASequenceChangedEventOccurs())
+                .And(_ => TheTopicAppearsAsTheLastTopicOnTheCalendar(title, description, duration))
                 .BDDfy();
         }
 
@@ -78,6 +80,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .And(_ => AddingTheTopic())
                 .When(_ => RenamingTheTopic(title, "New " + title))
                 .And(_ => ThenATopicRenamedEventOccurs())
+                .And(_ => ThenASequenceChangedEventOccurs())
                 .And(_ => TheTopicExistsInTheCalendar("New " + title, description, duration))
                 // TODO: The following is more descriptive & granular
                 //.And(_=>TheTopicDescriptionIs(description))
@@ -98,7 +101,8 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .And(_ => AddingTheTopic())
                 .When(_ => RemovingTheTopic())
                 .Then(_=>ThenARemoveTopicEventOccurs())
-                .And(_=>TheTopicDoesNotAppearOnTheCalendar(title))
+                .And(_ => ThenASequenceChangedEventOccurs())
+                .And(_ => TheTopicDoesNotAppearOnTheCalendar(title))
                 .BDDfy();
         }
 
@@ -116,7 +120,21 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .And(_=>AddingTheTopic())
                 .When(_ => MovingTheTopicToPosition(title, 3))
                 .Then(_=>ThenATopicMovedEventOccurs())
-                .And(_=>TheTopicAppearsInPosition(title, 3))
+                .And(_ => ThenASequenceChangedEventOccurs())
+                .And(_ => TheTopicAppearsInPosition(title, 3))
+                .BDDfy();
+        }
+
+        private SequenceChanged Actual_SequenceChanged_Event;
+        [Fact, AutoRollback]
+        [Trait("Context", "Acceptance Test")]
+        public void AddASetOfTopics()
+        {
+            string[] sequence = { "First", "Second", "Third", "Fourth", "Fifth" };
+            this.Given(_ => GivenADraftCalendarHasBeenCreated())
+                .When(_ => AddingASetOfTopics(sequence))
+                .Then(_ => ThenASequenceChangedEventOccurs())
+                .And(_ => TheSequenceOfTopicsIsCorrect(sequence))
                 .BDDfy();
         }
 
@@ -162,6 +180,11 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         private void AddingTheTopic()
         {
             sut.Process(Command as AppendTopic);
+        }
+        private void AddingASetOfTopics(string[] sequence)
+        {
+            foreach(var title in sequence)
+                sut.Process(OM.Commands.AppendTopicCommand(AggregateRootId, title));
         }
         private void ChangingTheTopic(string title, string description, int duration)
         {
@@ -232,6 +255,10 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 Assert.NotEqual(title, item.Title);
             }
         }
+        private void TheSequenceOfTopicsIsCorrect(string[] sequence)
+        {
+            Assert.Equal(sequence, Actual_SequenceChanged_Event.Sequence);
+        }
         #endregion
 
 
@@ -255,6 +282,10 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         private void ThenATopicMovedEventOccurs()
         {
             Assert.NotNull(Actual_TopicMoved_Event);
+        }
+        private void ThenASequenceChangedEventOccurs()
+        {
+            Assert.NotNull(Actual_SequenceChanged_Event);
         }
         #endregion
 
@@ -283,6 +314,11 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         public void Handle(TopicRenamed e)
         {
             Actual_TopicRenamed_Event = e;
+        }
+
+        public void Handle(SequenceChanged e)
+        {
+            Actual_SequenceChanged_Event = e;
         }
         #endregion
     }
