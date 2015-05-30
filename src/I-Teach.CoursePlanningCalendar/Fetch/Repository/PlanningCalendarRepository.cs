@@ -14,6 +14,7 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
         , ISubscribeTo<TopicAdded>
         , ISubscribeTo<TopicRemoved>
         , ISubscribeTo<TopicRenamed>
+        , ISubscribeTo<SequenceChanged>
     {
         #region Constructor
         public PlanningCalendarRepository()
@@ -38,12 +39,13 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
             }
         }
 
+        // TODO: I forsee a need to re-do this to show all calendar items...
         public IEnumerable<Topic> ListTopics(Guid draftPlanningCalendarId)
         {
             using (var context = new ReadModelDataStore(About.ConnectionStringName))
             {
                 var topics = context.Topics.Where(x => x.PlanningCalendarId == draftPlanningCalendarId);
-                return topics.ToList();
+                return topics.ToList().OrderBy(x=>x.Sequence);
             }
         }
         #endregion
@@ -97,6 +99,24 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
                 var topicToRename = context.Topics.Single(x => x.Title == e.Title && x.PlanningCalendarId == e.Id);
                 topicToRename.Title = e.NewTitle;
                 context.Entry(topicToRename).Property(x => x.Title).IsModified = true;
+                context.SaveChanges();
+            }
+        }
+
+        public void Handle(SequenceChanged e)
+        {
+            using (var context = new ReadModelDataStore(About.ConnectionStringName))
+            {
+                for (int index = 0; index < e.Sequence.Length; index++)
+                {
+                    string title = e.Sequence[index];
+                    var topicToResequence = context.Topics.SingleOrDefault(x => x.Title == title && x.PlanningCalendarId == e.Id);
+                    if (topicToResequence != null)
+                    {
+                        topicToResequence.Sequence = index;
+                        context.Entry(topicToResequence).Property(x => x.Sequence).IsModified = true;
+                    }
+                }
                 context.SaveChanges();
             }
         }

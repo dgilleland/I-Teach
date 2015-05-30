@@ -21,5 +21,6 @@ namespace I_Teach.CoursePlanningCalendar.Fetch.Model
         public Guid PlanningCalendarId { get; set; }
         public string Description { get; set; }
         public int Duration { get; set; }
+        public int Sequence { get; set; }
     }
 }

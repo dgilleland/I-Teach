@@ -4,5 +4,6 @@
     [Title] NVARCHAR(50) NOT NULL, 
     [PlanningCalendarId] UNIQUEIDENTIFIER NOT NULL, 
     [Description] NVARCHAR(MAX) NULL, 
-    [Duration] INT NOT NULL
+    [Duration] INT NOT NULL, 
+    [Sequence] INT NOT NULL
 )
