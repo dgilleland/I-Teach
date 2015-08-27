@@ -1,0 +1,104 @@
+﻿@using System.Web.WebPages;
+
+@{
+    Layout = "_Layout.cshtml";
+    string json = "[]";
+
+    var app = I_Teach.CoursePlanningCalendar.Web.AppProxy.Instance();
+}
+
+<script>
+    angular.module('anApp', ['ui.bootstrap']);
+</script>
+<div class="container" ng-app="anApp">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Planning Calendar Commands</h1>
+            <tabset>
+                <tab heading="Create Draft Calendar">
+                    <form method="post">
+                        <select name="course" class="form-control">
+                            <option value="PROG1005">Introduction to Programming</option>
+                            <option value="PROG1009">Database Fundamentals</option>
+                            <option selected value="PROG2045">Domain Driven Design</option>
+                            <option value="PROG2122">Implementing Domain Driven Design</option>
+                        </select>
+                        <select name="term" class="form-control">
+                            <option value="2015-Sep">September 2015</option>
+                            <option value="2016-Jan">January 2016</option>
+                            <option value="2016-May">May 2016</option>
+                            <option selected value="2016-Sep">September 2016</option>
+                        </select>
+                        <button type="submit" class="btn btn-default" name="createDraftCalendar">Create Draft Calendar</button>
+                        @if (IsPost && !string.IsNullOrEmpty(Request["createDraftCalendar"]))
+                        {
+
+                        }
+                    </form>
+                </tab>
+
+                <tab heading="Edit Topics">
+                    <form method="post">
+                        <button type="submit" class="btn btn-default" name=""></button>
+                        @if (IsPost && !string.IsNullOrEmpty(Request[""]))
+                        {
+
+                        }
+                    </form>
+                </tab>
+
+                <tab heading="Edit Evaluations">
+                    <form method="post">
+                        <button type="submit" class="btn btn-default" name=""></button>
+                        @if (IsPost && !string.IsNullOrEmpty(Request[""]))
+                        {
+
+                        }
+                    </form>
+                </tab>
+
+                <tab heading="Include Work Periods">
+                    <form method="post">
+                        <button type="submit" class="btn btn-default" name=""></button>
+                        @if (IsPost && !string.IsNullOrEmpty(Request[""]))
+                        {
+
+                        }
+                    </form>
+                </tab>
+
+                <tab heading="Days Off">
+                    <form method="post">
+                        <button type="submit" class="btn btn-default" name=""></button>
+                        @if (IsPost && !string.IsNullOrEmpty(Request[""]))
+                        {
+
+                        }
+                    </form>
+                </tab>
+            </tabset>
+        </div>
+
+        <div class="col-md-5">
+            <h2>Planning Calendars</h2>
+            @{
+                // List all the planning calendars.
+                var calendars = app.ListCalendars();
+                if (calendars.Count() > 0)
+                {
+                    <ul>
+                        <li></li>
+                    </ul>
+                }
+                else
+                {
+                    <div>There are no planning calendars in the system.</div>
+                }
+            }
+        </div>
+
+        <div class="col-md-7">
+            <h2>Selected Calendar</h2>
+        </div>
+    </div>
+</div>
