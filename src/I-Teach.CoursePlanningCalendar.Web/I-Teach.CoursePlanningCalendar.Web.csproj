@@ -103,7 +103,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdHoc\AdHocContext.cs" />
+    <Compile Include="AdHoc\Course.cs" />
     <Compile Include="AppProxy.cs" />
+    <Compile Include="Migrations\201508281530518_InitialCreate.cs" />
+    <Compile Include="Migrations\201508281530518_InitialCreate.Designer.cs">
+      <DependentUpon>201508281530518_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +122,11 @@
       <Project>{c0216c29-422c-4096-b9d1-5022fb778844}</Project>
       <Name>I-Teach</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508281530518_InitialCreate.resx">
+      <DependentUpon>201508281530518_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
