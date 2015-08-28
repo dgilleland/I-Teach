@@ -63,6 +63,7 @@
     <Compile Include="Domain\Topic.cs" />
     <Compile Include="Domain\TopicName.cs" />
     <Compile Include="Events\AbstractEventWithId.cs" />
+    <Compile Include="Events\PlanningCalendarScheduled.cs" />
     <Compile Include="Events\TopicAdded.cs" />
     <Compile Include="Events\CalendarCreated.cs" />
     <Compile Include="Events\Model\Aggregates.cs" />

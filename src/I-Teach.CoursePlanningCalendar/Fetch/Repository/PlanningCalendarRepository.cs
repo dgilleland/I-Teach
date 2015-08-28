@@ -11,6 +11,7 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
     internal class PlanningCalendarRepository
         : IPlanningCalendarRepository
         , ISubscribeTo<CalendarCreated>
+        , ISubscribeTo<PlanningCalendarScheduled>
         , ISubscribeTo<TopicAdded>
         , ISubscribeTo<TopicRemoved>
         , ISubscribeTo<TopicRenamed>
@@ -62,6 +63,20 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
                     CourseNumber = e.CourseNumber
                 };
                 context.DraftPlanningCalendars.Add(calendar);
+                context.SaveChanges();
+            }
+        }
+
+        public void Handle(PlanningCalendarScheduled e)
+        {
+            using (var context = new ReadModelDataStore(About.ConnectionStringName))
+            {
+                var calendar = context.DraftPlanningCalendars.Find(e.CalendarId);
+                calendar.Year = e.Year;
+                calendar.Month = e.Month;
+
+                context.Entry(calendar).Property(p => p.Year).IsModified = true;
+                context.Entry(calendar).Property(p => p.Month).IsModified = true;
                 context.SaveChanges();
             }
         }

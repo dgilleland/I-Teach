@@ -16,6 +16,8 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
         : Aggregate
         , IHandleCommand<CreatePlanningCalendar>
             , IApplyEvent<CalendarCreated>
+        , IHandleCommand<SchedulePlanningCalendar>
+            , IApplyEvent<PlanningCalendarScheduled>
         , IHandleCommand<AppendTopic>
             , IApplyEvent<TopicAdded>
             , IApplyEvent<SequenceChanged>
@@ -120,6 +122,22 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
 
             // Return applied event for other subscribers
             yield return newCalendarCreated;
+        }
+
+        public IEnumerable Handle(SchedulePlanningCalendar c)
+        {
+            // Generate event
+            PlanningCalendarScheduled theEvent = new PlanningCalendarScheduled()
+            {
+                CalendarId = c.Id,
+                Year = c.Year,
+                Month = c.Term
+            };
+            // Process the event
+
+
+            // Return the event for other subscribers
+            yield return theEvent;
         }
 
         public IEnumerable Handle(AppendTopic c)
@@ -251,6 +269,11 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
         public void Apply(SequenceChanged e)
         {
             // no-op...
+        }
+
+        public void Apply(PlanningCalendarScheduled e)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
