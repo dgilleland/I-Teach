@@ -23,8 +23,8 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             , IApplyEvent<SequenceChanged>
         , IHandleCommand<RemoveTopic>
             , IApplyEvent<TopicRemoved>
-        , IHandleCommand<ChangeTopic>
-            , IApplyEvent<TopicChanged>
+        , IHandleCommand<ReplaceTopic>
+            , IApplyEvent<ReplaceTopic>
         , IHandleCommand<RenameTopic>
             , IApplyEvent<TopicRenamed>
         , IHandleCommand<MoveTopic>
@@ -186,14 +186,15 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             };
         }
 
-        public IEnumerable Handle(ChangeTopic c)
+        public IEnumerable Handle(ReplaceTopic c)
         {
-            yield return new TopicChanged()
+            yield return new TopicReplaced()
             {
                 Id = c.Id,
                 Title = c.Title,
                 NewDescription = c.NewDescription,
-                NewDuration = c.NewDuration
+                NewDuration = c.NewDuration,
+                Sequence = c.Sequence
             };
         }
 
@@ -253,7 +254,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             RemoveCalendarItem(e.Title);
         }
 
-        public void Apply(TopicChanged e)
+        public void Apply(ReplaceTopic e)
         {
             ChangeCalendarItem(e.Title, e.NewDescription, e.NewDuration);
         }

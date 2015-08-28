@@ -19,7 +19,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
     public class Edit_Topics
         : Abstract_Story
         , ISubscribeTo<TopicAdded>
-        , ISubscribeTo<TopicChanged>
+        , ISubscribeTo<ReplaceTopic>
         , ISubscribeTo<TopicRenamed>
         , ISubscribeTo<TopicRemoved>
         , ISubscribeTo<TopicMoved>
@@ -50,7 +50,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .BDDfy();
         }
 
-        private TopicChanged Actual_TopicChanged_Event;
+        private ReplaceTopic Actual_TopicChanged_Event;
         [Fact, AutoRollback]
         [Trait("Context", "Acceptance Test")]
         public void Change_a_topic()
@@ -190,7 +190,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         private void ChangingTheTopic(string title, string description, int duration)
         {
             Command = OM.Commands.ChangeTopicCommand(AggregateRootId, title, description, duration);
-            sut.Process(Command as ChangeTopic);
+            sut.Process(Command as ReplaceTopic);
         }
         private void RenamingTheTopic(string title, string newTitle)
         {
@@ -301,7 +301,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             Actual_TopicAdded_Event = e;
         }
 
-        public void Handle(TopicChanged e)
+        public void Handle(ReplaceTopic e)
         {
             Actual_TopicChanged_Event = e;
         }

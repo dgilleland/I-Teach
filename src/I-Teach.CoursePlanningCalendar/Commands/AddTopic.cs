@@ -17,6 +17,7 @@ namespace I_Teach.CoursePlanningCalendar.Commands
             NewPosition = newPosition;
         }
     }
+    [Obsolete("Phase out in favor or ReplaceTopic")]
     public class RenameTopic : CommandWithAggregateRootId
     {
         public string Title { get; private set; }
@@ -29,13 +30,14 @@ namespace I_Teach.CoursePlanningCalendar.Commands
             NewTitle = newTitle;
         }
     }
-    public class ChangeTopic : CommandWithAggregateRootId
+    public class ReplaceTopic : CommandWithAggregateRootId
     {
         public string Title { get; private set; }
         public string NewDescription { get; private set; }
         public int NewDuration { get; private set; }
+        public int Sequence { get; set; }
 
-        public ChangeTopic(Guid aggregateRootId, string title, string description, int duration)
+        public ReplaceTopic(Guid aggregateRootId, string title, string description, int duration, int sequence)
         {
             // TODO: Complete member initialization
             Id = aggregateRootId;

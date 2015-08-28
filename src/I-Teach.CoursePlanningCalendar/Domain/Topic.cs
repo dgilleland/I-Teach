@@ -15,6 +15,5 @@ namespace I_Teach.CoursePlanningCalendar.Domain
             Description = description;
             Duration = duration;
         }
-
     }
 }

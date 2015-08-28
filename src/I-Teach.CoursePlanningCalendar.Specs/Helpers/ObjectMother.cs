@@ -33,9 +33,9 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Helpers
             {
                 return new RenameTopic(aggregateRootId, title, newTitle);
             }
-            public static ChangeTopic ChangeTopicCommand(Guid aggregateRootId, string title, string description, int duration)
+            public static ReplaceTopic ChangeTopicCommand(Guid aggregateRootId, string title, string description, int duration)
             {
-                return new ChangeTopic(aggregateRootId, title, description, duration);
+                return new ReplaceTopic(aggregateRootId, title, description, duration, 0);
             }
             public static MoveTopic MoveTopicCommand(Guid aggregateRootId, string title, int position)
             {
