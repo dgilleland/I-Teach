@@ -114,6 +114,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonUtilities\CommonUtilities.csproj">
+      <Project>{5776ab50-7e95-45b3-a7b8-6ad23ecd0e5d}</Project>
+      <Name>CommonUtilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\I-Teach.CoursePlanningCalendar\I-Teach.CoursePlanningCalendar.csproj">
       <Project>{a3f60323-8dc9-4a53-975a-7b7f3a5f46e0}</Project>
       <Name>I-Teach.CoursePlanningCalendar</Name>

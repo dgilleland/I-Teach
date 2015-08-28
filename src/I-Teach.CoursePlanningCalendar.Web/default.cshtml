@@ -16,44 +16,46 @@
             <h1>Planning Calendar Commands <small><a href="default"><i class="glyphicon glyphicon-refresh"></i></a></small></h1>
             <tabset>
                 <tab heading="Create Course (AdHoc)">
-                    <form class="form-horizontal">
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="courseName">Course Name</label>
-                                <div class="col-md-4">
-                                    <input id="courseName" name="courseName" type="text" placeholder="Course Name" class="form-control input-md" required="">
-                                </div>
+                    <form class="form-horizontal" action="~/default.cshtml">
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="courseName">Course Name</label>
+                            <div class="col-md-4">
+                                <input id="courseName" name="courseName" type="text" placeholder="Course Name" class="form-control input-md" required="">
                             </div>
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="courseNumber">Course Number</label>
-                                <div class="col-md-4">
-                                    <input id="courseNumber" name="courseNumber" type="text" placeholder="Course Number" class="form-control input-md" required="">
-                                </div>
+                        </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="courseNumber">Course Number</label>
+                            <div class="col-md-4">
+                                <input id="courseNumber" name="courseNumber" type="text" placeholder="Course Number" class="form-control input-md" required="">
                             </div>
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="totalHours">Total Hours</label>
-                                <div class="col-md-2">
-                                    <input id="totalHours" name="totalHours" type="number" placeholder="Hours" class="form-control input-md" required="">
-                                </div>
+                        </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="totalHours">Total Hours</label>
+                            <div class="col-md-2">
+                                <input id="totalHours" name="totalHours" type="number" placeholder="Hours" class="form-control input-md" required="">
                             </div>
-                            <!-- Button -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="addCourse"></label>
-                                <div class="col-md-4">
-                                    <button id="addCourse" name="addCourse" class="btn btn-primary">Add course</button>
-                                </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="addCourse"></label>
+                            <div class="col-md-4">
+                                <button id="addCourse" name="addCourse" class="btn btn-primary" value="true">Add course</button>
                             </div>
-                            @if (IsPost && !string.IsNullOrEmpty(Request["addCourse"]))
-                            {
-                                app.CreateCourse(Request["courseName"], Request["courseNumber"], int.Parse(Request["totalHours"]));
-                            }
+                        </div>
+                        @if (IsPost && !string.IsNullOrEmpty(Request["addCourse"]))
+                        {
+                            app.CreateCourse(Request["courseName"], Request["courseNumber"], int.Parse(Request["totalHours"]));
+                        }
                     </form>
                 </tab>
 
+
+
                 <tab heading="Create Draft Calendar">
-                    <form method="post">
+                    <form method="post" action="~/default.cshtml">
                         @{
                             var courseList = app.ListCourses();
                             if (courseList.Count > 0)
@@ -62,7 +64,34 @@
                                     <select name="course" class="form-control">
                                         @foreach (var item in courseList)
                                         {
-                                            <option value="@item.Id">@item.Name</option>
+                                            <option value="@item.Id">@item.Number - @item.Name (@item.TotalHours hrs over @item.Weeks weeks)</option>
+                                        }
+                                    </select>
+                                    <button type="submit" class="btn btn-default" name="createDraftCalendar" value="true">Create Draft Calendar</button>
+                                </fieldset>
+                            }
+                        }
+                        @if (IsPost && !string.IsNullOrEmpty(Request["createDraftCalendar"]))
+                        {
+                            app.CreateCourseCalendar(Guid.Parse(Request["course"]));
+
+                        }
+                    </form>
+
+
+
+                </tab>
+
+                <tab heading="Schedule Draft Calendar">
+                    <form method="post" action="~/default.cshtml">
+                        @{
+                            if (app.ListCalendars().Count() > 0)
+                            {
+                                <fieldset>
+                                    <select name="course" class="form-control">
+                                        @foreach (var item in app.ListCalendars())
+                                        {
+                                            <option value="@item.Id">@item.CourseName</option>
                                         }
                                     </select>
                                     <select name="term" class="form-control">
@@ -71,22 +100,21 @@
                                         <option value="2016-May">May 2016</option>
                                         <option selected value="2016-Sep">September 2016</option>
                                     </select>
-                                    <button type="submit" class="btn btn-default" name="createDraftCalendar">Create Draft Calendar</button>
+                                    <button type="submit" class="btn btn-default" name="scheduleDraftCalendar" value="true">Schedule Draft Calendar</button>
                                 </fieldset>
                             }
                         }
-                        @if (IsPost && !string.IsNullOrEmpty(Request["createDraftCalendar"]))
+                        @if (IsPost && !string.IsNullOrEmpty(Request["scheduleDraftCalendar"]))
                         {
-                            var parts = Request["term"].Split('-');                            
-                            app.CreateCourseCalendar(Guid.Parse(Request["course"]), int.Parse(parts[0]), parts[1]);
+                            var parts = Request["term"].Split('-');
+                            app.ScheduleCourseCalendar(Guid.Parse(Request["course"]), int.Parse(parts[0]), parts[1]);
                         }
                     </form>
-
                 </tab>
 
                 <tab heading="Edit Topics">
-                    <form method="post">
-                        <button type="submit" class="btn btn-default" name=""></button>
+                    <form method="post" action="~/default.cshtml">
+                        <button type="submit" class="btn btn-default" name="" value="true"></button>
                         @if (IsPost && !string.IsNullOrEmpty(Request[""]))
                         {
 
@@ -95,8 +123,8 @@
                 </tab>
 
                 <tab heading="Edit Evaluations">
-                    <form method="post">
-                        <button type="submit" class="btn btn-default" name=""></button>
+                    <form method="post" action="~/default.cshtml">
+                        <button type="submit" class="btn btn-default" name="" value="true"></button>
                         @if (IsPost && !string.IsNullOrEmpty(Request[""]))
                         {
 
@@ -105,8 +133,8 @@
                 </tab>
 
                 <tab heading="Include Work Periods">
-                    <form method="post">
-                        <button type="submit" class="btn btn-default" name=""></button>
+                    <form method="post" action="~/default.cshtml">
+                        <button type="submit" class="btn btn-default" name="" value="true"></button>
                         @if (IsPost && !string.IsNullOrEmpty(Request[""]))
                         {
 
@@ -115,8 +143,8 @@
                 </tab>
 
                 <tab heading="Days Off">
-                    <form method="post">
-                        <button type="submit" class="btn btn-default" name=""></button>
+                    <form method="post" action="~/default.cshtml">
+                        <button type="submit" class="btn btn-default" name="" value="true"></button>
                         @if (IsPost && !string.IsNullOrEmpty(Request[""]))
                         {
 
@@ -127,6 +155,10 @@
         </div>
 
         <div class="col-md-5">
+            @if (app.HasException)
+            {
+                <div>@app.ExceptionMessage</div>
+            }
             <h2>Planning Calendars</h2>
             @{
                 // List all the planning calendars.
@@ -134,7 +166,10 @@
                 if (calendars.Count() > 0)
                 {
                     <ul>
-                        <li></li>
+                        @foreach(var item in calendars)
+                        {
+                        <li>@item.CourseNumber - @item.CourseName</li>
+                        }
                     </ul>
                 }
                 else

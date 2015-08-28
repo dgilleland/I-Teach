@@ -45,13 +45,39 @@ namespace I_Teach.CoursePlanningCalendar.Web
             }
         }
 
-        public void CreateCourseCalendar(Guid courseId, int year, string month)
+        public void CreateCourseCalendar(Guid courseId)
         {
-            using (var context = new AdHocContext())
+            try
             {
-            	var course = context.Courses.Find(courseId);
-                var command = new CreatePlanningCalendar(course.Name, course.Number, course.TotalHours, 3);
+                using (var context = new AdHocContext())
+                {
+                    var course = context.Courses.Find(courseId);
+                    var command = new CreatePlanningCalendar(course.Name, course.Number, course.TotalHours, 3);
+                    App.Process(command);
+                }
+            }
+            catch (Exception ex)
+            {
+                HasException = true;
+                ExceptionMessage = ex.Message;
+            }
+        }
+
+        public string ExceptionMessage { get; set; }
+
+        public bool HasException { get; set; }
+
+        public void ScheduleCourseCalendar(Guid calendarId, int year, string month)
+        {
+            try
+            {
+                SchedulePlanningCalendar command = new SchedulePlanningCalendar(calendarId, year, month);
                 App.Process(command);
+            }
+            catch (Exception ex)
+            {
+                HasException = true;
+                ExceptionMessage = ex.Message;
             }
         }
     }

@@ -58,6 +58,7 @@
     <Compile Include="Commands\AddTopic.cs" />
     <Compile Include="Commands\CreatePlanningCalendar.cs" />
     <Compile Include="Commands\RemoveTopic.cs" />
+    <Compile Include="Commands\SchedulePlanningCalendar.cs" />
     <Compile Include="Domain\CalendarItem.cs" />
     <Compile Include="Domain\Topic.cs" />
     <Compile Include="Domain\TopicName.cs" />
