@@ -132,12 +132,15 @@
                         @if (IsPost && !string.IsNullOrEmpty(Request["editTopics"]))
                         {
                             Guid selectedCalendar = Guid.Parse(Request["course"]);
-
+                            var courseInfo = app.GetCalendar(selectedCalendar);
+                            <div>
+                                <h2>@courseInfo.CourseNumber - @courseInfo.CourseName <small>(@courseInfo.ClassesPerWeek classes per week)</small></h2>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-2"><label>Sequence</label></div>
                                 <div class="col-sm-4"><label>Title</label></div>
                                 <div class="col-sm-4"><label>Description</label></div>
-                                <div class="col-sm-2"><label>Duration</label></div>
+                                <div class="col-sm-2"><label>Duration (# classes)</label></div>
                             </div>
 
                             <div class="row">

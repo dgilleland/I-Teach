@@ -60,7 +60,9 @@ namespace I_Teach.CoursePlanningCalendar.Fetch
                 {
                     Id = e.Id,
                     CourseName = e.CourseName,
-                    CourseNumber = e.CourseNumber
+                    CourseNumber = e.CourseNumber,
+                    TotalHours = e.TotalHours,
+                    ClassesPerWeek = e.ClassesPerWeek
                 };
                 context.DraftPlanningCalendars.Add(calendar);
                 context.SaveChanges();

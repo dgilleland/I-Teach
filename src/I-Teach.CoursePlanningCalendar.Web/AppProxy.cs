@@ -46,6 +46,11 @@ namespace I_Teach.CoursePlanningCalendar.Web
             return App.PlanningCalendarRepository.ListTopics(guid);
         }
 
+        public DraftPlanningCalendar GetCalendar(Guid selectedCalendar)
+        {
+            return App.PlanningCalendarRepository.FindDraftPlanningCalendar(selectedCalendar);
+        }
+
         #endregion
 
         #region Command Methods

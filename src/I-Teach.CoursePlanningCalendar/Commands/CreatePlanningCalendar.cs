@@ -11,6 +11,9 @@ namespace I_Teach.CoursePlanningCalendar.Commands
     {
         public string CourseName { get; private set; }
         public string CourseNumber { get; private set; }
+        public int TotalHours { get; set; }
+        public int ClassesPerWeek { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CreatePlanningCalendar"/> class.
         /// </summary>
@@ -30,6 +33,8 @@ namespace I_Teach.CoursePlanningCalendar.Commands
                 throw new ArgumentException("classes per week must be either 2, 3, 4, or 5", "classesPerWeek");
             CourseName = courseName;
             CourseNumber = courseNumber;
+            TotalHours = totalHours;
+            ClassesPerWeek = classesPerWeek;
             Id = Guid.NewGuid();
         }
     }

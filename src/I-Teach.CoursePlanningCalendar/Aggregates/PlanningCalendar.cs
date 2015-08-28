@@ -115,7 +115,9 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                             {
                                 Id = c.Id,
                                 CourseName = c.CourseName,
-                                CourseNumber = c.CourseNumber
+                                CourseNumber = c.CourseNumber,
+                                TotalHours = c.TotalHours,
+                                ClassesPerWeek = c.ClassesPerWeek
                             };
             // Process the event
             TryToDo<CalendarCreated>(Apply, newCalendarCreated);
