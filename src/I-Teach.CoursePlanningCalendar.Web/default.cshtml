@@ -114,10 +114,62 @@
 
                 <tab heading="Edit Topics">
                     <form method="post" action="~/default.cshtml">
-                        <button type="submit" class="btn btn-default" name="" value="true"></button>
-                        @if (IsPost && !string.IsNullOrEmpty(Request[""]))
+                        <input type="hidden" name="editTopics" value="true" />
+                        @{
+                            if (app.ListCalendars().Count() > 0)
+                            {
+                                <fieldset>
+                                    <select name="course" class="form-control">
+                                        @foreach (var item in app.ListCalendars())
+                                        {
+                                            <option value="@item.Id">@item.CourseName</option>
+                                        }
+                                    </select>
+                                    <button type="submit" class="btn btn-default" name="selectCalendar" value="true">Select Draft Calendar</button>
+                                </fieldset>
+                            }
+                        }
+                        @if (IsPost && !string.IsNullOrEmpty(Request["editTopics"]))
                         {
+                            Guid selectedCalendar = Guid.Parse(Request["course"]);
 
+                            <div class="row">
+                                <div class="col-sm-2"><label>Sequence</label></div>
+                                <div class="col-sm-4"><label>Title</label></div>
+                                <div class="col-sm-4"><label>Description</label></div>
+                                <div class="col-sm-2"><label>Duration</label></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-2"><button type="submit" class="btn btn-default" name="appendTopic" value="true">Add/Append</button></div>
+                                <div class="col-sm-4"><input type="text" name="appendTitle" placeholder="Title" /></div>
+                                <div class="col-sm-4"><input type="text" name="appendDescription" placeholder="Description" /></div>
+                                <div class="col-sm-2"><input type="number" name="appendDuration" placeholder="Duration" /></div>
+                            </div>
+
+                            if (!string.IsNullOrEmpty(Request["appendTopic"]))
+                            {
+                                app.AppendTopic(selectedCalendar, Request["appendTitle"], Request["appendDescription"], int.Parse(Request["appendDuration"]));
+                            }
+                            
+                            var topics = app.ListTopics(selectedCalendar);
+                            if (topics.Count() > 0)
+                            {
+                                foreach (var item in topics)
+                                {
+                                    <div class="row">
+                                        <div class="col-sm-2"><label>@item.Sequence</label></div>
+                                        <div class="col-sm-4"><label>@item.Title</label></div>
+                                        <div class="col-sm-4"><label>@item.Description</label></div>
+                                        <div class="col-sm-2"><label>@item.Duration</label></div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="col-md-12">There are no current topics for this course</div>
+                            }
+                            <input type="hidden" name="selectedCalendar" value="@selectedCalendar.ToString()" />
                         }
                     </form>
                 </tab>

@@ -21,6 +21,11 @@ namespace I_Teach.CoursePlanningCalendar.Web
             return new AppProxy();
         }
 
+        public string ExceptionMessage { get; set; }
+
+        public bool HasException { get; set; }
+
+        #region Query Methods
         public IEnumerable<DraftPlanningCalendar> ListCalendars()
         {
             var calendars = App.PlanningCalendarRepository.ListDraftPlanningCalendars();
@@ -28,20 +33,28 @@ namespace I_Teach.CoursePlanningCalendar.Web
             return calendars;
         }
 
+        public List<Course> ListCourses()
+        {
+            using (var context = new AdHocContext())
+            {
+                return context.Courses.ToList();
+            }
+        }
+
+        public IEnumerable<Topic> ListTopics(Guid guid)
+        {
+            return App.PlanningCalendarRepository.ListTopics(guid);
+        }
+
+        #endregion
+
+        #region Command Methods
         public void CreateCourse(string name, string number, int totalHours, int weeks = 15)
         {
             using (var context = new AdHocContext())
             {
                 context.Courses.Add(new Course() { Id = Guid.NewGuid(), Name = name, Number = number, TotalHours = totalHours, Weeks = weeks });
                 context.SaveChanges();
-            }
-        }
-
-        public List<Course> ListCourses()
-        {
-            using (var context = new AdHocContext())
-            {
-                return context.Courses.ToList();
             }
         }
 
@@ -63,10 +76,6 @@ namespace I_Teach.CoursePlanningCalendar.Web
             }
         }
 
-        public string ExceptionMessage { get; set; }
-
-        public bool HasException { get; set; }
-
         public void ScheduleCourseCalendar(Guid calendarId, int year, string month)
         {
             try
@@ -80,5 +89,21 @@ namespace I_Teach.CoursePlanningCalendar.Web
                 ExceptionMessage = ex.Message;
             }
         }
+
+        public void AppendTopic(Guid calendarId, string title, string description, int duration)
+        {
+            try
+            {
+                AppendTopic command = new AppendTopic(calendarId, title, title, duration);
+                App.Process(command);
+            }
+            catch (Exception ex)
+            {
+                HasException = true;
+                ExceptionMessage = ex.Message;
+            }
+        }
+
+        #endregion
     }
 }
