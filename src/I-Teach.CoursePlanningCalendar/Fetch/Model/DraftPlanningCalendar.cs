@@ -12,10 +12,10 @@ namespace I_Teach.CoursePlanningCalendar.Fetch.Model
         public Guid Id { get; set; }
         public string CourseName { get; set; }
         public string CourseNumber { get; set; }
-        public int TotalHours { get; set; }
-        public int ClassesPerWeek { get; set; }
         public int? Year { get; set; }
         public string Month { get; set; }
+        public int TotalHours { get; set; }
+        public int ClassesPerWeek { get; set; }
     }
     public class Topic
     {

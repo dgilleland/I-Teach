@@ -10,4 +10,10 @@ namespace I_Teach.CoursePlanningCalendar.Events
         public string Description { get; set; }
         public double Duration { get; set; }
     }
+    public class EvaluationAdded : AbstractEventWithId
+    {
+        public string Title { get; set; }
+        public int Weight { get; set; }
+        public double Duration { get; set; }
+    }
 }

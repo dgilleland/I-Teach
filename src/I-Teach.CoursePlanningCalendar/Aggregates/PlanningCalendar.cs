@@ -29,7 +29,8 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             , IApplyEvent<TopicRenamed>
         , IHandleCommand<MoveTopic>
             , IApplyEvent<TopicMoved>
-
+        , IHandleCommand<AppendEvaluation>
+            , IApplyEvent<EvaluationAdded>
     {
         IPlanningCalendarRepository ReadModel = new PlanningCalendarRepository();
 
@@ -92,7 +93,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
 	        }
 	        catch (Exception e)
 	        {
-                throw new InvalidOperationException("Unable to process the command - rhe resulting event cannot be applied: " + e.Message, e);
+                throw new InvalidOperationException("Unable to process the command - the resulting event cannot be applied: " + e.Message, e);
 	        }
         }
 
@@ -110,7 +111,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                     throw new InvalidOperationException("Draft Planning Calendar with the same course number already exists");
             }
 
-            // Generate event
+            // Generate events
             CalendarCreated newCalendarCreated = new CalendarCreated()
                             {
                                 Id = c.Id,
@@ -119,7 +120,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                                 TotalHours = c.TotalHours,
                                 ClassesPerWeek = c.ClassesPerWeek
                             };
-            // Process the event
+            // Process the events
             TryToDo<CalendarCreated>(Apply, newCalendarCreated);
 
             // Return applied event for other subscribers
@@ -152,24 +153,26 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             if (TopicExists(c.Title))
                 throw new InvalidOperationException("Cannot Append Topic - An item by that name already exists on the calendar");
 
-            // Generate event
+            // Generate and process events
             TopicAdded newTopicAdded = new TopicAdded()
-                        {
-                            Id = c.Id,
-                            Title = c.Title,
-                            Description = c.Description,
-                            Duration = c.Duration
-                        };
-            // Process the event
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Description = c.Description,
+                Duration = c.Duration
+            };
             TryToDo<TopicAdded>(Apply, newTopicAdded);
 
-            // Return applied event for other subscribers
-            yield return newTopicAdded;
-            yield return new SequenceChanged()
+            SequenceChanged newSequenceChanged = new SequenceChanged()
             {
                 Id = c.Id,
                 Sequence = GetCalendarItemsSequence()
             };
+            TryToDo<SequenceChanged>(Apply, newSequenceChanged);
+
+            // Return applied event for other subscribers
+            yield return newTopicAdded;
+            yield return newSequenceChanged;
         }
 
         public IEnumerable Handle(RemoveTopic c)
@@ -236,6 +239,32 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                 Sequence = GetCalendarItemsSequence()
             };
         }
+
+        public IEnumerable Handle(AppendEvaluation c)
+        {
+            // Validation of command particulars
+
+            // Generate and process events
+            EvaluationAdded newEvaluationAdded = new EvaluationAdded()
+                        {
+                            Id = c.Id,
+                            Title = c.Title,
+                            Weight = c.Weight,
+                            Duration = c.Duration
+                        };
+            TryToDo<EvaluationAdded>(Apply, newEvaluationAdded);
+
+            SequenceChanged newSequenceChanged = new SequenceChanged()
+            {
+                Id = c.Id,
+                Sequence = GetCalendarItemsSequence()
+            };
+            TryToDo<SequenceChanged>(Apply, newSequenceChanged);
+
+            // Return applied event for other subscribers
+            yield return newEvaluationAdded;
+            yield return newSequenceChanged;
+        }
         #endregion
 
         #region Apply Events
@@ -275,6 +304,11 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
         }
 
         public void Apply(PlanningCalendarScheduled e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Apply(EvaluationAdded e)
         {
             throw new NotImplementedException();
         }

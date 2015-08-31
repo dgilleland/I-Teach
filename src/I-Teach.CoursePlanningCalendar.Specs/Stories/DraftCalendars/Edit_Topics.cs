@@ -161,15 +161,6 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         #endregion
 
         #region Givens
-        private void PreviousTopicsWereAppended(int existingTopicCount)
-        {
-            while (existingTopicCount > 0)
-            {
-                var aCommand = OM.Commands.AppendTopicCommand(AggregateRootId, OM.Generator.Create("Title "), OM.Generator.Create("Description "));
-                sut.Process(aCommand);
-                existingTopicCount--;
-            }
-        }
 
         private void AnAddTopicCommand(string title, string description, int duration)
         {

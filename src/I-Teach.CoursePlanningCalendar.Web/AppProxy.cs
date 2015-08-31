@@ -113,7 +113,8 @@ namespace I_Teach.CoursePlanningCalendar.Web
         {
             try
             {
-                
+                AppendEvaluation command = new AppendEvaluation(calendarId, name, weight, duration);
+                App.Process(command);
             }
             catch (Exception ex)
             {

@@ -41,6 +41,10 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Helpers
             {
                 return new MoveTopic(aggregateRootId, title, position);
             }
+            public static AppendEvaluation AppendEvaluationCommand(Guid aggregateRootId, string title)
+            {
+                return new AppendEvaluation(aggregateRootId, title, 10, 0.5);
+            }
         }
 
         public static class Events
