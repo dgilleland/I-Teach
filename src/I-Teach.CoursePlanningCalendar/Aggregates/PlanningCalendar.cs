@@ -58,7 +58,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             return index;
         }
 
-        private void ChangeCalendarItem(string keyName, string newDescription, int newDuration)
+        private void ChangeCalendarItem(string keyName, string newDescription, double newDuration)
         {
             int index = GetIndexByName(keyName);
             RemoveCalendarItem(keyName);

@@ -8,6 +8,6 @@ namespace I_Teach.CoursePlanningCalendar.Events
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public int Duration { get; set; }
+        public double Duration { get; set; }
     }
 }

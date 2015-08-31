@@ -9,9 +9,9 @@ namespace I_Teach.CoursePlanningCalendar.Commands
     {
         public string Title { get; private set; }
         public string Description { get; private set; }
-        public int Duration { get; private set; }
+        public double Duration { get; private set; }
 
-        public RemoveTopic(Guid aggregateRootId, string title, string description, int duration)
+        public RemoveTopic(Guid aggregateRootId, string title, string description, double duration)
         {
             // TODO: Complete member initialization
             Id = aggregateRootId;

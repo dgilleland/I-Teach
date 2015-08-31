@@ -34,10 +34,10 @@ namespace I_Teach.CoursePlanningCalendar.Commands
     {
         public string Title { get; private set; }
         public string NewDescription { get; private set; }
-        public int NewDuration { get; private set; }
+        public double NewDuration { get; private set; }
         public int Sequence { get; set; }
 
-        public ReplaceTopic(Guid aggregateRootId, string title, string description, int duration, int sequence)
+        public ReplaceTopic(Guid aggregateRootId, string title, string description, double duration, int sequence)
         {
             // TODO: Complete member initialization
             Id = aggregateRootId;
@@ -50,16 +50,16 @@ namespace I_Teach.CoursePlanningCalendar.Commands
     {
         public string Title { get; private set; }
         public string Description { get; private set; }
-        public int Duration { get; private set; }
+        public double Duration { get; private set; }
 
-        public AppendTopic(Guid aggregateRootId, string title, string description, int duration)
+        public AppendTopic(Guid aggregateRootId, string title, string description, double duration)
         {
             if (aggregateRootId == Guid.Empty)
                 throw new ArgumentException("planning calendar id is empty", "aggregateRootId");
             if (string.IsNullOrWhiteSpace(title))
                 throw new ArgumentException("title is null or empty.", "title");
-            if (duration < 1)
-                throw new ArgumentOutOfRangeException("topic duration is less than one class", "duration");
+            if (duration < 0.5)
+                throw new ArgumentOutOfRangeException("topic duration is less than half a class", "duration");
             if (duration > 6)
                 throw new ArgumentOutOfRangeException("topic duration is more than six classes", "duration");
             if (string.IsNullOrWhiteSpace(description))
@@ -83,7 +83,7 @@ namespace I_Teach.CoursePlanningCalendar.Commands
         /// </summary>
         /// <param name="title"></param>
         /// <param name="duration"></param>
-        public AppendTopic(Guid aggregateRootId, string title, int duration)
+        public AppendTopic(Guid aggregateRootId, string title, double duration)
             : this(aggregateRootId, title, String.Empty, duration)
         {
         }

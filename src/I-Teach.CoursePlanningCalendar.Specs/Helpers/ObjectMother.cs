@@ -25,7 +25,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Helpers
             {
                 return new AppendTopic(aggregateRootId, title, description, duration);
             }
-            public static RemoveTopic RemoveTopicCommand(Guid aggregateRootId, string title, string description, int duration)
+            public static RemoveTopic RemoveTopicCommand(Guid aggregateRootId, string title, string description, double duration)
             {
                 return new RemoveTopic(aggregateRootId, title, description, duration);
             }
@@ -33,7 +33,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Helpers
             {
                 return new RenameTopic(aggregateRootId, title, newTitle);
             }
-            public static ReplaceTopic ChangeTopicCommand(Guid aggregateRootId, string title, string description, int duration)
+            public static ReplaceTopic ChangeTopicCommand(Guid aggregateRootId, string title, string description, double duration)
             {
                 return new ReplaceTopic(aggregateRootId, title, description, duration, 0);
             }

@@ -95,12 +95,38 @@ namespace I_Teach.CoursePlanningCalendar.Web
             }
         }
 
-        public void AppendTopic(Guid calendarId, string title, string description, int duration)
+        public void AppendTopic(Guid calendarId, string title, string description, double duration)
         {
             try
             {
                 AppendTopic command = new AppendTopic(calendarId, title, title, duration);
                 App.Process(command);
+            }
+            catch (Exception ex)
+            {
+                HasException = true;
+                ExceptionMessage = ex.Message;
+            }
+        }
+
+        public void AppendEvaluation(Guid calendarId, string name, int weight, double duration)
+        {
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                HasException = true;
+                ExceptionMessage = ex.Message;
+            }
+        }
+
+        public void AppendWorkPeriod(Guid calendarId, string name, double duration)
+        {
+            try
+            {
+
             }
             catch (Exception ex)
             {

@@ -8,8 +8,8 @@ namespace I_Teach.CoursePlanningCalendar.Domain
     {
         public TopicName Title { get; private set; }
         public string Description { get; private set; }
-        public int Duration { get; private set; }
-        public Topic(TopicName title, string description, int duration) : base(title)
+        public double Duration { get; private set; }
+        public Topic(TopicName title, string description, double duration) : base(title)
         {
             Title = title;
             Description = description;

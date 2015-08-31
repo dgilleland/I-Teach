@@ -8,7 +8,7 @@ namespace I_Teach.CoursePlanningCalendar.Events
     {
         public string Title { get; set; }
         public string NewDescription { get; set; }
-        public int NewDuration { get; set; }
+        public double NewDuration { get; set; }
         public int Sequence { get; set; }
     }
     
