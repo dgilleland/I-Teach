@@ -26,10 +26,79 @@
 </head>
 <body>
     <div class="container">
-        <div class="jumbotron">
+        <div class="row jumbotron">
             <heading>
                 <h2>{{ courseNumber }} - {{ courseName }}</h2>
                 <h3>Planning Calendar {{ startDate }} to {{ endDate }}</h3>
+            </heading>
+            <div class="row">
+                <div class="col-sm-2"><b>Weekly Topics</b></div>
+                <div class="col-sm-2"><b>Monday</b></div>
+                <div class="col-sm-2"><b>Tuesday</b></div>
+                <div class="col-sm-2"><b>Wednesday</b></div>
+                <div class="col-sm-2"><b>Thursday</b></div>
+                <div class="col-sm-2"><b>Friday</b></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    {{ weekNumber }}
+                    <ul>
+                        <li>ng-repeat="item in items"</li>
+                        <li>{{item1.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
+                        <li>{{item2.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
+                        <li>{{item3.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    ng-repeat="day in weekDays"
+                    {{ day1.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day2.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day3.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day4.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day5.date }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    {{ weekNumber }}
+                    <ul>
+                        <li>ng-repeat="item in items"</li>
+                        <li>{{item1.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
+                        <li>{{item2.Name}} {{item.Duration}} <i title="Work Period" class="fa fa-pencil-square-o"></i></li>
+                        <li>{{item3.Name}} {{item.Duration}} <i title="Evaluation" class="fa fa-check-circle-o"></i></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    ng-repeat="day in weekDays"
+                    {{ day1.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day2.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day3.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day4.date }}
+                    <div>Evaluation: <i title="Evaluation" class="fa fa-check-circle-o"></i> {{ item3.Name }}</div>
+                </div>
+                <div class="col-sm-2">
+                    {{ day5.date }}
+                </div>
+            </div>
+        </div>
+        <div class="row col-sm-12 bg-info" ng-app="calendarApp" planning-calendar resource="/api/data.json">
+            <heading>
+                <h2>{{ info.courseNumber }} - {{ info.courseName }}</h2>
+                <h3>Planning Calendar {{ info.startDate }} to {{ info.endDate }}</h3>
             </heading>
             <div class="row">
                 <div class="col-sm-2"><b>Weekly Topics</b></div>
@@ -328,27 +397,16 @@
 
         .directive('planningCalendar', function ($document, $http) {
             return {
-                restrict: 'E',
-                controller: function ($scope) {
-                    var header = '';
-                    this.setHeader = function(headerText) {
-                        header = headerText;
-                    };
-                    this.setRows = function(rows) {
-
-                    };
-                    this.setFooter = function(footerText) {
-
-                    };
-                },
-                link: function (scope, element, attrs,controller) {
+                restrict: 'A',
+                controllerAs: 'info',
+                scope: false,
+                link: function (scope, element, attrs) {
                     var url = $document[0].origin + attrs.resource;
                     console.log(url);
 
                     $http.get(url)
                         .success(function (data) {
-                            scope.data = data;
-                            controller.setHeader(data.title);
+                            scope.info = data;
                             console.log(data);
                         });
                 }
