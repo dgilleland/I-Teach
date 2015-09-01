@@ -1,0 +1,21 @@
+﻿{
+    "title": "DMIT 2018 Draft Calendar - Sep 2015",
+    "classesPerWeek": 3,
+    "totalHours": 90,
+    "totalWeeks": 15,
+    "readingBreak": null,
+    "daysOff": [ 
+        { "day": "Sept 7, 2015", "reason":  "Labour Day" }
+    ],
+    "weeks": [
+        {
+            "firstDayOfWeek": "Sept 7, 2015",
+            "items": [
+                {
+                    "Name": "Course Introduction",
+                    "Duration": 0.5
+                }
+            ]
+        }
+    ]
+}

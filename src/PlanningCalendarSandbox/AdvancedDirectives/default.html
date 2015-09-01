@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <!-- Fake FavIcon -->
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Angular -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-sanitize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.min.js"></script>
+
+    <!-- Angular UI-Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
+</head>
+<body ng-app="calendarApp">
+    <h1>Weekly Planning Calendar</h1>
+
+    <planning-calendar resource="/api/data.json">
+        <calendar-header></calendar-header>
+        <calendar-rows>
+            <weekly-summary></weekly-summary>
+            <weekday-grid></weekday-grid>
+        </calendar-rows>
+        <calendar-footer></calendar-footer>
+    </planning-calendar>
+
+    <script>
+        angular.module('calendarApp', [])
+
+        .directive('planningCalendar', function ($document, $http) {
+            return {
+                restrict: 'E',
+                controller: function ($scope) {
+                    var header = '';
+                    this.setHeader = function(headerText) {
+                        header = headerText;
+                    };
+                    this.setRows = function(rows) {
+
+                    };
+                    this.setFooter = function(footerText) {
+
+                    };
+                },
+                link: function (scope, element, attrs,controller) {
+                    var url = $document[0].origin + attrs.resource;
+                    console.log(url);
+
+                    $http.get(url)
+                        .success(function (data) {
+                            scope.data = data;
+                            controller.setHeader(data.title);
+                            console.log(data);
+                        });
+                }
+            }
+        })
+
+        .directive('calendarHeader', function () {
+            return {
+                restrict: 'E',
+                require: ['^planningCalendar', 'calendarHeader'],
+                template: '<h2>{{ title }}</h2>',
+                controller: function() {
+                    var headerText = '';
+                    this.setHeaderText = function (text) {
+                        headerText = text;
+                    };
+                    this.getHeaderText = function () {
+                        return headerText;
+                    };
+                },
+                link: function (scope, element, attrs, controllers) {
+                    var planningCalendarCtrl = controllers[0];
+                    var calendarHeaderCtrl = controllers[1];
+                    planningCalendarCtrl.setHeader(calendarHeaderCtrl.getHeaderText());
+                    scope.title = calendarHeaderCtrl.getHeaderText();
+                }
+            }
+        })
+
+        .directive('calendarRows', function () {
+            return {
+                restrict: 'E',
+                controller: function () {
+                    var rows = [];
+                    this.addRow = function (row) {
+                        rows.push(row);
+                    };
+                    this.getRows = function () {
+                        return rows;
+                    }
+                },
+                link: function (scope, element, attrs) {
+
+                }
+            }
+        })
+
+        .directive('weeklySummary', function () {
+            return {
+                restrict: 'E',
+                scope: {},
+                link: function (scope, element, attrs) {
+
+                }
+            }
+        })
+
+        .directive('weeklyGrid', function () {
+            return {
+                restrict: 'E',
+                scope: {},
+                link: function (scope, element, attrs) {
+
+                }
+            }
+        })
+
+        .directive('calendarFooter', function () {
+            return {
+                restrict: 'E',
+                scope: {},
+                link: function (scope, element, attrs) {
+
+                }
+            }
+        })
+    </script>
+</body>
+</html>
