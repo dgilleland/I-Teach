@@ -24,17 +24,304 @@
     <!-- Angular UI-Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
 </head>
-<body ng-app="calendarApp">
-    <h1>Weekly Planning Calendar</h1>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <heading>
+                <h2>{{ courseNumber }} - {{ courseName }}</h2>
+                <h3>Planning Calendar {{ startDate }} to {{ endDate }}</h3>
+            </heading>
+            <div class="row">
+                <div class="col-sm-2"><b>Weekly Topics</b></div>
+                <div class="col-sm-2"><b>Monday</b></div>
+                <div class="col-sm-2"><b>Tuesday</b></div>
+                <div class="col-sm-2"><b>Wednesday</b></div>
+                <div class="col-sm-2"><b>Thursday</b></div>
+                <div class="col-sm-2"><b>Friday</b></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    {{ weekNumber }}
+                    <ul>
+                        <li>ng-repeat="item in items"</li>
+                        <li>{{item1.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
+                        <li>{{item2.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
+                        <li>{{item3.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    ng-repeat="day in weekDays"
+                    {{ day1.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day2.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day3.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day4.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day5.date }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    {{ weekNumber }}
+                    <ul>
+                        <li>ng-repeat="item in items"</li>
+                        <li>{{item1.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
+                        <li>{{item2.Name}} {{item.Duration}} <i title="Work Period" class="fa fa-pencil-square-o"></i></li>
+                        <li>{{item3.Name}} {{item.Duration}} <i title="Evaluation" class="fa fa-check-circle-o"></i></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    ng-repeat="day in weekDays"
+                    {{ day1.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day2.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day3.date }}
+                </div>
+                <div class="col-sm-2">
+                    {{ day4.date }}
+                    <div>Evaluation: <i title="Evaluation" class="fa fa-check-circle-o"></i> {{ item3.Name }}</div>
+                </div>
+                <div class="col-sm-2">
+                    {{ day5.date }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <heading>
+                    <h2>DMIT 2018</h2>
+                    <h3>Planning Calendar Sep 2, 2014 to Dec 12, 2014</h3>
+                </heading>
+                <div class="row">
+                    <div class="col-sm-2"><b>Weekly Topics</b></div>
+                    <div class="col-sm-2"><b>Monday</b></div>
+                    <div class="col-sm-2"><b>Tuesday</b></div>
+                    <div class="col-sm-2"><b>Wednesday</b></div>
+                    <div class="col-sm-2"><b>Thursday</b></div>
+                    <div class="col-sm-2"><b>Friday</b></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Course Intro</li>
+                            <li>DVCS - Git Basics</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>XML - Well-Formed & Validated</li>
+                            <li>SiteMap and Navigation</li>
+                            <li>Entity Framework - Code First</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Intro to Functional UX Design</li>
+                            <li>CQRS, Entities, DTOs and POCOs</li>
+                            <li>LINQ to Entities</li>
+                            <li>DVCS/SiteMap Bucket</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Databound Controls</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Reporting Overview</li>
+                            <li>Reporting Basics - Linq-crafted data</li>
+                            <li>Reporting Basics - Report Wizard & Viewer</li>
+                            <li>Reports - Customize Reports</li>
+                            <li>EF + Linq Bucket</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Reports - Summary Reports</li>
+                            <li>Security - Users, Roles, Folder Access</li>
+                            <li>Security - ASP.NET Identity</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Security - OAuth/OpenID</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Transactions and Business Processing</li>
+                            <li>UX - Designing for Command in CQRS</li>
+                            <li>CQRS (Command/Query) Bucket</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>UX - Principles of User Interaction</li>
+                            <li>UX and Business Workflows</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>UX and Business Workflows (cont.)</li>
+                            <li>Report Bucket</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Project Mockups</li>
+                            <li>Project Implementation</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Project Implementation (Lab Time)</li>
+                            <li>Transactions Bucket</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Website Deployment</li>
+                            <li>Database Deployment</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Work Period</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul>
+                            <li>Work Period</li>
+                            <li>Marking Projects</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <planning-calendar resource="/api/data.json">
+
+    <!--<planning-calendar resource="/api/data.json">
         <calendar-header></calendar-header>
         <calendar-rows>
             <weekly-summary></weekly-summary>
             <weekday-grid></weekday-grid>
         </calendar-rows>
         <calendar-footer></calendar-footer>
-    </planning-calendar>
+    </planning-calendar>-->
 
     <script>
         angular.module('calendarApp', [])
