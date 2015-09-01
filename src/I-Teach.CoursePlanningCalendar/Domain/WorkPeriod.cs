@@ -6,7 +6,7 @@ namespace I_Teach.CoursePlanningCalendar.Domain
 {
     class WorkPeriod : CalendarItem
     {
-        public WorkPeriod(string name)
+        public WorkPeriod(Name name)
             : base(name)
         {
 

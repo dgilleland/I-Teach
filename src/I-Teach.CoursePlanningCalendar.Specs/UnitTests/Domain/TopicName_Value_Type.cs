@@ -15,22 +15,22 @@ namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Domain
         [Fact]
         public void Should_Explicitly_Convert_From_String()
         {
-            TopicName name = (TopicName)"C# Implicit Operators";
+            Name name = (Name)"C# Implicit Operators";
             Assert.Equal<string>("C# Implicit Operators", name);
         }
         [Fact]
         public void Should_Implicitly_Convert_To_String()
         {
-            TopicName name = (TopicName)"C# Implicit Operators";
+            Name name = (Name)"C# Implicit Operators";
             Assert.Equal<string>("C# Implicit Operators", name);
         }
 
         [Fact]
         public void Should_Support_Equals()
         {
-            TopicName name = (TopicName)"C# Implicit Operators";
-            TopicName byAnotherName = (TopicName)"C# Implicit Operators";
-            Assert.Equal<TopicName>(name, byAnotherName);
+            Name name = (Name)"C# Implicit Operators";
+            Name byAnotherName = (Name)"C# Implicit Operators";
+            Assert.Equal<Name>(name, byAnotherName);
         }
 
         [Theory]
@@ -39,7 +39,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.UnitTests.Domain
         [InlineData(null)]
         public void Should_Reject_Whitespace_As_Title(string title)
         {
-            Assert.Throws<NullOrWhiteSpaceStringException>(() => { TopicName name = (TopicName)title; });
+            Assert.Throws<NullOrWhiteSpaceStringException>(() => { Name name = (Name)title; });
         }
     }
 }

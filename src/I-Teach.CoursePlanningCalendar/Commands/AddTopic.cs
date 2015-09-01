@@ -5,19 +5,19 @@ using System.Linq;
 
 namespace I_Teach.CoursePlanningCalendar.Commands
 {
-    public class MoveTopic : CommandWithAggregateRootId
+    public class MoveCalendarItem : CommandWithAggregateRootId
     {
         public string Title { get; set; }
         public int NewPosition { get; set; }
 
-        public MoveTopic(Guid aggregateRootId, string title, int newPosition)
+        public MoveCalendarItem(Guid aggregateRootId, string title, int newPosition)
         {
             Id = aggregateRootId;
             Title = title;
             NewPosition = newPosition;
         }
     }
-    [Obsolete("Phase out in favor or ReplaceTopic")]
+    [Obsolete("Phase out in favor of ReplaceTopic?")] // TODO: Determine if I should replace or not....
     public class RenameTopic : CommandWithAggregateRootId
     {
         public string Title { get; private set; }
@@ -94,25 +94,6 @@ namespace I_Teach.CoursePlanningCalendar.Commands
         public AppendTopic(Guid aggregateRootId, string title)
             : this(aggregateRootId, title, String.Empty, 1)
         {
-        }
-    }
-    public class AppendEvaluation : CommandWithAggregateRootId
-    {
-        public string Title { get; set; }
-        public int Weight { get; set; }
-        public double Duration { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AppendEvaluation"/> class.
-        /// </summary>
-        /// <param name="title"></param>
-        /// <param name="weight"></param>
-        /// <param name="duration"></param>
-        public AppendEvaluation(Guid aggregateRootId, string title, int weight, double duration)
-        {
-            Id = aggregateRootId;
-            Title = title;
-            Weight = weight;
-            Duration = duration;
         }
     }
 }

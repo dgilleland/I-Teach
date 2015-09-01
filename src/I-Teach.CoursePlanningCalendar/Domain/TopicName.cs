@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace I_Teach.CoursePlanningCalendar.Domain
 {
-    class TopicName : IEquatable<TopicName>
+    class Name : IEquatable<Name>
     {
         readonly string __value;
 
-        public TopicName(string name)
+        public Name(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new NullOrWhiteSpaceStringException();
@@ -20,13 +20,13 @@ namespace I_Teach.CoursePlanningCalendar.Domain
 
         #region Implicit Operators
         // from http://stackoverflow.com/a/22912864
-        public static implicit operator string(TopicName name)
+        public static implicit operator string(Name name)
         {
             return name.ToString();
         }
-        public static explicit operator TopicName(string name)
+        public static explicit operator Name(string name)
         {
-            return new TopicName(name);
+            return new Name(name);
         }
         #endregion
 
@@ -38,21 +38,21 @@ namespace I_Teach.CoursePlanningCalendar.Domain
         #region IEquatable Implementation
         public override bool Equals(object obj)
         {
-            if (obj is TopicName)
-                return Equals((TopicName)obj);
+            if (obj is Name)
+                return Equals((Name)obj);
             return base.Equals(obj);
         }
-        public static bool operator ==(TopicName first, TopicName second)
+        public static bool operator ==(Name first, Name second)
         {
             if ((object)first == null)
                 return (object)second == null;
             return first.Equals(second);
         }
-        public static bool operator !=(TopicName first, TopicName second)
+        public static bool operator !=(Name first, Name second)
         {
             return !(first == second);
         }
-        public bool Equals(TopicName other)
+        public bool Equals(Name other)
         {
             if (ReferenceEquals(null, other))
                 return false;

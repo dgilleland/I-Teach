@@ -6,11 +6,11 @@ namespace I_Teach.CoursePlanningCalendar.Domain
 {
     abstract class CalendarItem
     {
-        public string Name { get; private set; }
+        public Name Name { get; private set; }
         public int Sequence { get; set; }
         public Duration Duration { get; set; }
         // TODO: Update constructor
-        public CalendarItem(string name)
+        public CalendarItem(Name name)
         {
             Name = name;
         }

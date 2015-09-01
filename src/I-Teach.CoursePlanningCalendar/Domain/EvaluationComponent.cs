@@ -6,7 +6,7 @@ namespace I_Teach.CoursePlanningCalendar.Domain
 {
     class EvaluationComponent : CalendarItem
     {
-        public EvaluationComponent(string name)
+        public EvaluationComponent(Name name)
             : base(name)
         {
 

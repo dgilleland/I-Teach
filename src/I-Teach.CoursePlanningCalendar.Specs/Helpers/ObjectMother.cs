@@ -21,7 +21,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Helpers
             {
                 return new CreatePlanningCalendar(courseName, courseNumber, 90, 3);
             }
-            public static AppendTopic AppendTopicCommand(Guid aggregateRootId, string title = "Lorem Ipsum", string description = "Generating meaningless data with Lorem Ipsum", int duration = 1)
+            public static AppendTopic AppendTopicCommand(Guid aggregateRootId, string title = "Lorem Ipsum", string description = "Generating meaningless data with Lorem Ipsum", double duration = 1)
             {
                 return new AppendTopic(aggregateRootId, title, description, duration);
             }
@@ -37,9 +37,9 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Helpers
             {
                 return new ReplaceTopic(aggregateRootId, title, description, duration, 0);
             }
-            public static MoveTopic MoveTopicCommand(Guid aggregateRootId, string title, int position)
+            public static MoveCalendarItem MoveTopicCommand(Guid aggregateRootId, string title, int position)
             {
-                return new MoveTopic(aggregateRootId, title, position);
+                return new MoveCalendarItem(aggregateRootId, title, position);
             }
             public static AppendEvaluation AppendEvaluationCommand(Guid aggregateRootId, string title)
             {

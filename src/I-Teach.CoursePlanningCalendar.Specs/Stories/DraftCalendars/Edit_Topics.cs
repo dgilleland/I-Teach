@@ -22,7 +22,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         , ISubscribeTo<ReplaceTopic>
         , ISubscribeTo<TopicRenamed>
         , ISubscribeTo<TopicRemoved>
-        , ISubscribeTo<TopicMoved>
+        , ISubscribeTo<CalendarItemMoved>
         , ISubscribeTo<SequenceChanged>
     {
         public Edit_Topics()
@@ -106,7 +106,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
                 .BDDfy();
         }
 
-        private TopicMoved Actual_TopicMoved_Event;
+        private CalendarItemMoved Actual_TopicMoved_Event;
         [Fact, AutoRollback]
         [Trait("Context", "Acceptance Test")]
         public void Reorder_topics()
@@ -197,7 +197,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
         private void MovingTheTopicToPosition(string title, int position)
         {
             Command = OM.Commands.MoveTopicCommand(AggregateRootId, title, position);
-            sut.Process(Command as MoveTopic);
+            sut.Process(Command as MoveCalendarItem);
         }
         private void AddingTheTopicWithExpectedException()
         {
@@ -302,7 +302,7 @@ namespace I_Teach.CoursePlanningCalendar.Specs.Stories.DraftCalendars
             Actual_TopicRemoved_Event = e;
         }
 
-        public void Handle(TopicMoved e)
+        public void Handle(CalendarItemMoved e)
         {
             Actual_TopicMoved_Event = e;
         }

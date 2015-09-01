@@ -56,6 +56,7 @@
     <Compile Include="Aggregates\PlanningCalendar.cs" />
     <Compile Include="Bus\CommandEventBus.cs" />
     <Compile Include="Commands\AddTopic.cs" />
+    <Compile Include="Commands\AppendEvaluation.cs" />
     <Compile Include="Commands\CreatePlanningCalendar.cs" />
     <Compile Include="Commands\RemoveTopic.cs" />
     <Compile Include="Commands\SchedulePlanningCalendar.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Domain\TopicName.cs" />
     <Compile Include="Domain\WorkPeriod.cs" />
     <Compile Include="Events\AbstractEventWithId.cs" />
+    <Compile Include="Events\DurationChanged.cs" />
     <Compile Include="Events\PlanningCalendarScheduled.cs" />
     <Compile Include="Events\TopicAdded.cs" />
     <Compile Include="Events\CalendarCreated.cs" />

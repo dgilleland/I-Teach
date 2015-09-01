@@ -27,10 +27,12 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             , IApplyEvent<ReplaceTopic>
         , IHandleCommand<RenameTopic>
             , IApplyEvent<TopicRenamed>
-        , IHandleCommand<MoveTopic>
-            , IApplyEvent<TopicMoved>
+        , IHandleCommand<MoveCalendarItem>
+            , IApplyEvent<CalendarItemMoved>
         , IHandleCommand<AppendEvaluation>
             , IApplyEvent<EvaluationAdded>
+        , IHandleCommand<ChangeDuration>
+            , IApplyEvent<DurationChanged>
     {
         IPlanningCalendarRepository ReadModel = new PlanningCalendarRepository();
 
@@ -48,7 +50,17 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
 
         private void AppendCalendarItem(Topic item)
         {
-            CalendarItems.Add(item.Name, item);
+            CalendarItems.Add(item.Name.ToString(), item);
+        }
+
+        private void AppendCalendarItem(EvaluationComponent item)
+        {
+            CalendarItems.Add(item.Name.ToString(), item);
+        }
+
+        private void AppendCalendarItem(WorkPeriod item)
+        {
+            CalendarItems.Add(item.Name.ToString(), item);
         }
 
         private int GetIndexByName(string name)
@@ -63,7 +75,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
         {
             int index = GetIndexByName(keyName);
             RemoveCalendarItem(keyName);
-            CalendarItems.Insert(index, keyName, new Topic((TopicName)keyName, newDescription, newDuration));
+            CalendarItems.Insert(index, keyName, new Topic((Name)keyName, newDescription, newDuration));
         }
         private void RemoveCalendarItem(string title)
         {
@@ -73,7 +85,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
         {
             var index = GetIndexByName(title);
             var item = CalendarItems[title] as Topic;
-            CalendarItems.Insert(index, newTitle, new Topic((TopicName)newTitle, item.Description, item.Duration));
+            CalendarItems.Insert(index, newTitle, new Topic((Name)newTitle, item.Description, item.Duration));
         }
         private void RePositionTopic(string title, int position)
         {
@@ -216,12 +228,12 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             };
         }
 
-        public IEnumerable Handle(MoveTopic c)
+        public IEnumerable Handle(MoveCalendarItem c)
         {
             // 0) Validate that the command can be processed
 
             // 1) Create the event object
-            TopicMoved newTopicMoved = new TopicMoved()
+            CalendarItemMoved newTopicMoved = new CalendarItemMoved()
                         {
                             Id = c.Id,
                             Title = c.Title,
@@ -229,7 +241,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
                         };
 
             // 2) Process the command by trying to do the event
-            TryToDo<TopicMoved>(Apply, newTopicMoved);
+            TryToDo<CalendarItemMoved>(Apply, newTopicMoved);
 
             // 3) Return the event (and any ancillary events)
             yield return newTopicMoved;
@@ -265,6 +277,22 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             yield return newEvaluationAdded;
             yield return newSequenceChanged;
         }
+
+        public IEnumerable Handle(ChangeDuration c)
+        {
+            // Validation of command particulars
+
+            // Generate and process events
+            DurationChanged changeEvent = new DurationChanged()
+            {
+                Id = c.Id,
+                CalendarItemName = c.CalendarItemName,
+                NewDuration = c.NewDuration
+            };
+
+            // Return applied events for other subscribers
+            yield return changeEvent;
+        }
         #endregion
 
         #region Apply Events
@@ -275,7 +303,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
 
         public void Apply(TopicAdded e)
         {
-            AppendCalendarItem(new Topic((TopicName) e.Title, e.Description, e.Duration));
+            AppendCalendarItem(new Topic((Name) e.Title, e.Description, e.Duration));
         }
 
         public void Apply(TopicRemoved e)
@@ -293,7 +321,7 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
             RenameCalendarItem(e.Title, e.NewTitle);
         }
 
-        public void Apply(TopicMoved e)
+        public void Apply(CalendarItemMoved e)
         {
             RePositionTopic(e.Title, e.Position);
         }
@@ -310,7 +338,12 @@ namespace I_Teach.CoursePlanningCalendar.Aggregates
 
         public void Apply(EvaluationAdded e)
         {
-            throw new NotImplementedException();
+            AppendCalendarItem(new EvaluationComponent((Name)e.Title));
+        }
+
+        public void Apply(DurationChanged e)
+        {
+            // no-op...
         }
         #endregion
     }
