@@ -95,46 +95,87 @@
                 </div>
             </div>
         </div>
-        <div class="row col-sm-12 bg-info" ng-app="calendarApp" planning-calendar resource="/api/data.json">
-            <heading>
-                <h2>{{ info.courseNumber }} - {{ info.courseName }}</h2>
-                <h3>Planning Calendar {{ info.startDate }} to {{ info.endDate }}</h3>
-            </heading>
-            <div class="row">
+        <div class="row col-sm-12" ng-app="calendarApp" planning-calendar resource="/api/data.json">
+            <tabset>
+                <tab heading="Edit">
+                    <heading>
+                        <h2 class="form-inline">
+                            <input type="text" class="form-control" ng-model="change.courseNumber" placeholder="Course Number" />
+                            -
+                            <input type="text" class="form-control" ng-model="change.courseName" placeholder="Course Name" />
+                        </h2>
+                        <h3 class="form-inline">
+                            Planning Calendar
+                            <input type="date" class="form-control" placeholder="First Day of Classes" ng-model="change.startDate" />
+                            to
+                            <input type="date" class="form-control" placeholder="First Day of Classes" ng-model="change.endDate" />
+                        </h3>
+
+                        <div ng-repeat="editItem in change.calendarItems">
+                            {{ editItem.name }}
+                            ( {{ editItem.duration }} hours - {{ editItem.type }} )
+                        </div>
+
+                    </heading>
+                </tab>
+                <tab heading="Preview">
+                    <heading>
+                        <h2>{{ info.courseNumber }} - {{ info.courseName }}</h2>
+                        <h3>Planning Calendar {{ info.startDate }} to {{ info.endDate }}</h3>
+                    </heading>
+
+                    <!-- Table Layout -->
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-3">Weekly Topics</th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="week in info.weeks">
+                                <td class="bg-info">
+                                    <h4>{{ 'Week ' + ($index + 1) }}</h4>
+                                    <h5>{{ week.firstDayOfWeek }}</h5>
+                                    <ul>
+                                        <li ng-repeat="item in week.items">{{ item }}</li>
+                                    </ul>
+                                </td>
+                                <td ng-repeat="n in [] | range:5" ng-class="isDayOff(week.firstDayOfWeek, n, 'bg-warning')">
+                                    <small>{{ calcDay(week.firstDayOfWeek, n) | date: 'MMM d' }}</small>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tab>
+            </tabset>
+
+            <!-- Div Layout -->
+            <!--<div class="row">
                 <div class="col-sm-2"><b>Weekly Topics</b></div>
-                <div class="col-sm-2"><b>Monday</b></div>
-                <div class="col-sm-2"><b>Tuesday</b></div>
-                <div class="col-sm-2"><b>Wednesday</b></div>
-                <div class="col-sm-2"><b>Thursday</b></div>
-                <div class="col-sm-2"><b>Friday</b></div>
+                <div class="col-sm-2"><b>Mon</b></div>
+                <div class="col-sm-2"><b>Tue</b></div>
+                <div class="col-sm-2"><b>Wed</b></div>
+                <div class="col-sm-2"><b>Thu</b></div>
+                <div class="col-sm-2"><b>Fri</b></div>
             </div>
-            <div class="row">
+            <div class="row" style="border: 1px solid green;" ng-repeat="week in info.weeks">
                 <div class="col-sm-2">
-                    {{ weekNumber }}
+                    <h4>{{ 'Week ' + ($index + 1) }}</h4>
+                    <h5>{{ week.firstDayOfWeek }}</h5>
                     <ul>
-                        <li>ng-repeat="item in items"</li>
-                        <li>{{item1.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
-                        <li>{{item2.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
-                        <li>{{item3.Name}} {{item.Duration}} <i title="Topic" class="fa fa-comments-o"></i></li>
+                        <li ng-repeat="item in week.items">{{ item }}</li>
                     </ul>
                 </div>
-                <div class="col-sm-2">
-                    ng-repeat="day in weekDays"
-                    {{ day1.date }}
+                <div class="col-sm-2" style="border: 1px solid gray;" ng-repeat="n in [] | range:5">
+                    <small>{{ calcDay(week.firstDayOfWeek, n) | date: 'MMM d' }}</small>
                 </div>
-                <div class="col-sm-2">
-                    {{ day2.date }}
-                </div>
-                <div class="col-sm-2">
-                    {{ day3.date }}
-                </div>
-                <div class="col-sm-2">
-                    {{ day4.date }}
-                </div>
-                <div class="col-sm-2">
-                    {{ day5.date }}
-                </div>
-            </div>
+            </div>-->
+            <hr />
             <div class="row">
                 <div class="col-sm-2">
                     {{ weekNumber }}
@@ -393,96 +434,145 @@
     </planning-calendar>-->
 
     <script>
-        angular.module('calendarApp', [])
+        angular.module('calendarApp', ['ngSanitize', 'ui.bootstrap'])
+        .filter('range', function() {
+            return function(input, total) {
+                total = parseInt(total);
+                for (var i=0; i<total; i++)
+                    input.push(i);
+                return input;
+            };
+        })
 
         .directive('planningCalendar', function ($document, $http) {
             return {
                 restrict: 'A',
                 controllerAs: 'info',
                 scope: false,
-                link: function (scope, element, attrs) {
+                link: function (scope, element, attrs, controller) {
                     var url = $document[0].origin + attrs.resource;
                     console.log(url);
 
                     $http.get(url)
                         .success(function (data) {
                             scope.info = data;
+                            //scope.change = data;
+                            scope.change.courseNumber = data.courseNumber;
+                            scope.change.courseName = data.courseName;
+                            scope.change.startDate = new Date(data.startDate);
+                            scope.change.endDate = new Date(data.endDate);
+                            scope.change.calendarItems = data.calendarItems;
                             console.log(data);
                         });
-                }
-            }
-        })
+                    scope.change = {
+                        startDate: new Date()
+                    };
+                    scope.calcDay = function (firstDay, dayOffset) {
+                        var day = new Date(firstDay);
+                        day.setDate(day.getDate() + dayOffset);
+                        return day;
+                    };
 
-        .directive('calendarHeader', function () {
-            return {
-                restrict: 'E',
-                require: ['^planningCalendar', 'calendarHeader'],
-                template: '<h2>{{ title }}</h2>',
-                controller: function() {
-                    var headerText = '';
-                    this.setHeaderText = function (text) {
-                        headerText = text;
-                    };
-                    this.getHeaderText = function () {
-                        return headerText;
-                    };
-                },
-                link: function (scope, element, attrs, controllers) {
-                    var planningCalendarCtrl = controllers[0];
-                    var calendarHeaderCtrl = controllers[1];
-                    planningCalendarCtrl.setHeader(calendarHeaderCtrl.getHeaderText());
-                    scope.title = calendarHeaderCtrl.getHeaderText();
-                }
-            }
-        })
-
-        .directive('calendarRows', function () {
-            return {
-                restrict: 'E',
-                controller: function () {
-                    var rows = [];
-                    this.addRow = function (row) {
-                        rows.push(row);
-                    };
-                    this.getRows = function () {
-                        return rows;
+                    scope.isDayOff = function (firstDay, dayOffset, className) {
+                        var day = new Date(firstDay);
+                        day.setDate(day.getDate() + dayOffset);
+                        var limit = scope.info.daysOff.length;
+                        var isOff = false;
+                        for (var index = 0; index < limit; index++) {
+                            if ((new Date(scope.info.daysOff[index].day)).getTime() === day.getTime()) {
+                                isOff = true;
+                            }
+                        }
+                        if (isOff)
+                            return className;
+                        else
+                            return '';
                     }
-                },
-                link: function (scope, element, attrs) {
-
+                    scope.asDate = function (obj, field) {
+                        if (obj) {
+                            var text = obj[field];
+                            if (text)
+                                return (new Date(text)).toISOString().substring(0, 10);
+                            else
+                                return new Date().toISOString().substring(0, 10);
+                        }
+                        else
+                            return new Date().toISOString().substring(0, 10);
+                    }
                 }
             }
         })
 
-        .directive('weeklySummary', function () {
-            return {
-                restrict: 'E',
-                scope: {},
-                link: function (scope, element, attrs) {
+        //.directive('calendarHeader', function () {
+        //    return {
+        //        restrict: 'E',
+        //        require: ['^planningCalendar', 'calendarHeader'],
+        //        template: '<h2>{{ title }}</h2>',
+        //        controller: function () {
+        //            var headerText = '';
+        //            this.setHeaderText = function (text) {
+        //                headerText = text;
+        //            };
+        //            this.getHeaderText = function () {
+        //                return headerText;
+        //            };
+        //        },
+        //        link: function (scope, element, attrs, controllers) {
+        //            var planningCalendarCtrl = controllers[0];
+        //            var calendarHeaderCtrl = controllers[1];
+        //            planningCalendarCtrl.setHeader(calendarHeaderCtrl.getHeaderText());
+        //            scope.title = calendarHeaderCtrl.getHeaderText();
+        //        }
+        //    }
+        //})
 
-                }
-            }
-        })
+        //.directive('calendarRows', function () {
+        //    return {
+        //        restrict: 'E',
+        //        controller: function () {
+        //            var rows = [];
+        //            this.addRow = function (row) {
+        //                rows.push(row);
+        //            };
+        //            this.getRows = function () {
+        //                return rows;
+        //            }
+        //        },
+        //        link: function (scope, element, attrs) {
 
-        .directive('weeklyGrid', function () {
-            return {
-                restrict: 'E',
-                scope: {},
-                link: function (scope, element, attrs) {
+        //        }
+        //    }
+        //})
 
-                }
-            }
-        })
+        //.directive('weeklySummary', function () {
+        //    return {
+        //        restrict: 'E',
+        //        scope: {},
+        //        link: function (scope, element, attrs) {
 
-        .directive('calendarFooter', function () {
-            return {
-                restrict: 'E',
-                scope: {},
-                link: function (scope, element, attrs) {
+        //        }
+        //    }
+        //})
 
-                }
-            }
-        })
+        //.directive('weeklyGrid', function () {
+        //    return {
+        //        restrict: 'E',
+        //        scope: {},
+        //        link: function (scope, element, attrs) {
+
+        //        }
+        //    }
+        //})
+
+        //.directive('calendarFooter', function () {
+        //    return {
+        //        restrict: 'E',
+        //        scope: {},
+        //        link: function (scope, element, attrs) {
+
+        //        }
+        //    }
+        //})
     </script>
 </body>
 </html>

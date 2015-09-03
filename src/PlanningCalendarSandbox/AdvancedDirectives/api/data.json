@@ -8,22 +8,108 @@
     "totalHours": 90,
     "totalWeeks": 15,
     "readingBreak": null,
-    "daysOff": [ 
-        { "day": "Sept 7, 2015", "reason":  "Labour Day" }
+    "daysOff": [
+        { "day": "Sep 7, 2015", "reason": "Labour Day" },
+        { "day": "Oct 12, 2015", "reason": "Thanksgiving" },
+        { "day": "Oct 23, 2015", "reason": "Open House" },
+        { "day": "Nov 11, 2015", "reason": "Remembrance Day" }
     ],
     "weeks": [
         {
-            "firstDayOfWeek": "Sept 7, 2015",
-            "items": [
-                {
-                    "name": "Course Introduction",
-                    "duration": 1.0
-                },
-                {
-                    "name": "DVCS - Git Basics",
-                    "duration": 3.0
-                }
-            ]
+            "firstDayOfWeek": "Sep 7, 2015",
+            "items": ["Course Intro", "DVCS – Git Basics"]
+        },
+        {
+            "firstDayOfWeek": "Sep 14, 2015",
+            "items": ["DVCS – Project Setup ", "Linq Queries - LinqPad "]
+        },
+        {
+            "firstDayOfWeek": "Sep 21, 2015",
+            "items": ["Linq Queries - LinqPad ", "Intro to UX & CQRS (T)", "DVCS/Project Setup Bucket"]
+        },
+        {
+            "firstDayOfWeek": "Sep 28, 2015",
+            "items": ["Entity Framework – Code First", "CQRS Intro", "Query Interfaces – Linq Select + DTOs"]
+        },
+        {
+            "firstDayOfWeek": "Oct 5, 2015",
+            "items": ["Query Interfaces – Linq + DTOs ", "Command Interface - Linq"]
+        },
+        {
+            "firstDayOfWeek": "Oct 12, 2015",
+            "items": ["Reporting Basics – Linq-crafted data", "Reporting Basics – Customize Report", "Reports – Summary Reports"]
+        },
+        {
+            "firstDayOfWeek": "Oct 19, 2015",
+            "items": ["Security – Users, Roles, Folder Access", "Security – ASP.Net Identity", "EF + Linq Bucket"]
+        },
+        {
+            "firstDayOfWeek": "Oct 26, 2015",
+            "items": ["Transactions – OLTP Overview (T)", "UX – Designing for Command in CQRS", "Report Bucket"]
+        },
+        {
+            "firstDayOfWeek": "Nov 2, 2015",
+            "items": ["UX – Principles of User Interaction ", "UX and Business Workflows"]
+        },
+        {
+            "firstDayOfWeek": "Nov 9, 2015",
+            "items": ["UX and Business Workflows", "Work Period", "CQRS Bucket"]
+        },
+        {
+            "firstDayOfWeek": "Nov 16, 2015",
+            "items": ["Project Mockups", "Project Implementation", "Work Period", "Team Project Planning "]
+        },
+        {
+            "firstDayOfWeek": "Nov 23, 2015",
+            "items": ["DVCS – Conflict Resolution", "Work Period"]
+        },
+        {
+            "firstDayOfWeek": "Nov 30, 2015",
+            "items": ["Website Deployment – optional", "Database Deployment – optional", "Work Period"]
+        },
+        {
+            "firstDayOfWeek": "Dec 7, 2015",
+            "items": ["Work Period"]
+        },
+        {
+            "firstDayOfWeek": "Dec 14, 2015",
+            "items": ["Project Presentations In Class"]
         }
+    ],
+    "calendarItems" : [
+        { "id" : 1, "type": "topic", "duration": "2.0", "name" : "Course Intro" },
+        { "id" : 2, "type": "topic", "duration": "2.0", "name" : "DVCS – Git Basics" },
+        { "id" : 3, "type": "topic", "duration": "2.0", "name" : "DVCS – Project Setup " },
+        { "id" : 4, "type": "topic", "duration": "6.0", "name" : "Linq Queries - LinqPad " },
+        { "id" : 5, "type": "topic", "duration": "2.0", "name" : "Intro to UX & CQRS (T)" },
+        { "id" : 6, "type": "evaluation", "duration": "1.0", "name" : "DVCS/Project Setup Bucket" },
+        { "id" : 7, "type": "topic", "duration": "2.0", "name" : "Entity Framework – Code First" },
+        { "id" : 8, "type": "topic", "duration": "2.0", "name" : "CQRS Intro" },
+        { "id" : 9, "type": "topic", "duration": "2.0", "name" : "Query Interfaces – Linq Select + DTOs" },
+        { "id" : 10, "type": "topic", "duration": "2.0", "name" : "Query Interfaces – Linq + DTOs " },
+        { "id" : 11, "type": "topic", "duration": "2.0", "name" : "Command Interface - Linq" },
+        { "id" : 12, "type": "topic", "duration": "2.0", "name" : "Reporting Basics – Linq-crafted data" },
+        { "id" : 13, "type": "topic", "duration": "2.0", "name" : "Reporting Basics – Customize Report" },
+        { "id" : 14, "type": "topic", "duration": "2.0", "name" : "Reports – Summary Reports" },
+        { "id" : 15, "type": "topic", "duration": "2.0", "name" : "Security – Users, Roles, Folder Access" },
+        { "id" : 16, "type": "topic", "duration": "2.0", "name" : "Security – ASP.Net Identity" },
+        { "id" : 17, "type": "evaluation", "duration": "1.0", "name" : "EF + Linq Bucket" },
+        { "id" : 18, "type": "topic", "duration": "2.0", "name" : "Transactions – OLTP Overview (T)" },
+        { "id" : 19, "type": "topic", "duration": "2.0", "name" : "UX – Designing for Command in CQRS" },
+        { "id" : 20, "type": "evaluation", "duration": "1.0", "name" : "Report Bucket" },
+        { "id" : 21, "type": "topic", "duration": "2.0", "name" : "UX – Principles of User Interaction " },
+        { "id" : 22, "type": "topic", "duration": "6.0", "name" : "UX and Business Workflows" },
+        { "id" : 23, "type": "work period", "duration": "2.0", "name" : "Work Period" },
+        { "id" : 24, "type": "evaluation", "duration": "2.0", "name" : "CQRS Bucket" },
+        { "id" : 25, "type": "topic", "duration": "0.5", "name" : "Project Mockups" },
+        { "id" : 26, "type": "topic", "duration": "0.5", "name" : "Project Implementation" },
+        { "id" : 27, "type": "work period", "duration": "2.0", "name" : "Work Period" },
+        { "id" : 28, "type": "evaluation", "duration": "2.0", "name" : "Team Project Planning " },
+        { "id" : 29, "type": "topic", "duration": "2.0", "name" : "DVCS – Conflict Resolution" },
+        { "id" : 30, "type": "work period", "duration": "4.0", "name" : "Work Period" },
+        { "id" : 31, "type": "topic", "duration": "2.0", "name" : "Website Deployment – optional" },
+        { "id" : 32, "type": "topic", "duration": "2.0", "name" : "Database Deployment – optional" },
+        { "id" : 33, "type": "work period", "duration": "8.0", "name" : "Work Period" },
+        { "id" : 34, "type": "topic", "duration": "6.0", "name" : "Project Presentations In Class" }
     ]
 }
