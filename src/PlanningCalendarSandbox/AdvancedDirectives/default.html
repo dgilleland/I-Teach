@@ -4,8 +4,13 @@
     <title></title>
     <!-- Fake FavIcon -->
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
@@ -23,6 +28,14 @@
 
     <!-- Angular UI-Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
+
+    <!-- Angular Formly -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/api-check/7.5.0/api-check.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-formly-templates-bootstrap/6.0.0/angular-formly-templates-bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-formly/6.24.23/formly.min.js"></script>
+
+    <!-- Angular-UI-sortable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.13.4/sortable.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -111,9 +124,11 @@
                             <input type="date" class="form-control" placeholder="First Day of Classes" ng-model="change.endDate" />
                         </h3>
 
-                        <div ng-repeat="editItem in change.calendarItems">
-                            {{ editItem.name }}
-                            ( {{ editItem.duration }} hours - {{ editItem.type }} )
+                        <div ui-sortable="change.sortableOptions" ng-model="change.calendarItems">
+                            <div ng-repeat="editItem in change.calendarItems">
+                                {{ editItem.name }}
+                                ( {{ editItem.duration }} hours - {{ editItem.type }} )
+                            </div>
                         </div>
 
                     </heading>
@@ -434,7 +449,7 @@
     </planning-calendar>-->
 
     <script>
-        angular.module('calendarApp', ['ngSanitize', 'ui.bootstrap'])
+        angular.module('calendarApp', ['ngSanitize', 'ui.bootstrap', 'ui.sortable', 'formly', 'formlyBootstrap'])
         .filter('range', function() {
             return function(input, total) {
                 total = parseInt(total);
@@ -465,7 +480,18 @@
                             console.log(data);
                         });
                     scope.change = {
-                        startDate: new Date()
+                        startDate: new Date(),
+                        sortableOptions: {
+                            update: function (event, ui) {
+                                var itemScope = angular.element(ui.item).scope();
+
+                                var updated = itemScope.editItem;
+                                var pos = ui.position;
+                                var org = ui.originalPosition;
+
+                                console.log('Moving ' + updated.name + ' from position ' + org + ' to position ' + pos);
+                            }
+                        }
                     };
                     scope.calcDay = function (firstDay, dayOffset) {
                         var day = new Date(firstDay);
